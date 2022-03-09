@@ -1,39 +1,20 @@
 <template>
-  <table id="SpendingGoals">
-    <tr>
-      <th>Category</th>
-      <th>Spent ($)</th>
-      <th>Goal (Monthly) ($)</th>
-      <th>Percentage of completion (%)</th>
-      <th>Remaining Budget for the month ($)</th>
-    </tr>
-  </table>
-
-  <table id="SpendingGoalsData">
-    <tr>
-      <td>Food</td>
-      <td>5</td>
-      <td>2000</td>
-      <td>0.0025</td>
-      <td>1995</td>
-    </tr>
-  </table>
+  <div id="app">
+    <v-grid
+      v-if="grid === 1"
+      key="1"
+      theme="compact"
+      :source="rows"
+      :columns="columns"
+    ></v-grid>
+  </div>
 </template>
 
 <script>
-export default {
-  name: "GoalsTable",
-};
+export default {};
 </script>
-
-<style>
-th, td {
-  border: 5px solid #dddddd;
-  text-align: center;
-}
-
-#table {
-            border-collapse: collapse;
-            width: 100%;
-        }
-</style>
+import VGrid from "@revolist/vue-datagrid"; export default { name: "App", data()
+{ return { columns: [{ prop: "name", name: "First", }, { prop: "details", name:
+"Second", }], rows: [{ name: "1", details: "Item 1", }] }; }, components: {
+VGrid, }, };
+<style></style>
