@@ -26,4 +26,14 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+th, td {
+  border: 5px solid #dddddd;
+  text-align: center;
+}
+
+#table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+</style>
