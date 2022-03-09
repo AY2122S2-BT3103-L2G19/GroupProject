@@ -7,16 +7,23 @@
       <th>Percentage of completion</th>
       <th>Remaining Budget for the month</th>
     </tr>
-</table>
+  </table>
 
+  <table id="SpendingGoalsData">
+    <tr>
+      <td>Category</td>
+      <td>Spent</td>
+      <td>Goal (Monthly)</td>
+      <td>Percentage of completion</td>
+      <td>Remaining Budget for the month</td>
+    </tr>
+  </table>
 </template>
 
 <script>
 export default {
-    name: 'GoalsTable'
-}
+  name: "GoalsTable",
+};
 </script>
 
-<style>
-
-</style>
+<style></style>
