@@ -6,6 +6,7 @@
 <script>
 import GoalsTable from '../components/GoalsTable.vue'
 export default {
+  name: "Goals",
   components: { GoalsTable },
 }
 </script>
