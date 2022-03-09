@@ -1,10 +1,11 @@
 <template>
   <table id="SpendingGoals">
     <tr>
-      <th>ID</th>
-      <th>Name</th>
-      <th>Phone</th>
-      <th>Profession</th>
+      <th>Category</th>
+      <th>Spent</th>
+      <th>Goal (Monthly)</th>
+      <th>Percentage of completion</th>
+      <th>Remaining Budget for the month</th>
     </tr>
 </table>
 
