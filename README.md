@@ -1,4 +1,4 @@
-# groupproject
+# Group Project of L2 Group 19
 
 ## Project setup
 ```
