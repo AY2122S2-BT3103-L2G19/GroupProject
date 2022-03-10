@@ -3,7 +3,7 @@
     <h2>Spending Goals</h2>
     <SpendingGoals />
 
-    <h2>Saving Goals</h2>
+    <h2>Saving Goals 2.0</h2>
     <SpendingGoals />
 </template>
 
