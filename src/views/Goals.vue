@@ -4,10 +4,6 @@
     <SpendingGoals />
     <h2>Saving Goals</h2>
     <SpendingGoals />
-
-
-    <h2>Testing from Goals Page</h2>
-    <h2>Testing from Saving Page</h2>
 </template>
 
 <script>
