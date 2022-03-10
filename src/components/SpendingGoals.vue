@@ -44,6 +44,12 @@ export default {
           prop: "RemainingBudget",
           name: "Remaining Budget ($)",
           columnType: 'numeric',
+          size: 200,
+        },
+        {
+          prop: "Progress",
+          name: "Progress",
+          columnType: 'numeric',
           size: 150,
         },
 
@@ -74,8 +80,8 @@ export default {
 
 <style>
 #app {
-  height: 1000px;
-  width: 1000px;
+  height: 200px;
+  width: 1500px;
 }
 revo-grid {
   height: 100%;
