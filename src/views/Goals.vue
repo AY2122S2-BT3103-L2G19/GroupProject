@@ -1,13 +1,13 @@
 <template>
     <h1>Hello from Goals</h1>
-    <goals-table />
+    <SpendingGoals />
 </template>
 
 <script>
-import GoalsTable from '../components/GoalsTable.vue'
+import SpendingGoals from '../components/SpendingGoals.vue'
 export default {
   name: "Goals",
-  components: { GoalsTable },
+  components: { SpendingGoals },
 }
 </script>
 
