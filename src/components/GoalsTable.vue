@@ -1,39 +1,61 @@
 <template>
-  <table id="SpendingGoals">
-    <tr>
-      <th>Category</th>
-      <th>Spent ($)</th>
-      <th>Goal (Monthly) ($)</th>
-      <th>Percentage of completion (%)</th>
-      <th>Remaining Budget for the month ($)</th>
-    </tr>
-  </table>
-
-  <table id="SpendingGoalsData">
-    <tr>
-      <td>Food</td>
-      <td>5</td>
-      <td>2000</td>
-      <td>0.0025</td>
-      <td>1995</td>
-    </tr>
-  </table>
+  <div id="app">
+    <v-grid
+      theme="compact"
+      :source="rows"
+      :columns="columns"
+    ></v-grid>
+  </div>
 </template>
 
 <script>
+import VGrid from "@revolist/vue3-datagrid";
 export default {
   name: "GoalsTable",
+  data() {
+    return {
+      columns: [
+        {
+          name: "Birth",
+          prop: "birthdate",
+          columnType: "date",
+          size: 150,
+        },
+        {
+          prop: "name",
+          name: "First",
+        },
+        {
+          prop: "details",
+          name: "Second",
+        },
+      ],
+      rows: [
+        {
+          birthdate: "2022-08-24",
+          name: "1",
+          details: "Item 1",
+        },
+        {
+          birthdate: "2022-08-24",
+          name: "2",
+          details: "Item 2",
+        },
+      ],
+    };
+  },
+  components: {
+    VGrid,
+  },
 };
 </script>
 
 <style>
-th, td {
-  border: 5px solid #dddddd;
-  text-align: center;
+#app {
+  height: 700px;
+  width: 500px;
 }
-
-#table {
-            border-collapse: collapse;
-            width: 100%;
-        }
-</style>
+revo-grid {
+  height: 100%;
+}
+</style>>
