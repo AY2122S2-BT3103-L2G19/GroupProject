@@ -2,7 +2,6 @@
     <h1>Hello from Goals</h1>
     <h2>Spending Goals</h2>
     <SpendingGoals />
-
     <h2>Saving Goals trying branch</h2>
     <SpendingGoals />
 </template>
