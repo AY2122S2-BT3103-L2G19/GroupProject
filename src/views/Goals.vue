@@ -4,6 +4,9 @@
     <SpendingGoals />
     <h2>Saving Goals trying branch</h2>
     <SpendingGoals />
+
+
+    <h2>Testing from Goals Page</h2>
 </template>
 
 <script>
