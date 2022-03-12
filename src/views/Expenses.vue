@@ -1,13 +1,13 @@
 <template>
     <h1>Hello from Expenses</h1>
-    <ExpensesDisplay/>
+    <ExpensesInput/>
 </template>
 
 <script>
-import ExpensesDisplay from '../components/ExpensesDisplay.vue'
+import ExpensesInput from '../components/ExpensesInput.vue'
 export default {
   name: "Expenses",
-  components: { ExpensesDisplay },
+  components: { ExpensesInput },
 }
 
 </script>
