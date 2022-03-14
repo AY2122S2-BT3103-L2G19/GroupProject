@@ -5,7 +5,6 @@
   <SpendingGoals />
   <h2>Saving Goals</h2>
   <button>Add Saving Goals</button>
-
   <SpendingGoals />
 </template>
 
