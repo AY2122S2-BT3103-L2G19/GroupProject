@@ -12,6 +12,8 @@
 import Navbar from "../components/Navbar.vue";
 import Model from "../components/Model.vue";
 import Expences from "../components/Expences.vue";
+import {getAuth, onAuthStateChanged} from "firebase/auth";
+
 
 export default {
   name: "App",
@@ -29,8 +31,20 @@ export default {
         expence: 0,
         history: [],
       },
+      user:false,
     };
   },
+  mounted() {
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            this.user = user;
+            console.log(user.email)
+        } else {
+          this.$router.push("/login")
+        }
+    })
+},
   methods: {
     modelToggle() {
       this.modelStatus = !this.modelStatus;

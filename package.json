@@ -14,10 +14,11 @@
     "@revolist/vue-datagrid": "^3.0.98",
     "@revolist/vue3-datagrid": "^3.0.97",
     "core-js": "^3.6.5",
+    "firebase": "^9.6.8",
     "vue": "^3.0.0",
+    "vue-dropdowns": "^1.1.2",
     "vue-router": "^4.0.13",
-    "vue3-radial-progress": "^1.1.0",
-    "vue-dropdowns": "^1.1.2"
+    "vue3-radial-progress": "^1.1.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.15",
