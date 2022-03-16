@@ -2,7 +2,7 @@
   <h1>Hello from Goals</h1>
   <h2>Spending Goals</h2>
   <button>Add Spending Goals</button>
-  <navbar />
+  <add-spending-goalsbtn />
   <SpendingGoals />
   <h2>Saving Goals</h2>
   <button>Add Saving Goals</button>
@@ -12,11 +12,11 @@
 <script>
 import SpendingGoals from "../components/SpendingGoals.vue";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import Navbar from "../components/Navbar.vue";
+import AddSpendingGoalsbtn from '../components/AddSpendingGoalsbtn.vue';
 
 export default {
   name: "Goals",
-  components: { SpendingGoals, Navbar },
+  components: { SpendingGoals, AddSpendingGoalsbtn },
   data() {
     return {
       user: false,
