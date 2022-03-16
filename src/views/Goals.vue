@@ -1,7 +1,6 @@
 <template>
   <h1>Hello from Goals</h1>
   <h2>Spending Goals</h2>
-  <button>Add Spending Goals</button>
   <SpendingGoals />
   <h2>Saving Goals</h2>
   <button>Add Saving Goals</button>
@@ -14,7 +13,7 @@ import {getAuth, onAuthStateChanged} from 'firebase/auth';
 
 export default {
   name: "Goals",
-  components: { SpendingGoals },
+  components: { SpendingGoals},
   data() {
     return {
         user:false,
