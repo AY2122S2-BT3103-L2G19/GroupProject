@@ -5,6 +5,7 @@
     <div id="chart1"><IncomeExpenseChart/></div>
     <div id="chart2"><DailyExpenseChart/></div>
     <div id="table1"><OwedPaymentsTable/></div>
+    <LogOut/>
 </template>
 
 <script>
@@ -13,6 +14,9 @@ import AddTransactionButton from '@/components/AddTransactionButton.vue'
 import IncomeExpenseChart from '@/components/IncomeExpenseChart.vue'
 import DailyExpenseChart from '@/components/DailyExpenseChart.vue'
 import OwedPaymentsTable from '@/components/OwedPaymentsTable.vue'
+import LogOut from '@/components/LogOut.vue'
+import {getAuth, onAuthStateChanged} from "firebase/auth";
+
 
 
 export default {
@@ -23,7 +27,25 @@ export default {
      IncomeExpenseChart,
      DailyExpenseChart,
      OwedPaymentsTable,
+     LogOut,
  },
+data() {
+    return {
+        user:false,
+    }
+},
+
+mounted() {
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            this.user = user;
+            console.log(user.email)
+        } else {
+          this.$router.push("/login")
+        }
+    })
+},
 }
 </script>
 
