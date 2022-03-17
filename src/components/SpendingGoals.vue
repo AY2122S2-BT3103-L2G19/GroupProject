@@ -16,8 +16,7 @@
 import Plugin from "@revolist/revogrid-column-date";
 import SelectTypePlugin from "@revolist/revogrid-column-select";
 import NumberColumnType from "@revolist/revogrid-column-numeral"; // import library
-import VGrid, { VGridVueTemplate } from "@revolist/vue-datagrid";
-import DeleteBtn from '../components/DeleteBtn.vue';
+import VGrid from "@revolist/vue-datagrid";
 
 
 export default {
@@ -76,7 +75,8 @@ export default {
           name: "Delete",
           columnType: "numeric",
           size: 200,
-          cellTemplate: VGridVueTemplate(DeleteBtn),
+          // columnTemplate: "Custom",
+          // cellTemplate: "custom",
         },
         // {
         //   prop: "Date",
@@ -124,4 +124,4 @@ revo-grid {
   height: 100%;
 }
 </style>
->
+
