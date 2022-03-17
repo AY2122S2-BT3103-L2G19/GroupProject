@@ -19,6 +19,7 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import NavbarSpendingGoals from '../components/NavbarSpendingGoals.vue';
 import ModelSpendingGoals from '../components/ModelSpendingGoals.vue';
 
+
 export default {
   name: "Goals",
   components: { SpendingGoals, NavbarSpendingGoals, ModelSpendingGoals },
