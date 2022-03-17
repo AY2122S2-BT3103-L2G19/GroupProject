@@ -23,7 +23,7 @@ export default {
   data() {
     return {
       rowHeaders: {
-        size: 50,
+        size: 100,
         columnTemplate: () => "S/n",
         cellTemplate: (createElement, props) => {
           return createElement(
@@ -158,4 +158,4 @@ revo-grid {
   height: 100%;
 }
 </style>
->
+
