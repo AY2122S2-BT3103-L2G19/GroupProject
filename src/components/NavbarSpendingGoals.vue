@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  name: "AddSpendingGoalsbtn",
+  name: "NavbarSpendingGoals",
   methods: {
     openModel() {
       this.$emit("model-show");
@@ -19,7 +19,7 @@ export default {
 nav {
   width: 100%;
   height: 60px;
-  /* background: #fff; */
+  background: #fff;
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
   display: flex;
   justify-content: center;
@@ -30,7 +30,7 @@ nav {
   border-radius: 3px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   background: #84bddf;
-  /* color: #fff; */
+  color: #fff;
   padding: 10px 15px;
   cursor: pointer;
   outline: none;
