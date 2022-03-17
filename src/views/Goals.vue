@@ -5,7 +5,7 @@
   <ModelSpendingGoals
     @model-toggle="modelToggle"
     :status="modelStatus"
-    @change="changeStatus"
+    @change-one="change"
   />
   <SpendingGoals />
   <h2>Saving Goals</h2>
@@ -46,7 +46,13 @@ export default {
     modelToggle() {
       this.modelStatus = !this.modelStatus;
     },
-    changeStatus() {
+    // storeExpence(payload) {
+    //   console.log(payload)
+    //   this.modelStatus = false;
+    // },
+
+    change(payload) {
+      console.log(payload)
       this.modelStatus = false;
     },
   },

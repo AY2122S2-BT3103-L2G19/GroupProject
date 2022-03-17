@@ -7,9 +7,10 @@
             <div class="model__group">
               <h3>Add Spending Goals</h3>
             </div>
-            <div class="model__group">
-              <label for="type">Category: </label>
-              <select id="type">
+           <div class="model__group">
+              <label for="category">Category:   </label>
+
+              <select id="category">
                 <option value="Food & Drinks">Food & Drinks</option>
                 <option value="Transport">Transport</option>
                 <option value="Shopping">Shopping</option>
@@ -42,6 +43,8 @@ import { doc, setDoc } from "firebase/firestore";
 const db = getFirestore(firebaseApp);
 import { getFirestore } from "firebase/firestore";
 
+// console.log(this.selected, " selected")
+
 export default {
   name: "ModelSpendingGoals",
   props: ["status"],
@@ -56,11 +59,15 @@ export default {
       this.$emit("model-toggle");
     },
     async AddSpendingGoals() {
+      // this.$emit("change-one", { title: this.title, number: this.number });
       this.$emit("store-expence", { title: this.title, number: this.number });
+      // console.log(this.category, " add category")
+      this.title = "";
       await setDoc(doc(db, "user1", "Spending Goals"), {
         Category: "Food",
-        Goals: 1000,
+        Goals: this.number,
       });
+      this.number = "";
     },
   },
 };

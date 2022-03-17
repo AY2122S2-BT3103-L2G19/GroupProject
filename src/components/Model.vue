@@ -35,7 +35,7 @@
             <div class="model__group">
               <label for="category">Category:   </label>
 
-              <select id="category">
+              <select id="category" v-model="category">
                 <option value="Food">Food</option>
                 <option value="Transportation">Transportation</option>
                 <option value="Entertainment">Entertainment</option>
