@@ -12,10 +12,12 @@
 </template>
 
 <script>
-import VGrid from "@revolist/vue3-datagrid";
+// import VGrid from "@revolist/vue3-datagrid";
 import Plugin from "@revolist/revogrid-column-date";
 import SelectTypePlugin from "@revolist/revogrid-column-select";
 import NumberColumnType from "@revolist/revogrid-column-numeral"; // import library
+import VGrid, { VGridVueTemplate } from "@revolist/vue-datagrid";
+import DeleteBtn from '../components/DeleteBtn.vue';
 
 
 export default {
@@ -69,6 +71,13 @@ export default {
           columnType: "numeric",
           size: 150,
         },
+        {
+          prop: "Delete",
+          name: "Delete",
+          columnType: "numeric",
+          size: 200,
+          cellTemplate: VGridVueTemplate(DeleteBtn),
+        },
         // {
         //   prop: "Date",
         //   name: "Date",
@@ -103,12 +112,6 @@ export default {
   components: {
     VGrid,
   },
-
-//   methods: {
-//     // iAmClicked(e) {
-//     //   Vue.set(this.model, "count", this.count + 1);
-//     // },
-
 };
 </script>
 
