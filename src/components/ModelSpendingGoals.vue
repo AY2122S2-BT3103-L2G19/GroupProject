@@ -56,6 +56,7 @@ export default {
       this.$emit("model-toggle");
     },
     async AddSpendingGoals() {
+      this.$emit("store-expence", { title: this.title, number: this.number });
       await setDoc(doc(db, "user1", "Spending Goals"), {
         Category: "Food",
         Goals: 1000,
