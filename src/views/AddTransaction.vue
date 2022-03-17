@@ -50,6 +50,8 @@ export default {
       this.modelStatus = !this.modelStatus;
     },
     storeExpence(payload) {
+      console.log(payload, " payload")
+      console.log(payload.title, " payload title")
       const number = parseInt(payload.number);
       if (number > 1) {
         this.expences = {
