@@ -96,21 +96,21 @@ export default {
           cellTemplate: (h) => {
             // (h, props)
             return h(
-        "button",
-        {
-          style: { color: "red" }
-          // onClick: () => doDelete(props.rowIndex)
+              "button",
+              {
+                style: { color: "red" },
+                // onClick: () => doDelete(props.rowIndex)
+              },
+              "delete"
+            );
+          },
         },
-        "delete"
-      );
-    },
-  }
-          // {
-          //   prop: "Date",
-          //   name: "Date",
-          //   columnType: "date",
-          //   size: 150,
-          // },
+        // {
+        //   prop: "Date",
+        //   name: "Date",
+        //   columnType: "date",
+        //   size: 150,
+        // },
       ],
       rows: [
         {
@@ -119,7 +119,6 @@ export default {
           GoalM: 20000,
           Percentage: 0.0025,
           RemainingBudget: 1995,
-          // Delete: "Del",
         },
         {
           Category: "Transport",
@@ -127,8 +126,6 @@ export default {
           GoalM: 300,
           Percentage: 0,
           RemainingBudget: 300,
-          // Date: "2022-08-24",
-          // Delete: "Del"
         },
       ],
       columnTypes: {
@@ -141,11 +138,6 @@ export default {
   components: {
     VGrid,
   },
-
-  //   methods: {
-  //     // iAmClicked(e) {
-  //     //   Vue.set(this.model, "count", this.count + 1);
-  //     // },
 };
 </script>
 
@@ -158,4 +150,3 @@ revo-grid {
   height: 100%;
 }
 </style>
-
