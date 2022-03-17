@@ -1,8 +1,12 @@
 <template>
   <h1>Hello from Goals</h1>
   <h2>Spending Goals</h2>
-  <button>Add Spending Goals</button>
-  <navbar-spending-goals />
+  <NavbarSpendingGoals @model-show="modelToggle" />
+  <ModelSpendingGoals
+    @model-toggle="modelToggle"
+    :status="modelStatus"
+    @store-expence="storeExpence"
+  />
   <SpendingGoals />
   <h2>Saving Goals</h2>
   <button>Add Saving Goals</button>
@@ -13,13 +17,15 @@
 import SpendingGoals from "../components/SpendingGoals.vue";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import NavbarSpendingGoals from '../components/NavbarSpendingGoals.vue';
+import ModelSpendingGoals from '../components/ModelSpendingGoals.vue';
 
 export default {
   name: "Goals",
-  components: { SpendingGoals, NavbarSpendingGoals },
+  components: { SpendingGoals, NavbarSpendingGoals, ModelSpendingGoals },
   data() {
     return {
-      user: false,
+      modelStatus: false,
+      user:false,
     };
   },
 
@@ -33,6 +39,12 @@ export default {
         this.$router.push("/login");
       }
     });
+  },
+
+  methods: {
+    modelToggle() {
+      this.modelStatus = !this.modelStatus;
+    },
   },
 };
 </script>
