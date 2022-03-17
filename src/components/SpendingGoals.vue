@@ -6,6 +6,7 @@
       :source="rows"
       :columns="columns"
       :columnTypes="columnTypes"
+      @beforeCellFocus="beforeFocus"
     ></v-grid>
   </div>
 </template>
@@ -15,6 +16,7 @@ import VGrid from "@revolist/vue3-datagrid";
 import Plugin from "@revolist/revogrid-column-date";
 import SelectTypePlugin from "@revolist/revogrid-column-select";
 import NumberColumnType from "@revolist/revogrid-column-numeral"; // import library
+
 
 export default {
   name: "SpendingGoals",
@@ -101,6 +103,12 @@ export default {
   components: {
     VGrid,
   },
+
+//   methods: {
+//     // iAmClicked(e) {
+//     //   Vue.set(this.model, "count", this.count + 1);
+//     // },
+
 };
 </script>
 
