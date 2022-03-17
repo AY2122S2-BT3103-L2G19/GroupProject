@@ -4,6 +4,7 @@
       theme="compact"
       :resize="true"
       :source="rows"
+      :row-headers="rowHeaders"
       :columns="columns"
       :columnTypes="columnTypes"
       @beforeCellFocus="beforeFocus"
@@ -17,11 +18,25 @@ import Plugin from "@revolist/revogrid-column-date";
 import SelectTypePlugin from "@revolist/revogrid-column-select";
 import NumberColumnType from "@revolist/revogrid-column-numeral"; // import library
 
-
 export default {
   name: "SpendingGoals",
   data() {
     return {
+      rowHeaders: {
+        size: 50,
+        columnTemplate: () => "S/n",
+        cellTemplate: (createElement, props) => {
+          return createElement(
+            "p",
+            {
+              style: {
+                color: "red",
+              },
+            },
+            "Row " + props.rowIndex
+          );
+        },
+      },
       columns: [
         {
           name: "Category",
@@ -44,6 +59,7 @@ export default {
           name: "Spent ($)",
           columnType: "numeric",
           size: 150,
+          readonly: true,
         },
         {
           prop: "GoalM",
@@ -56,25 +72,45 @@ export default {
           name: "Percentage (%)",
           // columnType: "numeric",
           size: 150,
+          readonly: true,
         },
         {
           prop: "RemainingBudget",
           name: "Remaining Budget ($)",
           columnType: "numeric",
           size: 200,
+          readonly: true,
         },
         {
           prop: "Progress",
           name: "Progress",
           columnType: "numeric",
           size: 150,
+          readonly: true,
         },
-        // {
-        //   prop: "Date",
-        //   name: "Date",
-        //   columnType: "date",
-        //   size: 150,
-        // },
+        {
+          prop: "Delete",
+          name: "Delete",
+          size: 150,
+          readonly: true,
+          cellTemplate: (h) => {
+            // (h, props)
+            return h(
+        "button",
+        {
+          style: { color: "red" }
+          // onClick: () => doDelete(props.rowIndex)
+        },
+        "delete"
+      );
+    },
+  }
+          // {
+          //   prop: "Date",
+          //   name: "Date",
+          //   columnType: "date",
+          //   size: 150,
+          // },
       ],
       rows: [
         {
@@ -83,6 +119,7 @@ export default {
           GoalM: 20000,
           Percentage: 0.0025,
           RemainingBudget: 1995,
+          // Delete: "Del",
         },
         {
           Category: "Transport",
@@ -91,6 +128,7 @@ export default {
           Percentage: 0,
           RemainingBudget: 300,
           // Date: "2022-08-24",
+          // Delete: "Del"
         },
       ],
       columnTypes: {
@@ -104,11 +142,10 @@ export default {
     VGrid,
   },
 
-//   methods: {
-//     // iAmClicked(e) {
-//     //   Vue.set(this.model, "count", this.count + 1);
-//     // },
-
+  //   methods: {
+  //     // iAmClicked(e) {
+  //     //   Vue.set(this.model, "count", this.count + 1);
+  //     // },
 };
 </script>
 
