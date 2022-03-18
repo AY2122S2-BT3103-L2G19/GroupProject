@@ -7,10 +7,10 @@
             <div class="model__group">
               <h3>Add Spending Goals</h3>
             </div>
-           <div class="model__group">
-              <label for="category">Category:   </label>
+            <div class="model__group">
+              <label for="category">Category: </label>
 
-              <select id="category">
+              <select @change="selectCategory($event)" id="category">
                 <option value="Food & Drinks">Food & Drinks</option>
                 <option value="Transport">Transport</option>
                 <option value="Shopping">Shopping</option>
@@ -19,6 +19,7 @@
                 <option value="Others">Others</option>
               </select>
             </div>
+
             <div class="model__group">
               <input
                 type="number"
@@ -40,17 +41,16 @@
 <script>
 import firebaseApp from "../firebase.js";
 import { doc, setDoc } from "firebase/firestore";
+import getFirestore from "firebase/firestore"
 const db = getFirestore(firebaseApp);
-import { getFirestore } from "firebase/firestore";
 
-// console.log(this.selected, " selected")
 
 export default {
   name: "ModelSpendingGoals",
   props: ["status"],
   data() {
     return {
-      title: "",
+      title: "Food & Drink",
       number: null,
     };
   },
@@ -58,16 +58,33 @@ export default {
     toggle() {
       this.$emit("model-toggle");
     },
+
     async AddSpendingGoals() {
-      // this.$emit("change-one", { title: this.title, number: this.number });
+      // this.$emit("store-Goals", { title: this.title, number: this.number });
       this.$emit("store-expence", { title: this.title, number: this.number });
-      // console.log(this.category, " add category")
-      this.title = "";
-      await setDoc(doc(db, "user1", "Spending Goals"), {
-        Category: "Food",
+      await setDoc(doc(db, "user1", "Spending Goals", this.title), {
+        Category: this.title,
         Goals: this.number,
       });
+      this.title = "Food & Drink";
       this.number = "";
+    },
+
+    // addTodo() {
+    //   firebase
+    //     .firestore()
+    //     .collection("users")
+    //     .doc(firebase.auth().currentUser.uid)
+    //     .collection("todos")
+    //     .add({
+    //       title: this.todo.title,
+    //       createdAt: new Date(),
+    //       isCompleted: false,
+    //     });
+    // },
+
+    selectCategory(event) {
+      this.title = event.target.value;
     },
   },
 };

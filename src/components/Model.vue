@@ -35,7 +35,7 @@
             <div class="model__group">
               <label for="category">Category:   </label>
 
-              <select id="category" v-model="category">
+              <select id="category">
                 <option value="Food">Food</option>
                 <option value="Transportation">Transportation</option>
                 <option value="Entertainment">Entertainment</option>
@@ -96,6 +96,8 @@ export default {
     },
     addExpence() {
       this.$emit("store-expence", { title: this.title, number: this.number });
+      console.log(this.title, " title")
+      console.log(this.number, " title")
       this.title = "";
       this.number = "";
     }

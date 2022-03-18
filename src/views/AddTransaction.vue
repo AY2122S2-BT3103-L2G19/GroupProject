@@ -51,7 +51,7 @@ export default {
     },
     storeExpence(payload) {
       console.log(payload, " payload")
-      console.log(payload.title, " payload title")
+      console.log(this.expences, " this expence")
       const number = parseInt(payload.number);
       if (number > 1) {
         this.expences = {
