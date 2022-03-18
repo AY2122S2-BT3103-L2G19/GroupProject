@@ -41,7 +41,7 @@
 <script>
 import firebaseApp from "../firebase.js";
 import { doc, setDoc } from "firebase/firestore";
-import getFirestore from "firebase/firestore"
+import { getFirestore } from "firebase/firestore";
 const db = getFirestore(firebaseApp);
 
 
@@ -62,26 +62,13 @@ export default {
     async AddSpendingGoals() {
       // this.$emit("store-Goals", { title: this.title, number: this.number });
       this.$emit("store-expence", { title: this.title, number: this.number });
-      await setDoc(doc(db, "user1", "Spending Goals", this.title), {
+      await setDoc(doc(db, "user1", "Spending Goals", this.title, "Goals"), {
         Category: this.title,
         Goals: this.number,
       });
       this.title = "Food & Drink";
       this.number = "";
     },
-
-    // addTodo() {
-    //   firebase
-    //     .firestore()
-    //     .collection("users")
-    //     .doc(firebase.auth().currentUser.uid)
-    //     .collection("todos")
-    //     .add({
-    //       title: this.todo.title,
-    //       createdAt: new Date(),
-    //       isCompleted: false,
-    //     });
-    // },
 
     selectCategory(event) {
       this.title = event.target.value;
