@@ -105,12 +105,6 @@ export default {
             );
           },
         },
-        // {
-        //   prop: "Date",
-        //   name: "Date",
-        //   columnType: "date",
-        //   size: 150,
-        // },
       ],
       rows: [
         {
