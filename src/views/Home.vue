@@ -1,10 +1,12 @@
 <template>
     <h1>Hello from Home</h1>
-    <div id="article"><DailyReads/></div>
-    <div id="button"><AddTransactionButton/></div>
-    <div id="chart1"><IncomeExpenseChart/></div>
-    <div id="chart2"><DailyExpenseChart/></div>
-    <div id="table1"><OwedPaymentsTable/></div>
+    <div id = "home_container">
+      <div id="article"><DailyReads/></div>
+      <div id="button"><AddTransactionButton/></div>
+      <div id="chart1"><IncomeExpenseChart/></div>
+      <div id="chart2"><DailyExpenseChart/></div>
+      <div id="table1"><OwedPaymentsTable/></div>
+    </div>
     <LogOut/>
 </template>
 
@@ -93,5 +95,9 @@ mounted() {
   height:200px; 
   background:gray; 
   margin:10px
+}
+
+#home_container {
+  float:left;
 }
 </style>
