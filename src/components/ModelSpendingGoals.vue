@@ -62,7 +62,7 @@ export default {
     async AddSpendingGoals() {
       // this.$emit("store-Goals", { title: this.title, number: this.number });
       this.$emit("store-expence", { title: this.title, number: this.number });
-      await setDoc(doc(db, "user1", "Spending Goals", this.title, "Goals"), {
+      await setDoc(doc(db, "user1", "Spending Goals", "Goals", this.title), {
         Category: this.title,
         Goals: this.number,
       });

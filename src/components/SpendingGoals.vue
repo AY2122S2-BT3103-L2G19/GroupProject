@@ -118,20 +118,20 @@ export default {
         // },
       ],
       rows: [
-        // {
-        //   Category: "Food & Drinks",
-        //   Spent: 5,
-        //   GoalM: 20000,
-        //   Percentage: 0.0025,
-        //   RemainingBudget: 1995,
-        // },
-        // {
-        //   Category: "Transport",
-        //   Spent: 0,
-        //   GoalM: 300,
-        //   Percentage: 0,
-        //   RemainingBudget: 300,
-        // },
+        {
+          Category: "Food & Drinks",
+          Spent: 5,
+          GoalM: 20000,
+          Percentage: 0.0025,
+          RemainingBudget: 1995,
+        },
+        {
+          Category: "Transport",
+          Spent: 0,
+          GoalM: 300,
+          Percentage: 0,
+          RemainingBudget: 300,
+        },
       ],
       columnTypes: {
         date: new Plugin(),
@@ -148,12 +148,12 @@ export default {
       console.log("Hello from display")
       user = "user1"
       console.log(user, " user")
-      let doc = await getDocs(collection(db, String(user), "Spending Goals", "Entertainment"));
-      console.log(doc, " doc")
+      let doc = await getDocs(collection(db, String(user), "Spending Goals", "Goals"));
 
       doc.forEach((docs) => {
         let docData = docs.data();
         console.log(docData, " doc data");
+
       })
       }
       // //get all the documents from the collection
