@@ -1,8 +1,17 @@
 <template>
-  <button class="button addtrans">Add Transaction</button>
+  <button @click="redirectToAddTrans()" class="button addtrans">Add Transaction</button>
 </template>
 
 <script>
+
+export default {
+  name: "#AddTransactionButton",
+  methods: {
+    redirectToAddTrans() {
+      this.$router.push({ path: '/add' });
+    }
+  }
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
