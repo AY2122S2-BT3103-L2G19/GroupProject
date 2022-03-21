@@ -10,6 +10,23 @@
 
 <script>
 
+function is_iframeable(weblink) {
+  try {
+    var req = new XMLHttpRequest();
+    req.open('GET', weblink, false);
+    req.send(null);
+    var option = req.getResponseHeader("x-frame-options")
+    if (option == "DENY" || option == "SAMEORIGIN") {
+      return false
+    } else {
+      return true
+    }
+  } catch (e) {
+    return false
+  }
+}
+
+console.log(is_iframeable("https://dollarsandsense.sg/4-reasons-financial-literacy-important-young-singaporeans/"));
 
 export default {
   data() {
