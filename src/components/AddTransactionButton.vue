@@ -8,7 +8,7 @@ export default {
   name: "#AddTransactionButton",
   methods: {
     redirectToAddTrans() {
-      this.$router.push({ path: '/add' });
+      this.$router.push({ path: '/expenses' });
     }
   }
 };
