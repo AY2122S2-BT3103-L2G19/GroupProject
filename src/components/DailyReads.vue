@@ -1,13 +1,23 @@
 <template>
   <div class="article">
-    <h1 class="title">13 March 2022 Daily Article</h1>
-    <h2 class="content"> Lorem Ipsum BT3103 all good all 
-      eventually need to have a way to retrieve articles at random for day to day basis
+    <h1 class="title">{{currentDateText()}}</h1>
+    <h2 class="content"> 
+      <iframe src="https://dollarsandsense.sg/4-reasons-financial-literacy-important-young-singaporeans/" width="870" height="160" style="border: none;" name="myFrame"></iframe>
+      <p><a href="https://dollarsandsense.sg/4-reasons-financial-literacy-important-young-singaporeans/" target="myFrame">Open Article!</a></p>
     </h2>
   </div>
 </template>
 
 <script>
+export default {
+  methods: {
+    currentDateText() {
+      const current = new Date();
+      const date = `${current.getDate()}/${current.getMonth()+1}/${current.getFullYear()}`;
+      return String(date) + ": Daily Article"
+    }
+  }
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

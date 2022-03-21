@@ -83,6 +83,9 @@
 <script>
 export default {
   name: "Model",
+  mounted() {
+    this.toggle()
+  },
   props: ["status"],
   data() {
     return {
