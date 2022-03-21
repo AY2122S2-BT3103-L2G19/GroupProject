@@ -117,22 +117,23 @@ export default {
         //   size: 150,
         // },
       ],
-      rows: [
-        {
-          Category: "Food & Drinks",
-          Spent: 5,
-          GoalM: 20000,
-          Percentage: 0.0025,
-          RemainingBudget: 1995,
-        },
-        {
-          Category: "Transport",
-          Spent: 0,
-          GoalM: 300,
-          Percentage: 0,
-          RemainingBudget: 300,
-        },
-      ],
+      rows: [],
+      // [
+      //   {
+      //     Category: "Food & Drinks",
+      //     Spent: 5,
+      //     GoalM: 20000,
+      //     Percentage: 0.0025,
+      //     RemainingBudget: 1995,
+      //   },
+      //   {
+      //     Category: "Transport",
+      //     Spent: 0,
+      //     GoalM: 300,
+      //     Percentage: 0,
+      //     RemainingBudget: 300,
+      //   },
+      // ],
       columnTypes: {
         date: new Plugin(),
         select: new SelectTypePlugin(),
@@ -141,97 +142,50 @@ export default {
     };
   },
   mounted() {
+    this.display("user1");
+  },
+
+  methods: {
     // const auth = getAuth();
     // this.fbuser = auth.currentUser.email;
+    async display(user) {
+      console.log("Hello from display");
+      user = "user1";
+      console.log(user, " user");
+      let doc = await getDocs(
+        collection(db, String(user), "Spending Goals", "Goals")
+      );
 
-    async function display(user) {
-      console.log("Hello from display")
-      user = "user1"
-      console.log(user, " user")
-      let doc = await getDocs(collection(db, String(user), "Spending Goals", "Goals"));
+      var result = [];
+      var obj = {};
+      obj["Category"] = "";
+        obj["Spent"] = 0;
+        obj["GoalM"] = 0;
+        obj["Percentage"] = 0;
+        obj["RemainingBudget"] = 300;
+      result.push(obj);
 
       doc.forEach((docs) => {
+        obj = {};
         let docData = docs.data();
         console.log(docData, " doc data");
+        obj = {};
+        obj["Category"] = docData.Category;
+        obj["Spent"] = 0;
+        obj["GoalM"] = docData.Goals;
+        obj["Percentage"] = 0;
+        obj["RemainingBudget"] = 300;
+        result.push(obj);
+      });
+      console.log(result, " result");
+      console.log(this.rows, " this.rows");
+      this.rows = result;
+      console.log(this.rows, " updated this.rows")
 
-      })
-      }
-      // //get all the documents from the collection
-      // let num = 1;
-      // var totalProfit = 0;
-      // //initialise index to 1 and total profits to 0
-
-      // doc.forEach((docs) => {
-      //   let docData = docs.data();
-      //   console.log(docData);
-      //   //get the data from each individual document
-      //   var table = document.getElementById("table");
-      //   //access the table created in the html
-      //   var row = table.insertRow(num);
-      //   //insert a row into the table
-
-      //   var coin = docData.coin;
-      //   var price = docData.buyPrice;
-      //   var quantity = docData.buyQuantity;
-      //   var ticker = docData.ticker;
-      //   //get the values from document data
-
-      //   var cell1 = row.insertCell(0);
-      //   var cell2 = row.insertCell(1);
-      //   var cell3 = row.insertCell(2);
-      //   var cell4 = row.insertCell(3);
-      //   var cell5 = row.insertCell(4);
-      //   var cell6 = row.insertCell(5);
-      //   var cell7 = row.insertCell(6);
-      //   var cell8 = row.insertCell(7);
-      //   //create 8 columns in the new row
-
-      //   cell1.innerHTML = num;
-      //   cell2.innerHTML = coin;
-      //   cell3.innerHTML = ticker;
-      //   cell4.innerHTML = price;
-      //   cell5.innerHTML = quantity;
-      //   cell6.innerHTML = 0;
-      //   cell7.innerHTML = 0;
-      //   //set the values incisde the columns to the values from earlier
-
-      //   cell7.className = "Profits";
-      //   //set the class name of cell7
-
-      //   var delBut = document.createElement("button");
-      //   //create a delete button to delete a document
-      //   delBut.className = "bwt";
-      //   //set the class name of the button
-      //   delBut.id = String(coin);
-      //   //set the id of the button to be the coin name
-      //   delBut.innerHTML = "Delete";
-      //   //the button will have the words delete
-      //   delBut.onclick = function () {
-      //     deleteInstrument(coin, String(user));
-      //   };
-      //   //it will carry out the deleteInstrument function
-      //   cell8.appendChild(delBut);
-      //   //put the button in cell8
-
-      //   val(ticker);
-        //function to get the real time prices
-        // num += 1;
-  
-    display("user1");
-
-    // async function deleteInstrument(coin, user) {
-    //   var coinName = coin;
-    //   alert("You are going to delete " + coinName);
-    //   await deleteDoc(doc(db, String(user), coinName));
-    //   console.log("Document successfully deleted!");
-    //   let tb = document.getElementById("table");
-    //   while (tb.rows.length > 1) {
-    //     tb.deleteRow(1);
-    //   }
-    //   document.getElementById("totalProfit").innerHTML = "";
-    //   display();
-    // }
+      return result;
+    },
   },
+
   components: {
     VGrid,
   },
