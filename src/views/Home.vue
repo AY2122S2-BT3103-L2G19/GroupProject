@@ -54,7 +54,7 @@ mounted() {
 <style>
 #article {
   background-color: burlywood;
-  width:900px; 
+  width:60%; 
   float:left; 
   height:200px; 
   background:gray; 
@@ -63,7 +63,7 @@ mounted() {
 
 #button {
   background-color: burlywood;
-  width:450px; 
+  width:30%; 
   float:left; 
   height:200px; 
   background:none; 
@@ -72,7 +72,7 @@ mounted() {
 
 #chart1 {
   background-color: burlywood;
-  width:300px; 
+  width:20%; 
   float:left; 
   height:200px; 
   background:gray; 
@@ -81,7 +81,7 @@ mounted() {
 
 #chart2 {
   background-color: burlywood;
-  width:300px; 
+  width:20%; 
   float:left; 
   height:200px; 
   background:gray; 
@@ -90,7 +90,7 @@ mounted() {
 
 #table1 {
   background-color: burlywood;
-  width:700px; 
+  width:50%; 
   float:left; 
   height:200px; 
   background:gray; 
