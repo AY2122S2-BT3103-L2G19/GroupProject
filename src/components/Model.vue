@@ -99,6 +99,8 @@ export default {
     },
     addExpence() {
       this.$emit("store-expence", { title: this.title, number: this.number });
+      console.log(this.title, " title")
+      console.log(this.number, " title")
       this.title = "";
       this.number = "";
     }
