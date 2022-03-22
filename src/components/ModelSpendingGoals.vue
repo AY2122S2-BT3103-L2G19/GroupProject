@@ -60,14 +60,13 @@ export default {
     },
 
     async AddSpendingGoals() {
-      // this.$emit("store-Goals", { title: this.title, number: this.number });
-      this.$emit("store-expence", { title: this.title, number: this.number });
       await setDoc(doc(db, "user1", "Spending Goals", "Goals", this.title), {
         Category: this.title,
         Goals: this.number,
       });
       this.title = "Food & Drink";
       this.number = "";
+      this.$emit("added")
     },
 
     selectCategory(event) {

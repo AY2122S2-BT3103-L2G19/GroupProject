@@ -12,17 +12,20 @@
       <th>Delete</th>
     </tr>
   </table>
+  <delete-goals />
 </template>
 
 <script>
+// import { collection, getDocs } from "firebase/firestore";
 import { collection, getDocs, doc, deleteDoc } from "firebase/firestore";
 import { getFirestore } from "firebase/firestore";
 import firebaseApp from "../firebase.js";
 const db = getFirestore(firebaseApp);
+import DeleteGoals from "../components/DeleteGoals.vue"
 
 export default {
   name: "SpendingGoals2",
-  components: {},
+  components: {DeleteGoals },
 
   mounted() {
     async function display(user) {
@@ -56,7 +59,7 @@ export default {
         cell6.innerHTML = 0;
         cell7.innerHTML = 0;
         cell8.innerHTML = 0;
-
+        
         var delBut = document.createElement("button");
         delBut.className = "bwt";
         delBut.id = String(Category);

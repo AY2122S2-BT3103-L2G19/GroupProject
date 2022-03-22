@@ -1,5 +1,5 @@
 <template>
-  <button> Delete </button>
+  <button>Delete</button>
 </template>
 
 <script>
