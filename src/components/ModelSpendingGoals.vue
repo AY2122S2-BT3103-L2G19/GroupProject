@@ -44,7 +44,6 @@ import { doc, setDoc } from "firebase/firestore";
 import { getFirestore } from "firebase/firestore";
 const db = getFirestore(firebaseApp);
 
-
 export default {
   name: "ModelSpendingGoals",
   props: ["status"],
@@ -64,6 +63,7 @@ export default {
         Category: this.title,
         Goals: this.number,
       });
+      // window.location.reload();
       this.title = "Food & Drink";
       this.number = "";
       this.$emit("added")

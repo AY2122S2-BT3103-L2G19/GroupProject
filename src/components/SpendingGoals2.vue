@@ -59,6 +59,14 @@ export default {
         cell6.innerHTML = 0;
         cell7.innerHTML = 0;
         cell8.innerHTML = 0;
+
+        var editBut = document.createElement("button");
+        editBut.className = "Ebwt";
+        editBut.id = "editbutton";
+        editBut.innerHTML = "Edit";
+        editBut.onclick = function () {
+        };
+        cell8.appendChild(editBut);
         
         var delBut = document.createElement("button");
         delBut.className = "bwt";
