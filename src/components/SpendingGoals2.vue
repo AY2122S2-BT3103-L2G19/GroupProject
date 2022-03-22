@@ -20,18 +20,26 @@
 import { collection, getDocs, doc, deleteDoc } from "firebase/firestore";
 import { getFirestore } from "firebase/firestore";
 import firebaseApp from "../firebase.js";
-import { getAuth } from "firebase/auth";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 const db = getFirestore(firebaseApp);
 import DeleteGoals from "../components/DeleteGoals.vue";
 const auth = getAuth();
 this.fbuser = auth.currentUser.email;
-console.log(this.fbuser, " current user")
+console.log(this.fbuser, " current user");
 
 export default {
   name: "SpendingGoals2",
   components: { DeleteGoals },
 
   mounted() {
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        this.user = user;
+        console.log(user.email);
+        this.$router.push("/");
+      }
+    });
     async function display(user) {
       let doc = await getDocs(
         collection(db, String(user), "Spending Goals", "Goals")

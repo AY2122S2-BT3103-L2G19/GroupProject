@@ -3,7 +3,7 @@
     <div class="model" @click.self="toggle">
       <div class="model__container">
         <div class="model__form">
-          <form @submit.prevent="AddSpendingGoals" id="form">
+          <form @submit.prevent="AddSpendingGoals">
             <div class="model__group">
               <h3>Add Spending Goals</h3>
             </div>
@@ -44,6 +44,7 @@ import { doc, setDoc } from "firebase/firestore";
 import { getFirestore } from "firebase/firestore";
 const db = getFirestore(firebaseApp);
 
+
 export default {
   name: "ModelSpendingGoals",
   props: ["status"],
@@ -53,20 +54,22 @@ export default {
       number: null,
     };
   },
+
+  
   methods: {
     toggle() {
       this.$emit("model-toggle");
     },
 
     async AddSpendingGoals() {
+      // this.$emit("store-Goals", { title: this.title, number: this.number });
+      this.$emit("store-expence", { title: this.title, number: this.number });
       await setDoc(doc(db, "user1", "Spending Goals", "Goals", this.title), {
         Category: this.title,
         Goals: this.number,
       });
-      window.location.reload();
       this.title = "Food & Drink";
       this.number = "";
-      this.$emit("added")
     },
 
     selectCategory(event) {
