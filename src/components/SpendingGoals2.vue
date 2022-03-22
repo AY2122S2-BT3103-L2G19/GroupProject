@@ -20,26 +20,14 @@ import { collection, getDocs, doc, deleteDoc } from "firebase/firestore";
 import { getFirestore } from "firebase/firestore";
 import firebaseApp from "../firebase.js";
 const db = getFirestore(firebaseApp);
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+// import { getAuth, } from "firebase/auth";
 
 export default {
   name: "SpendingGoals2",
   components: {},
 
   mounted() {
-    const auth = getAuth();
-    this.fbuser = auth.currentUser.email; 
 
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        this.user = user;
-        console.log(user.email, " email from goals");
-      } else {
-        this.$router.push("/login");
-      }
-    });
-
-    console.log(this.fbuser, " this.fbuser")
     async function display(user) {
       user = "user1";
       let doc = await getDocs(
