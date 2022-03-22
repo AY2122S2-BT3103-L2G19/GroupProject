@@ -20,13 +20,16 @@ import { collection, getDocs, doc, deleteDoc } from "firebase/firestore";
 import { getFirestore } from "firebase/firestore";
 import firebaseApp from "../firebase.js";
 const db = getFirestore(firebaseApp);
-// import { getAuth, } from "firebase/auth";
+import { getAuth } from "firebase/auth";
 
 export default {
   name: "SpendingGoals2",
   components: {},
 
   mounted() {
+    const auth = getAuth();
+    this.fbuser = auth.currentUser.email;
+    console.log(this.fbuser, " this.fbuser")
 
     async function display(user) {
       user = "user1";
