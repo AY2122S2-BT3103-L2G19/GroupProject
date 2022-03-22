@@ -3,7 +3,7 @@
     <div class="model" @click.self="toggle">
       <div class="model__container">
         <div class="model__form">
-          <form @submit.prevent="AddSpendingGoals">
+          <form @submit.prevent="AddSpendingGoals" id="form">
             <div class="model__group">
               <h3>Add Spending Goals</h3>
             </div>

@@ -20,16 +20,19 @@
 import { collection, getDocs, doc, deleteDoc } from "firebase/firestore";
 import { getFirestore } from "firebase/firestore";
 import firebaseApp from "../firebase.js";
+import { getAuth } from "firebase/auth";
 const db = getFirestore(firebaseApp);
-import DeleteGoals from "../components/DeleteGoals.vue"
+import DeleteGoals from "../components/DeleteGoals.vue";
+const auth = getAuth();
+this.fbuser = auth.currentUser.email;
+console.log(this.fbuser, " current user")
 
 export default {
   name: "SpendingGoals2",
-  components: {DeleteGoals },
+  components: { DeleteGoals },
 
   mounted() {
     async function display(user) {
-      user = "user1";
       let doc = await getDocs(
         collection(db, String(user), "Spending Goals", "Goals")
       );
@@ -60,14 +63,18 @@ export default {
         cell7.innerHTML = 0;
         cell8.innerHTML = 0;
 
-        var editBut = document.createElement("button");
-        editBut.className = "Ebwt";
-        editBut.id = "editbutton";
-        editBut.innerHTML = "Edit";
-        editBut.onclick = function () {
-        };
+        // var editBut = document.createElement("button");
+
+        // editBut.className = "Ebwt";
+        // editBut.id = "editbutton";
+        // editBut.innerHTML = "Edit";
+        // editBut.onclick = function () {
+        // };
+        // cell8.appendChild(editBut);
+
+        var editBut = document.createElement("DeleteGoals");
         cell8.appendChild(editBut);
-        
+
         var delBut = document.createElement("button");
         delBut.className = "bwt";
         delBut.id = String(Category);
@@ -79,7 +86,7 @@ export default {
         ind += 1;
       });
     }
-    display("user1");
+    display(this.fbuser);
 
     async function deleteInstrument(category, user) {
       alert("You are going to delete " + category);
