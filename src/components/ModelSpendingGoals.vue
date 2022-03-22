@@ -44,7 +44,6 @@ import { doc, setDoc } from "firebase/firestore";
 import { getFirestore } from "firebase/firestore";
 const db = getFirestore(firebaseApp);
 
-
 export default {
   name: "ModelSpendingGoals",
   props: ["status"],
@@ -55,19 +54,18 @@ export default {
     };
   },
 
-  
   methods: {
     toggle() {
       this.$emit("model-toggle");
     },
 
     async AddSpendingGoals() {
-      // this.$emit("store-Goals", { title: this.title, number: this.number });
-      this.$emit("store-expence", { title: this.title, number: this.number });
       await setDoc(doc(db, "user1", "Spending Goals", "Goals", this.title), {
         Category: this.title,
         Goals: this.number,
       });
+      this.$emit("added");
+      window.location.reload();
       this.title = "Food & Drink";
       this.number = "";
     },
