@@ -2,8 +2,8 @@
   <div class="article">
     <h1 class="title">{{currentDateText()}}</h1>
     <h2 class="content"> 
-      <iframe id="iframe" v-bind:src="data" width="870" height="160" style="border: none;" name="myFrame"></iframe>
-      <a v-bind:href="data" target="_blank">Open Article!</a>
+      <iframe id="iframe" v-bind:src="article" width="870" height="160" style="border: none;" name="myFrame"></iframe>
+      <a v-bind:href="article" target="_blank">Open Article!</a>
     </h2>
   </div>
 </template>
@@ -29,9 +29,15 @@ function is_iframeable(weblink) {
 console.log(is_iframeable("https://dollarsandsense.sg/4-reasons-financial-literacy-important-young-singaporeans/"));
 
 export default {
+  mounted() {
+    this.dailyArticleRotate();
+  },
   data() {
     return {
-      data:"https://dollarsandsense.sg/4-reasons-financial-literacy-important-young-singaporeans/"
+      articles:["https://dollarsandsense.sg/4-reasons-financial-literacy-important-young-singaporeans/",
+                "https://dollarsandsense.sg/financial-planning-101-for-parents-of-children-with-added-needs-in-singapore/",
+                "https://dollarsandsense.sg/the-pros-and-cons-of-selling-your-endowment-plan-in-singapore/"],
+      article: ""
     }
   },
   methods: {
@@ -40,6 +46,12 @@ export default {
       const date = `${current.getDate()}/${current.getMonth()+1}/${current.getFullYear()}`;
       return String(date) + ": Daily Article"
     },
+    dailyArticleRotate() {
+      const current = new Date();
+      const currentDate = current.getDate();
+      const articleNumber = currentDate % 2;
+      this.article = this.articles[articleNumber]
+    }
   }
 }
 </script>
