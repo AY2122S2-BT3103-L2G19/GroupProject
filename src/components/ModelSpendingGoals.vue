@@ -63,7 +63,7 @@ export default {
         Category: this.title,
         Goals: this.number,
       });
-      // window.location.reload();
+      window.location.reload();
       this.title = "Food & Drink";
       this.number = "";
       this.$emit("added")
