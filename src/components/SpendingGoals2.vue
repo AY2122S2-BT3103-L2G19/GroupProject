@@ -18,7 +18,7 @@
 import { getFirestore } from "firebase/firestore";
 import firebaseApp from "../firebase.js";
 const db = getFirestore(firebaseApp);
-import { getAuth } from "firebase/auth";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { collection, getDocs, doc, deleteDoc } from "firebase/firestore";
 
 export default {
@@ -28,14 +28,20 @@ export default {
   data() {
     return {
       fbuser: "",
-      count: "",
     };
   },
 
   mounted() {
     const auth = getAuth();
-    console.log(auth, " fbuser from goals display before");
-    // this.fbuser = auth.currentUser.email;
+    this.fbuser = auth.currentUser.email;
+
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        this.user = user;
+        console.log(user.email);
+        // this.$router.push("/");
+      }
+    });
     console.log(this.fbuser, " fbuser from goals display");
     this.display(this.fbuser);
   },

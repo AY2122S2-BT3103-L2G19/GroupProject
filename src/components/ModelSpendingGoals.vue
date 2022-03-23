@@ -42,6 +42,8 @@
 import firebaseApp from "../firebase.js";
 import { doc, setDoc } from "firebase/firestore";
 import { getFirestore } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
+// import { getAuth, onAuthStateChanged } from "firebase/auth";
 const db = getFirestore(firebaseApp);
 
 export default {
@@ -51,8 +53,19 @@ export default {
     return {
       title: "Food & Drink",
       number: null,
+      fbuser: "",
     };
   },
+
+  // mounted() {
+  //   onAuthStateChanged(auth, (user) => {
+  //     if (user) {
+  //       this.user = user;
+  //       console.log(user.email);
+  //       // this.$router.push("/");
+  //     }
+  //   });
+  // },
 
   methods: {
     toggle() {
@@ -60,10 +73,16 @@ export default {
     },
 
     async AddSpendingGoals() {
-      await setDoc(doc(db, "user1", "Spending Goals", "Goals", this.title), {
-        Category: this.title,
-        Goals: this.number,
-      });
+      const auth = getAuth();
+      this.fbuser = auth.currentUser.email;
+       console.log(this.fbuser, " fbuser from Add spending goals");
+      await setDoc(
+        doc(db, String(this.fbuser), "Spending Goals", "Goals", this.title),
+        {
+          Category: this.title,
+          Goals: this.number,
+        }
+      );
       this.$emit("added");
       window.location.reload();
       this.title = "Food & Drink";
