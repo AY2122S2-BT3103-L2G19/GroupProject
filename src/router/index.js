@@ -1,7 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Home from "@/views/Home.vue";
 import Expenses from "@/views/Expenses.vue";
-import AddTransaction from "@/views/AddTransaction.vue";
 import Goals2 from "@/views/Goals2.vue";
 import EditTransaction from "@/views/EditTransaction.vue";
 import Login from "@/views/Login.vue";
@@ -17,11 +16,6 @@ const routes = [
     path: "/expenses",
     name: "Expenses",
     component: Expenses,
-  },
-  {
-    path: "/add",
-    name: "AddTransaction",
-    component: AddTransaction,
   },
   {
     path: "/goals",
