@@ -18,7 +18,8 @@
 import { getFirestore } from "firebase/firestore";
 import firebaseApp from "../firebase.js";
 const db = getFirestore(firebaseApp);
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { getAuth } from "firebase/auth";
+// import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { collection, getDocs, doc, deleteDoc } from "firebase/firestore";
 
 export default {
@@ -32,25 +33,29 @@ export default {
   },
 
   mounted() {
+    // const auth = getAuth();
+    // this.fbuser = auth.currentUser.email;
+
+    // // onAuthStateChanged(auth, (user) => {
+    // //   if (user) {
+    // //     this.user = user;
+    // //     console.log(user.email);
+    // //     // this.$router.push("/");
+    // //   }
+    // // });
     const auth = getAuth();
     this.fbuser = auth.currentUser.email;
-
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        this.user = user;
-        console.log(user.email);
-        // this.$router.push("/");
-      }
-    });
-    console.log(this.fbuser, " fbuser from goals display");
-    this.display(this.fbuser);
+    console.log(this.fbuser, "  from display")
+    this.display();
   },
 
   methods: {
-    async display(user) {
-      console.log(this.fbuser, " fbuser from goals");
+    async display() {
+      const auth = getAuth();
+      console.log(auth, " auth from Add spending goals");
+      this.fbuser = auth.currentUser.email;
       let doc = await getDocs(
-        collection(db, String(user), "Spending Goals", "Goals")
+        collection(db, String(this.fbuser), "Spending Goals", "Goals")
       );
       let ind = 1;
       doc.forEach((docs) => {
@@ -92,11 +97,12 @@ export default {
         delBut.id = String(Category);
         delBut.innerHTML = "Delete";
         delBut.onclick = () => {
-          this.deleteInstrument(Category, user);
+          this.deleteInstrument(Category, this.fbuser);
         };
         cell9.appendChild(delBut);
         ind += 1;
       });
+       console.log(this.fbuser, "  from display end")
     },
 
     async deleteInstrument(category, user) {
@@ -109,7 +115,7 @@ export default {
       while (tb.rows.length > 1) {
         tb.deleteRow(1);
       }
-      this.display(user);
+      this.display();
     },
   },
 };

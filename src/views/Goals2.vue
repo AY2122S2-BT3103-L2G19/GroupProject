@@ -36,9 +36,9 @@ export default {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         this.user = user;
-        console.log(user.email);
-      } else {
-        this.$router.push("/login");
+      //   console.log(user.email);
+      // } else {
+      //   this.$router.push("/login");
       }
     });
   },

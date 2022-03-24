@@ -53,19 +53,8 @@ export default {
     return {
       title: "Food & Drink",
       number: null,
-      fbuser: "",
     };
   },
-
-  // mounted() {
-  //   onAuthStateChanged(auth, (user) => {
-  //     if (user) {
-  //       this.user = user;
-  //       console.log(user.email);
-  //       // this.$router.push("/");
-  //     }
-  //   });
-  // },
 
   methods: {
     toggle() {
@@ -74,8 +63,9 @@ export default {
 
     async AddSpendingGoals() {
       const auth = getAuth();
+      console.log(auth, " auth from Add spending goals");
       this.fbuser = auth.currentUser.email;
-       console.log(this.fbuser, " fbuser from Add spending goals");
+      console.log(this.fbuser, " fbuser from Add spending goals");
       await setDoc(
         doc(db, String(this.fbuser), "Spending Goals", "Goals", this.title),
         {
