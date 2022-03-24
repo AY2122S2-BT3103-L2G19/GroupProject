@@ -15,24 +15,40 @@
 </template>
 
 <script>
-// import { collection, getDocs } from "firebase/firestore";
-import { collection, getDocs, doc, deleteDoc } from "firebase/firestore";
 import { getFirestore } from "firebase/firestore";
 import firebaseApp from "../firebase.js";
 const db = getFirestore(firebaseApp);
-import { getAuth } from "firebase/auth";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { collection, getDocs, doc, deleteDoc } from "firebase/firestore";
 
 export default {
   name: "SpendingGoals2",
   components: {},
 
+  data() {
+    return {
+      fbuser: "",
+    };
+  },
+
   mounted() {
     const auth = getAuth();
     this.fbuser = auth.currentUser.email;
-    console.log(this.fbuser, " this.fbuser")
 
-    async function display(user) {
-      user = "user1";
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        this.user = user;
+        console.log(user.email);
+        // this.$router.push("/");
+      }
+    });
+    console.log(this.fbuser, " fbuser from goals display");
+    this.display(this.fbuser);
+  },
+
+  methods: {
+    async display(user) {
+      console.log(this.fbuser, " fbuser from goals");
       let doc = await getDocs(
         collection(db, String(user), "Spending Goals", "Goals")
       );
@@ -75,31 +91,27 @@ export default {
         delBut.className = "bwt";
         delBut.id = String(Category);
         delBut.innerHTML = "Delete";
-        delBut.onclick = function () {
-          deleteInstrument(Category, String("user1"));
+        delBut.onclick = () => {
+          this.deleteInstrument(Category, user);
         };
         cell9.appendChild(delBut);
         ind += 1;
       });
-    }
+    },
 
-    display("user1");
-
-    async function deleteInstrument(category, user) {
+    async deleteInstrument(category, user) {
       alert("You are going to delete " + category);
       await deleteDoc(
         doc(db, String(user), "Spending Goals", "Goals", category)
       );
-      console.log("Document successfully deleted!");
       let tb = document.getElementById("spendingGoalsTable");
+      //delete everything, make data empty and call the display again
       while (tb.rows.length > 1) {
         tb.deleteRow(1);
       }
-      display(user);
-    }
+      this.display(user);
+    },
   },
-
-  methods: {},
 };
 </script>
 
