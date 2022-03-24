@@ -1,13 +1,24 @@
 <template>
   <div class="chart">
-    <h4 class="title">daily expense chart in progress</h4>
+    <h4 class="title">wtf</h4>
+    <line-chart class = "user" width = 300px :data = "lineChartData"></line-chart>
   </div>
 </template>
 
 <script>
+export default {
+  name: 'DailyExpenseChart',
+  data () {
+    return {
+        lineChartData: {'Monday': 2, 'Tuesday': 5, 'Wednesday': 2,'Thursday': 5,'Friday': 6}
+    }
+  }
+}
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
+.user {
+  margin: auto;
+  border: 3px solid grey
+}
 </style>
