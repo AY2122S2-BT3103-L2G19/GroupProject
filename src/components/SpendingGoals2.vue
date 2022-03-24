@@ -28,34 +28,23 @@ export default {
 
   data() {
     return {
-      fbuser: "",
+      // fbuser: "",
     };
   },
 
   mounted() {
-    // const auth = getAuth();
-    // this.fbuser = auth.currentUser.email;
-
-    // // onAuthStateChanged(auth, (user) => {
-    // //   if (user) {
-    // //     this.user = user;
-    // //     console.log(user.email);
-    // //     // this.$router.push("/");
-    // //   }
-    // // });
     const auth = getAuth();
-    this.fbuser = auth.currentUser.email;
+    console.log(auth, "  auth from display")
+    // this.fbuser = auth.currentUser.email;
     console.log(this.fbuser, "  from display")
-    this.display();
+    this.display("meow@poop.com");
   },
 
   methods: {
-    async display() {
-      const auth = getAuth();
-      console.log(auth, " auth from Add spending goals");
-      this.fbuser = auth.currentUser.email;
+    async display(user) {
+      console.log(user, " from methoid")
       let doc = await getDocs(
-        collection(db, String(this.fbuser), "Spending Goals", "Goals")
+        collection(db, String(user), "Spending Goals", "Goals")
       );
       let ind = 1;
       doc.forEach((docs) => {
@@ -97,12 +86,11 @@ export default {
         delBut.id = String(Category);
         delBut.innerHTML = "Delete";
         delBut.onclick = () => {
-          this.deleteInstrument(Category, this.fbuser);
+          this.deleteInstrument(Category, user);
         };
         cell9.appendChild(delBut);
         ind += 1;
       });
-       console.log(this.fbuser, "  from display end")
     },
 
     async deleteInstrument(category, user) {
@@ -115,7 +103,7 @@ export default {
       while (tb.rows.length > 1) {
         tb.deleteRow(1);
       }
-      this.display();
+      this.display(user);
     },
   },
 };
