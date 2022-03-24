@@ -53,6 +53,7 @@ export default {
     return {
       title: "Food & Drink",
       number: null,
+      // fbuser: "",
     };
   },
 
