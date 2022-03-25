@@ -7,7 +7,7 @@
     :status="modelStatus"
     @added="change"
   />
-  <SpendingGoals2 :key="refreshComp"/>
+  <SpendingGoals2 :key="refreshComp" />
 </template>
 
 <script>
@@ -23,7 +23,7 @@ export default {
     return {
       refreshComp: 0,
       modelStatus: false,
-      // user: false,
+      user: false,
       Goals: {
         Category: "",
         Amount: 0,
@@ -33,14 +33,11 @@ export default {
 
   mounted() {
     const auth = getAuth();
-    console.log(auth.currentUser, " auth from goals2")
     onAuthStateChanged(auth, (user) => {
       if (user) {
         this.user = user;
-        console.log(user.email, "  email from on auth state change")
       }
     });
-    console.log(auth.currentUser, " auth from goals2 after changed")
   },
 
   methods: {

@@ -18,8 +18,8 @@
 import { getFirestore } from "firebase/firestore";
 import firebaseApp from "../firebase.js";
 const db = getFirestore(firebaseApp);
-import { getAuth } from "firebase/auth";
-// import { getAuth, onAuthStateChanged } from "firebase/auth";
+// import { getAuth } from "firebase/auth";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { collection, getDocs, doc, deleteDoc } from "firebase/firestore";
 
 export default {
@@ -28,21 +28,25 @@ export default {
 
   data() {
     return {
-      // fbuser: "",
+      fbuser: "",
     };
   },
 
   mounted() {
     const auth = getAuth();
-    console.log(auth, "  auth from display")
-    // this.fbuser = auth.currentUser.email;
-    console.log(this.fbuser, "  from display")
+    console.log(auth, "  auth from display");
+    this.fbuser = auth.currentUser.email;
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        this.user = user;
+      }
+    });
+    console.log(this.fbuser, "  from display");
     this.display("meow@poop.com");
   },
 
   methods: {
     async display(user) {
-      console.log(user, " from methoid")
       let doc = await getDocs(
         collection(db, String(user), "Spending Goals", "Goals")
       );
