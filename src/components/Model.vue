@@ -10,7 +10,7 @@
             <div class="model__group">
               <label for="type">Transaction Type:   </label>
 
-              <select id="type">
+              <select id="type" v-model = "type">
                 <option value="Income">Income</option>
                 <option value="Expense">Expense</option>
                 <option value="OwnedPayment">Owned Payment</option>
@@ -35,7 +35,7 @@
             <div class="model__group">
               <label for="category">Category:   </label>
 
-              <select id="category">
+              <select id="category" v-model = "category">
                 <option value="Food">Food</option>
                 <option value="Transportation">Transportation</option>
                 <option value="Entertainment">Entertainment</option>
@@ -71,6 +71,7 @@
             </div>
             <div class="model__group">
               <input type="submit" value="Add Expence" class="button" />
+              <button  id = "savebutton"  type="button"  @click="savetofs()"> Add Expense </button>
             </div>
           </form>
         </div>
@@ -81,13 +82,26 @@
 </template>
 
 <script>
+console.log("in AC")
+import firebaseApp from '@/firebase.js';
+import { getFirestore } from "firebase/firestore"
+import { doc, setDoc } from "firebase/firestore";
+import { getAuth} from "firebase/auth";
+
+const db = getFirestore(firebaseApp);
+
 export default {
   name: "Model",
   props: ["status"],
   data() {
     return {
+      type:"",
       title: "",
-      number: null,
+      category:"",
+      number: "",
+      date:"",
+      description:"",
+      fbuser: ""
     };
   },
   methods: {
@@ -98,8 +112,30 @@ export default {
       this.$emit("store-expence", { title: this.title, number: this.number });
       this.title = "";
       this.number = "";
+    },
+    async savetofs(){   
+    
+    const auth = getAuth(); 
+    this.fbuser = auth.currentUser.email;
+
+    if (!((this.type ==""  || this.title == "" || this.category == "")  || (this.number == "" || this.date == ""))){
+
+      try{
+        const docRef = await setDoc(doc(db, String(this.fbuser), this.title),{
+        type: this.type , title : this.title, category : this.category, number: this.number, date : this.date, description : this.description
+        })
+        console.log(docRef)
+        console.log("adding")
+        this.type= this.title=this.number=this.date=this.description = ""  
+        this.$emit("added")
+        }
+      catch(error) {
+          console.error("Error adding document: ", error);
+      }
     }
-  },
+    else alert("Cannot take empty Values. Please enter the values")
+  }
+  }
 };
 </script>
 
