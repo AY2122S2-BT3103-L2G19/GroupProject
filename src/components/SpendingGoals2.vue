@@ -24,7 +24,7 @@ import { collection, getDocs, doc, deleteDoc } from "firebase/firestore";
 
 export default {
   name: "SpendingGoals2",
-  components: {},
+  components: { },
 
   data() {
     return {
