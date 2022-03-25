@@ -43,7 +43,7 @@ import firebaseApp from "../firebase.js";
 import { doc, setDoc } from "firebase/firestore";
 import { getFirestore } from "firebase/firestore";
 // import { getAuth } from "firebase/auth";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { getAuth } from "firebase/auth";
 const db = getFirestore(firebaseApp);
 
 export default {
@@ -58,12 +58,9 @@ export default {
   },
   mounted() {
     const auth = getAuth();
+    console.log(auth, " auth from add goals")
     // this.fbuser = auth.currentUser.email;
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        this.user = user;
-      }
-    });
+    
   },
 
   methods: {
