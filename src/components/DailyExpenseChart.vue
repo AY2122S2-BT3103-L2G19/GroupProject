@@ -9,24 +9,47 @@
 import firebaseApp from "../firebase.js";
 import { getFirestore } from "firebase/firestore";
 import { collection, getDocs } from "firebase/firestore";
-// import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+
 const db = getFirestore(firebaseApp);
+
 export default {
   name: 'DailyExpenseChart',
   data () {
     return {
+        fbuser: "",
         chartParams:[]
     }
   },
   methods: {
-    // const auth = getAuth();
-    // this.fbuser = auth.currentUser.email;
-    async display(currUser) {
+    async updateData() {
+      var currUser = "";
+      /*
+      const auth = getAuth();
+      const user = auth.currentUser;
+      currUser = String(user);
+      console.log(currUser, " is current user")
+      */
+      const auth = getAuth();
+      console.log("is auth even retrieved?")
+      onAuthStateChanged(auth, (user) => {
+      if (user) {
+      // User is signed in, see docs for a list of available properties
+      // https://firebase.google.com/docs/reference/js/firebase.User
+        const uid = user.email;
+        currUser = uid;
+        console.log(currUser, " is current user even retreieved?");
+      // ...
+      } else {
+        console.log("no user found")
+      // User is signed out
+      // ...
+      }
+      });
       console.log("Displaying user Expense Chart");
       //currUser = "meow@poop.com";
-      console.log(currUser, " user");
       let docs = await getDocs(
-        collection(db, String(currUser), "Transactions", "Expenses")
+        collection(db, currUser, "Transactions", "Expenses")
       );
 
       var trans = [];
@@ -39,16 +62,26 @@ export default {
         transDetails.push(docData.Amount);
         trans.push(transDetails);
       });
-
-      
       this.chartParams = trans;
       console.log(this.chartParams, " updated chart")
-
       return trans;
     },
   },
   mounted() {
-    this.display("meow@poop.com");
+  
+    //this.updateUser();
+    /*
+    const auth = getAuth();      
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+      console.log(user.email, " is current user id")
+      const userid = user.email;
+      this.fbuser = userid;
+      } else {
+      console.log(user, "user not found....") }
+    });
+    */
+    this.updateData()
   }
 }
 </script>
