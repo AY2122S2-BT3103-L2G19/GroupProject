@@ -5,32 +5,29 @@
   <ModelSpendingGoals
     @model-toggle="modelToggle"
     :status="modelStatus"
-    @store-expence="storeGoals"
+    @added="change"
   />
-  <SpendingGoals />
-  <!-- @store-expence="storeGoals" -->
-  <h2>Saving Goals</h2>
-  <button>Add Saving Goals</button>
-  <SpendingGoals />
+  <SpendingGoals2 :key="refreshComp"/>
 </template>
 
 <script>
-import SpendingGoals from "../components/SpendingGoals.vue";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import SpendingGoals2 from "../components/SpendingGoals2.vue";
 import NavbarSpendingGoals from "../components/NavbarSpendingGoals.vue";
 import ModelSpendingGoals from "../components/ModelSpendingGoals.vue";
 
 export default {
-  name: "Goals",
-  components: { SpendingGoals, NavbarSpendingGoals, ModelSpendingGoals },
+  name: "Goals2",
+  components: { SpendingGoals2, NavbarSpendingGoals, ModelSpendingGoals },
   data() {
     return {
+      refreshComp: 0,
       modelStatus: false,
       user: false,
       Goals: {
         Category: "",
         Amount: 0,
-      }
+      },
     };
   },
 
@@ -51,8 +48,8 @@ export default {
       this.modelStatus = !this.modelStatus;
     },
 
-    storeGoals(payload) {
-      console.log(payload, " payload")
+    change() {
+      this.refreshComp += 1;
       this.modelStatus = false;
     },
   },

@@ -1,4 +1,8 @@
-# groupproject
+# Group Project of L2 Group 19
+
+## Access Site
+
+[Site](https://group-project-65d9c.web.app/)
 
 ## Project setup
 ```
@@ -22,3 +26,4 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
