@@ -42,8 +42,8 @@
 import firebaseApp from "../firebase.js";
 import { doc, setDoc } from "firebase/firestore";
 import { getFirestore } from "firebase/firestore";
-import { getAuth } from "firebase/auth";
-// import { getAuth, onAuthStateChanged } from "firebase/auth";
+// import { getAuth } from "firebase/auth";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 const db = getFirestore(firebaseApp);
 
 export default {
@@ -53,8 +53,17 @@ export default {
     return {
       title: "Food & Drink",
       number: null,
-      // fbuser: "",
+      fbuser: "",
     };
+  },
+  mounted() {
+    const auth = getAuth();
+    // this.fbuser = auth.currentUser.email;
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        this.user = user;
+      }
+    });
   },
 
   methods: {
