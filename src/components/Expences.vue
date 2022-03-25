@@ -25,6 +25,7 @@
       :key="history.title"
       :class="[history.number > 0 ? 'border-green' : 'border-red']"
     >
+      <div class="history__type">{{ history.type }}</div>
       <div class="history__title">{{ history.title }}</div>
       <div class="history__number">{{ history.number }}$</div>
     </div>

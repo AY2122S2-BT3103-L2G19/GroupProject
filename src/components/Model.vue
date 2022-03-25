@@ -10,7 +10,7 @@
             <div class="model__group">
               <label for="type">Transaction Type:   </label>
 
-              <select id="type" v-model = "type">
+              <select id="type" v-model ="type">
                 <option value="Income">Income</option>
                 <option value="Expense">Expense</option>
                 <option value="OwnedPayment">Owned Payment</option>
@@ -109,7 +109,8 @@ export default {
       this.$emit("model-toggle");
     },
     addExpence() {
-      this.$emit("store-expence", { title: this.title, number: this.number });
+      this.$emit("store-expence", { type: this.type, title: this.title, number: this.number,  });
+      this.type = "";
       this.title = "";
       this.number = "";
     },

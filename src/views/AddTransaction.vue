@@ -27,6 +27,7 @@ export default {
         balance: 0,
         income: 0,
         expence: 0,
+        owned: 0,
         history: [],
       },
     };
