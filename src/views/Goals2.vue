@@ -8,11 +8,11 @@
     @added="change"
   />
   <SpendingGoals2 :key="refreshComp" />
-  <NavbarEditSpendingGoals @model-show="modelToggle" />
+  <NavbarEditSpendingGoals @model-show="modelToggle2" />
   <ModelEditSpendingGoals
-    @model-toggle="modelToggle"
-    :status="modelStatus"
-    @added="change"
+    @model-toggle="modelToggle2"
+    :status="modelStatus2"
+    @added="change2"
   />
 </template>
 
@@ -32,6 +32,7 @@ export default {
     return {
       refreshComp: 0,
       modelStatus: false,
+      modelStatus2: false,
       user: false,
       Goals: {
         Category: "",
@@ -54,9 +55,18 @@ export default {
       this.modelStatus = !this.modelStatus;
     },
 
+    modelToggle2() {
+      this.modelStatus2 = !this.modelStatus2;
+    },
+
     change() {
       this.refreshComp += 1;
       this.modelStatus = false;
+    },
+
+    change2() {
+      this.refreshComp += 1;
+      this.modelStatus2 = false;
     },
   },
 };
