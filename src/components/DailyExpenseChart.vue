@@ -24,6 +24,7 @@ export default {
   methods: {
     async updateData() {
       var currUser = "";
+      var docs = null;
       /*
       const auth = getAuth();
       const user = auth.currentUser;
@@ -38,22 +39,16 @@ export default {
       // https://firebase.google.com/docs/reference/js/firebase.User
         const uid = user.email;
         currUser = uid;
-        console.log(currUser, " is current user even retreieved?");
-      // ...
       } else {
         console.log("no user found")
       // User is signed out
       // ...
       }
       });
-      console.log("Displaying user Expense Chart");
-      //currUser = "meow@poop.com";
-      let docs = await getDocs(
-        collection(db, currUser, "Transactions", "Expenses")
-      );
-
+      currUser = "meow@poop.com"
+      docs = await getDocs(
+        collection(db, currUser, "Transactions", "Expenses"));
       var trans = [];
-
       docs.forEach((doc) => {
         let docData = doc.data();
         console.log(docData, " doc data");
@@ -64,7 +59,6 @@ export default {
       });
       this.chartParams = trans;
       console.log(this.chartParams, " updated chart")
-      return trans;
     },
   },
   mounted() {
