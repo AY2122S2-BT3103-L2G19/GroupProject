@@ -59,7 +59,7 @@ export default {
   mounted() {
     const auth = getAuth();
     console.log(auth, " auth from add goals")
-    this.fbuser = auth.currentUser.email;
+    // this.fbuser = auth.currentUser.email;
     
   },
 
