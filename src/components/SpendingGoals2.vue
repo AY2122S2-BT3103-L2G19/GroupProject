@@ -77,7 +77,10 @@ export default {
         editBut.className = "Ebwt";
         editBut.id = "editbutton";
         editBut.innerHTML = "Edit";
-        editBut.onclick = function () {};
+        editBut.onclick = () => {
+          this.$emit("model-show2")
+          console.log("edit on click ")
+        };
         cell8.appendChild(editBut);
 
         var delBut = document.createElement("button");
