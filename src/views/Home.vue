@@ -100,10 +100,10 @@ mounted() {
 
 #table1 {
   background-color: burlywood;
-  width:30%; 
+  width:34%; 
   float:left; 
-  height:200px; 
-  background:gray; 
+  height:350px;
+  background:burlywood;
   margin:10px
 }
 
