@@ -1,7 +1,7 @@
 <template>
   <div class="chart">
-    <h4 class="title">Chart of Expense vs Income</h4>
-    <bar-chart class = "user" width = 100% :data = "chartParams"></bar-chart>
+    <h4 class="title">Expense vs Income for Past 3 Months</h4>
+    <bar-chart class = "user" width = 100% :data = "chartParams" :colors="['red','green']"></bar-chart>
   </div>
 </template>
 
@@ -24,13 +24,6 @@ export default {
   methods: {
     async updateData() {
       var currUser = "";
-      var docs = null;
-      /*
-      const auth = getAuth();
-      const user = auth.currentUser;
-      currUser = String(user);
-      console.log(currUser, " is current user")
-      */
       const auth = getAuth();
       console.log("is auth even retrieved?")
       onAuthStateChanged(auth, (user) => {
@@ -45,35 +38,174 @@ export default {
       // ...
       }
       });
-      currUser = "meow@poop.com"
-      
-      docs = await getDocs(
+      currUser = "meow@poop.com";
+      var incomes = [];
+      var expenses = [];
+      var expenseDocs = null;
+      var incomeDocs = null;
+      expenseDocs = await getDocs(
         collection(db, currUser, "Transactions", "Expenses"));
-      /*
-      var trans = [];
-      docs.forEach((doc) => {
+      //extract expenses
+      expenseDocs.forEach((doc) => {
         let docData = doc.data();
-        console.log(docData, " doc data");
         let transDetails = [];
         transDetails.push(docData.Date);
         transDetails.push(docData.Amount);
-        trans.push(transDetails);
+        expenses.push(transDetails);
+        //console.log(transDetails, " trans detail check")
       });
-      this.chartParams = trans;
-      */
+      var expensesByMonth = new Map();
+      for (let i = 0; i < expenses.length; i++) {
+        let month = expenses[i][0].slice(3,5);
+        //console.log(month, " month check")
+        if (expensesByMonth.has(month)) {
+          let currAmt = expensesByMonth.get(month);
+          expensesByMonth.set(month, currAmt + expenses[i][1])
+        } else {
+          expensesByMonth.set(month, expenses[i][1]);
+        }
+      }
+      console.log(expensesByMonth, "expense map check");
+      var expensesByMonthFinal = [];
+      //convert map back to array
+      expensesByMonth.forEach((value, key)=> {
+        expensesByMonthFinal.push([key, value]);
+      });
+
+      
+      var expensesByMonthSorted = expensesByMonthFinal.sort();
+      
+      for (let i = 0; i < expensesByMonthSorted.length; i++){
+        let monthNum = expensesByMonthSorted[i][0];
+        let month = "";
+        switch (monthNum) {
+        case "01":
+          month = "Jan";
+          break;
+        case "02":
+          month = "Feb";
+          break;
+        case "03":
+          month = "Mar";
+          break;
+        case "04":
+          month = "Apr";
+          break;
+        case "05":
+          month = "May";
+          break;
+        case "06":
+          month = "Jun";
+          break;
+        case "07":
+          month = "Jul";
+          break;
+        case "08":
+          month = "Aug";
+          break;
+        case "09":
+          month = "Sep";
+          break;
+        case "10":
+          month = "Oct";
+          break;
+        case "11":
+          month = "Nov";
+          break;
+        case "12":
+          month = "Dec";
+          break;
+      }
+      expensesByMonthSorted[i][0] = month;
+      }
+
+
+
+      //extract incomes
+      incomeDocs = await getDocs(
+        collection(db, currUser, "Transactions", "Income"));
+      incomeDocs.forEach((doc) => {
+        let docData = doc.data();
+        let transDetails = [];
+        transDetails.push(docData.Date);
+        transDetails.push(docData.Amount);
+        incomes.push(transDetails);
+      });
+      var incomesByMonth = new Map();
+      for (let i = 0; i < incomes.length; i++) {
+        let month = incomes[i][0].slice(3,5);
+        //console.log(month, " month check")
+        if (incomesByMonth.has(month)) {
+          let currAmt = expensesByMonth.get(month);
+          incomesByMonth.set(month, currAmt + incomes[i][1])
+        } else {
+          incomesByMonth.set(month, incomes[i][1]);
+        }
+      }
+      console.log(incomesByMonth, "income map check");
+      var incomesByMonthFinal = [];
+      //convert map back to array
+      incomesByMonth.forEach((value, key)=> {
+        incomesByMonthFinal.push([key, value]);
+      });
+
+      
+      var incomesByMonthSorted = incomesByMonthFinal.sort();
+
+      for (let i = 0; i < incomesByMonthSorted.length; i++){
+        let monthNum = incomesByMonthSorted[i][0];
+        let month = "";
+        switch (monthNum) {
+        case "01":
+          month = "Jan";
+          break;
+        case "02":
+          month = "Feb";
+          break;
+        case "03":
+          month = "Mar";
+          break;
+        case "04":
+          month = "Apr";
+          break;
+        case "05":
+          month = "May";
+          break;
+        case "06":
+          month = "Jun";
+          break;
+        case "07":
+          month = "Jul";
+          break;
+        case "08":
+          month = "Aug";
+          break;
+        case "09":
+          month = "Sep";
+          break;
+        case "10":
+          month = "Oct";
+          break;
+        case "11":
+          month = "Nov";
+          break;
+        case "12":
+          month = "Dec";
+          break;
+      }
+      incomesByMonthSorted[i][0] = month;
+      }
+
       this.chartParams = [{
-    name: "Food" + currUser, 
-    data: [["2010", 10], ["2020", 16], ["2030", 28]]
-    },
-    {
-    name: "Income" + String(docs), 
-    data: [["2010", 24], ["2020", 22], ["2030", 19]]
-    },
-    {
-    name: "Owed Payments", 
-    data: [["2010", 20], ["2020", 23], ["2030", 29]]
-    }]
-      console.log(this.chartParams, " updated chart")
+      name: "Expenses", 
+      data: expensesByMonthSorted
+      },
+      {
+      name: "Income ($)", 
+      data: incomesByMonthSorted
+      }
+      ]
+      console.log("income expense done")
     },
   },
   mounted() {
