@@ -1,7 +1,7 @@
 <template>
   <div class="chart">
-    <h4 class="title">Line Chart of expenses</h4>
-    <line-chart class = "user" width = 100% :data = "chartParams"></line-chart>
+    <h4 class="title">Past expenses</h4>
+    <line-chart class = "user" width = 100% ytitle="Expenditure ($)" :data = "chartParams"></line-chart>
   </div>
 </template>
 
@@ -57,6 +57,7 @@ export default {
         transDetails.push(docData.Amount);
         trans.push(transDetails);
       });
+
       this.chartParams = trans;
       //console.log(this.chartParams, " updated chart")
       console.log("daily expense done")
