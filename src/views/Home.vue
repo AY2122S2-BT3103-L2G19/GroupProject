@@ -79,10 +79,10 @@ mounted() {
   width:30%; 
   float:left; 
   height:355px; 
-  background:burlywood; 
+  background:rgb(255, 255, 255); 
   margin:10px;
   padding: 5px 0px 5px 0px;
-  border: solid 2px darkgray;
+  border: solid 2px rgb(0, 0, 0);
   border-radius: 4px;
 }
 
@@ -91,10 +91,10 @@ mounted() {
   width:30%; 
   float:left; 
   height:350px; 
-  background:burlywood; 
+  background:rgb(255, 255, 255); 
   margin:10px;
   padding: 5px 0px 5px 0px;
-  border: solid 2px darkgray;
+  border: solid 2px rgb(0, 0, 0);
   border-radius: 4px;
 }
 

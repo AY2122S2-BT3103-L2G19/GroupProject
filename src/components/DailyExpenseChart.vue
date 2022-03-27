@@ -51,14 +51,15 @@ export default {
       var trans = [];
       docs.forEach((doc) => {
         let docData = doc.data();
-        console.log(docData, " doc data");
+        //console.log(docData, " doc data");
         let transDetails = [];
         transDetails.push(docData.Date);
         transDetails.push(docData.Amount);
         trans.push(transDetails);
       });
       this.chartParams = trans;
-      console.log(this.chartParams, " updated chart")
+      //console.log(this.chartParams, " updated chart")
+      console.log("daily expense done")
     },
   },
   mounted() {
