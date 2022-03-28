@@ -29,14 +29,16 @@ export default {
   data() {
     return {
       fbuser: "",
+      modelStatus: false, 
+
     };
   },
 
   mounted() {
     const auth = getAuth();
     console.log(auth, "  auth from display");
-    // this.fbuser = auth.currentUser.email;
-    // console.log(this.fbuser, "  from display");
+    this.fbuser = auth.currentUser.email;
+    console.log(this.fbuser, "  from display");
     this.display("meow@poop.com");
   },
 
@@ -79,6 +81,7 @@ export default {
         editBut.innerHTML = "Edit";
         editBut.onclick = () => {
           this.$emit("model-show2")
+          this.$emit("added")
           console.log("edit on click ")
         };
         cell8.appendChild(editBut);
@@ -107,6 +110,11 @@ export default {
       }
       this.display(user);
     },
+
+    modelToggle() {
+      this.modelStatus = !this.modelStatus;
+    },
+
   },
 };
 </script>
