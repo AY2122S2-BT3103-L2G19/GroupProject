@@ -9,7 +9,7 @@ export default {
   name: "NavbarEditSpendingGoals",
   methods: {
     openModel() {
-      this.$emit("model-show");
+      this.$emit("model-show2");
     },
   },
 };
