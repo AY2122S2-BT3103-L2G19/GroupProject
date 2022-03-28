@@ -19,43 +19,63 @@
 import firebaseApp from "../firebase.js";
 import { getFirestore } from "firebase/firestore";
 import { collection, getDocs } from "firebase/firestore";
-/*import { getAuth } from "firebase/auth";*/
+import {getAuth, onAuthStateChanged} from "firebase/auth";
 
 const db = getFirestore(firebaseApp);
 
 export default {
+  data() {
+      return {
+          user: false,
+      }
+  },
+
   mounted() {
-    async function display() {
-      /*const auth = getAuth();*/
-      var user = "meow@poop.com";
-      let collection_required = await getDocs(collection(db, user, "Transactions", "Owed Payments"))
-
-      let start_sn = 1 
-
-      collection_required.forEach((docs) => {
-        let data_required = docs.data()
-        var table = document.getElementById("table")
-        var row = table.insertRow(start_sn)
-
-        var name = (data_required.Name)
-        var amount = (data_required.Amount)
-        var date = (data_required.Date)
-        var date_of_return = (data_required.Date_Of_Return)
-        var category = (data_required.Category)
-        var description = (data_required.Description)
-
-        var cell0 = row.insertCell(0); var cell1 = row.insertCell(1); var cell2 = row.insertCell(2);
-        var cell3 = row.insertCell(3); var cell4 = row.insertCell(4); var cell5 = row.insertCell(5);
-        var cell6 = row.insertCell(6);
-
-        cell0.innerHTML = start_sn; cell1.innerHTML = name; cell2.innerHTML = amount; cell3.innerHTML = date;
-        cell4.innerHTML = date_of_return; cell5.innerHTML = category; cell6.innerHTML = description; 
-
-        start_sn += 1
+    const auth = getAuth();
+      onAuthStateChanged(auth, (user) => {
+          if (user) {
+            this.user=user.email;
+            console.log(user.email);
+          }
       })
-    }
-    display()
+    },
+
+  watch : { 
+    user() {
+      console.log("updated running")
+
+      async function display(user) {
+      /*const auth = getAuth();*/
+      /*var user = "meow@poop.com";*/
+        let collection_required = await getDocs(collection(db, user, "Transactions", "Owed Payments"));
+
+        let start_sn = 1;
+
+        collection_required.forEach((docs) => {
+          let data_required = docs.data()
+          var table = document.getElementById("table")
+          var row = table.insertRow(start_sn)
+
+          var name = (data_required.Name)
+          var amount = (data_required.Amount)
+          var date = (data_required.Date)
+          var date_of_return = (data_required.Date_Of_Return)
+          var category = (data_required.Category)
+          var description = (data_required.Description)
+
+          var cell0 = row.insertCell(0); var cell1 = row.insertCell(1); var cell2 = row.insertCell(2);
+          var cell3 = row.insertCell(3); var cell4 = row.insertCell(4); var cell5 = row.insertCell(5);
+          var cell6 = row.insertCell(6);
+
+          cell0.innerHTML = start_sn; cell1.innerHTML = name; cell2.innerHTML = amount; cell3.innerHTML = date;
+          cell4.innerHTML = date_of_return; cell5.innerHTML = category; cell6.innerHTML = description; 
+
+          start_sn += 1
+        });
+      }
+      display(this.user)
     } 
+  }
 }
 </script>
 
