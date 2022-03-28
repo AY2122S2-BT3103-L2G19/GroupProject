@@ -37,8 +37,8 @@ export default {
   mounted() {
     const auth = getAuth();
     console.log(auth, "  auth from display");
-    this.fbuser = auth.currentUser.email;
-    console.log(this.fbuser, "  from display");
+    // this.fbuser = auth.currentUser.email;
+    // console.log(this.fbuser, "  from display");
     this.display("meow@poop.com");
   },
 
