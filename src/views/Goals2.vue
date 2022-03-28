@@ -8,11 +8,11 @@
     @added="change"
   />
   <SpendingGoals2 :key="refreshComp" />
-  <NavbarEditSpendingGoals @model-show="modelToggle" />
+  <NavbarEditSpendingGoals @model-show="modelToggle2" />
   <ModelEditSpendingGoals
-    @model-toggle="modelToggle"
-    :status="modelStatus"
-    @added="change"
+    @model-toggle="modelToggle2"
+    :status="modelStatus2"
+    @added="change2"
   />
 </template>
 
