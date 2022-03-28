@@ -8,11 +8,11 @@
     @added="change"
   />
   <SpendingGoals2 :key="refreshComp" />
-  <NavbarEditSpendingGoals @model-show="modelToggle2" />
+  <NavbarEditSpendingGoals @model-show="modelToggle" />
   <ModelEditSpendingGoals
-    @model-toggle="modelToggle2"
-    :status="modelStatus2"
-    @added="change2"
+    @model-toggle="modelToggle"
+    :status="modelStatus"
+    @added="change"
   />
 </template>
 
@@ -24,10 +24,15 @@ import ModelSpendingGoals from "../components/ModelSpendingGoals.vue";
 import NavbarEditSpendingGoals from "../components/NavbarEditSpendingGoals.vue";
 import ModelEditSpendingGoals from "../components/ModelEditSpendingGoals.vue";
 
-
 export default {
   name: "Goals2",
-  components: { SpendingGoals2, NavbarSpendingGoals, ModelSpendingGoals, NavbarEditSpendingGoals, ModelEditSpendingGoals },
+  components: {
+    SpendingGoals2,
+    NavbarSpendingGoals,
+    ModelSpendingGoals,
+    NavbarEditSpendingGoals,
+    ModelEditSpendingGoals,
+  },
   data() {
     return {
       refreshComp: 0,

@@ -1,6 +1,6 @@
 <template>
   <nav>
-    <button class="button" @click="openModel">Edit Spending Goals</button>
+    <button class="button" @click="openModel">Add Spending Goals</button>
   </nav>
 </template>
 
@@ -9,7 +9,7 @@ export default {
   name: "NavbarEditSpendingGoals",
   methods: {
     openModel() {
-      this.$emit("model-show2");
+      this.$emit("model-show");
     },
   },
 };
