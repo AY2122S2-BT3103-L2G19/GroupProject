@@ -1,7 +1,7 @@
 <template>
   <div class="chart">
     <h4 class="title">Past expenses</h4>
-    <line-chart class = "user" width = 100% ytitle="Expenditure ($)" :data = "chartParams"></line-chart>
+    <line-chart id="linechart" class = "user" width = 100% ytitle="Expenditure ($)" :data = "chartParams"></line-chart>
   </div>
 </template>
 
@@ -17,67 +17,51 @@ export default {
   name: 'DailyExpenseChart',
   data () {
     return {
-        fbuser: "",
+        user: false,
         chartParams:[]
     }
   },
   methods: {
-    async updateData() {
-      var currUser = "";
-      var docs = null;
-      /*
-      const auth = getAuth();
-      const user = auth.currentUser;
-      currUser = String(user);
-      console.log(currUser, " is current user")
-      */
-      const auth = getAuth();
-      console.log("is auth even retrieved?")
-      onAuthStateChanged(auth, (user) => {
-      if (user) {
-      // User is signed in, see docs for a list of available properties
-      // https://firebase.google.com/docs/reference/js/firebase.User
-        const uid = user.email;
-        currUser = uid;
-      } else {
-        console.log("no user found")
-      // User is signed out
-      // ...
-      }
-      });
-      currUser = "meow@poop.com"
-      docs = await getDocs(
-        collection(db, currUser, "Transactions", "Expenses"));
-      var trans = [];
-      docs.forEach((doc) => {
-        let docData = doc.data();
-        //console.log(docData, " doc data");
-        let transDetails = [];
-        transDetails.push(docData.Date);
-        transDetails.push(docData.Amount);
-        trans.push(transDetails);
-      });
-
-      this.chartParams = trans;
-      //console.log(this.chartParams, " updated chart")
-      console.log("daily expense done")
-    },
+    async updatedData(currUser) {
+          var docs = null;
+          docs = await getDocs(
+          collection(db, currUser, "Transactions", "Expenses"));
+          var trans = [];
+          docs.forEach((doc) => {
+          let docData = doc.data();
+          //console.log(docData, " doc data");
+          let transDetails = [];
+          transDetails.push(docData.Date);
+          transDetails.push(docData.Amount);
+          trans.push(transDetails);
+          });
+          
+          //this.chartParams = trans;
+          //console.log(this.chartParams, " updated chart")
+          console.log("daily expense done")
+          this.chartParams = trans;
+          return trans;
+        }
+    
   },
   mounted() {
-  
     //this.updateUser();
-    /*
     const auth = getAuth();      
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-      console.log(user.email, " is current user id")
-      const userid = user.email;
-      this.fbuser = userid;
+    onAuthStateChanged(auth, (currUser) => {
+      if (currUser) {
+      console.log(currUser.email, " is current user id")
+      const userEmail = currUser.email;
+      this.user = userEmail;
+      this.updatedData(this.user);
       } else {
-      console.log(user, "user not found....") }
+      console.log(currUser, "user not found....") }
     });
-    */
-    this.updateData()
+  },
+  watch:{
+    chartParams() {
+    },
+    user() {
+    }
   }
 }
 </script>
