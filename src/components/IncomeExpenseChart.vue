@@ -17,28 +17,11 @@ export default {
   name: 'IncomeExpenseChart',
   data () {
     return {
-        fbuser: "",
         chartParams:{}
     }
   },
   methods: {
-    async updateData() {
-      var currUser = "";
-      const auth = getAuth();
-      console.log("is auth even retrieved?")
-      onAuthStateChanged(auth, (user) => {
-      if (user) {
-      // User is signed in, see docs for a list of available properties
-      // https://firebase.google.com/docs/reference/js/firebase.User
-        const uid = user.email;
-        currUser = uid;
-      } else {
-        console.log("no user found")
-      // User is signed out
-      // ...
-      }
-      });
-      currUser = "meow@poop.com";
+    async updateData(currUser) {
       var incomes = [];
       var expenses = [];
       var expenseDocs = null;
@@ -52,12 +35,10 @@ export default {
         transDetails.push(docData.Date);
         transDetails.push(docData.Amount);
         expenses.push(transDetails);
-        //console.log(transDetails, " trans detail check")
       });
       var expensesByMonth = new Map();
       for (let i = 0; i < expenses.length; i++) {
         let month = expenses[i][0].slice(3,5);
-        //console.log(month, " month check")
         if (expensesByMonth.has(month)) {
           let currAmt = expensesByMonth.get(month);
           expensesByMonth.set(month, currAmt + expenses[i][1])
@@ -134,7 +115,6 @@ export default {
       var incomesByMonth = new Map();
       for (let i = 0; i < incomes.length; i++) {
         let month = incomes[i][0].slice(3,5);
-        //console.log(month, " month check")
         if (incomesByMonth.has(month)) {
           let currAmt = expensesByMonth.get(month);
           incomesByMonth.set(month, currAmt + incomes[i][1])
@@ -208,21 +188,20 @@ export default {
       console.log("income expense done")
     },
   },
-  mounted() {
-  
-    //this.updateUser();
-    /*
-    const auth = getAuth();      
+  mounted() {  
+    const auth = getAuth();
     onAuthStateChanged(auth, (user) => {
       if (user) {
-      console.log(user.email, " is current user id")
-      const userid = user.email;
-      this.fbuser = userid;
+        // User is signed in, see docs for a list of available properties
+        // https://firebase.google.com/docs/reference/js/firebase.User
+        const userEmail = user.email;
+        this.updateData(userEmail);
       } else {
-      console.log(user, "user not found....") }
+        console.log("no user found")
+        // User is signed out
+        // ...
+      }
     });
-    */
-    this.updateData()
   }
 }
 </script>

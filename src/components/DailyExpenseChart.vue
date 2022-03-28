@@ -24,23 +24,33 @@ export default {
   methods: {
     async updatedData(currUser) {
           var docs = null;
+          
           docs = await getDocs(
           collection(db, currUser, "Transactions", "Expenses"));
-          var trans = [];
+          var expensesByDate = new Map();
           docs.forEach((doc) => {
           let docData = doc.data();
-          //console.log(docData, " doc data");
-          let transDetails = [];
-          transDetails.push(docData.Date);
-          transDetails.push(docData.Amount);
-          trans.push(transDetails);
+          let date = docData.Date;
+          if (expensesByDate.has(date)) {
+            let currAmt = expensesByDate.get(date);
+            expensesByDate.set(date, currAmt + docData.Amount)
+          } else {
+            expensesByDate.set(date, docData.Amount);
+          }
+          if (expensesByDate.size > 4) {
+            return false;
+          }
+          return true;
           });
           
-          //this.chartParams = trans;
-          //console.log(this.chartParams, " updated chart")
+          var expensesByDateFinal = [];
+          expensesByDate.forEach((value, key)=> {
+            expensesByDateFinal.push([key, value]);
+            console.log([key, value], "each date?");
+          });
           console.log("daily expense done")
-          this.chartParams = trans;
-          return trans;
+          this.chartParams = expensesByDateFinal;
+          return expensesByDateFinal;
         }
     
   },
