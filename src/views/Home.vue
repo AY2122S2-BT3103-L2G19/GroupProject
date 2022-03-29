@@ -1,5 +1,6 @@
 <template>
-    <h1>Hello from Home</h1>
+    <h1>Welcome back to your Dashboard</h1>
+    <br> <br>
     <div id = "home_container">
       <div id="article"><DailyReads/></div>
       <div id="button"><AddTransactionButton/></div>
@@ -56,44 +57,53 @@ mounted() {
   background-color: burlywood;
   width:60%; 
   float:left; 
-  height:200px; 
+  height:300px; 
   background:gray; 
-  margin:10px
+  margin:0px;
+  border: solid 2px black;
+  border-radius: 5px;
+  padding: 10px 2px 10px 2px;
 }
 
 #button {
   background-color: burlywood;
   width:30%; 
   float:left; 
-  height:200px; 
+  height:355px; 
   background:none; 
-  margin:40px
+  margin:20px
 }
 
 #chart1 {
   background-color: burlywood;
   width:30%; 
   float:left; 
-  height:200px; 
-  background:gray; 
-  margin:10px
+  height:355px; 
+  background:rgb(255, 255, 255); 
+  margin:10px;
+  padding: 5px 0px 5px 0px;
+  border: solid 2px rgb(0, 0, 0);
+  border-radius: 4px;
 }
 
 #chart2 {
   background-color: burlywood;
   width:30%; 
   float:left; 
-  height:200px; 
-  background:gray; 
-  margin:10px
+  height:350px; 
+  background:rgb(255, 255, 255); 
+  margin:10px;
+  padding: 5px 0px 5px 0px;
+  border: solid 2px rgb(0, 0, 0);
+  border-radius: 4px;
 }
 
 #table1 {
   background-color: burlywood;
-  width:30%; 
+  width:34%; 
   float:left; 
-  height:200px; 
-  background:gray; 
+  height:350px;
+  background:burlywood;
   margin:10px
 }
 

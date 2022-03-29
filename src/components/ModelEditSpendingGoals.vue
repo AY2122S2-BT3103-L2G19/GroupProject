@@ -3,9 +3,9 @@
     <div class="model" @click.self="toggle">
       <div class="model__container">
         <div class="model__form">
-          <form @submit.prevent="AddSpendingGoals">
+          <form @submit.prevent="EditSpendingGoals">
             <div class="model__group">
-              <h3>Add / Edit Spending Goals</h3>
+              <h3>Edit Spending Goals</h3>
             </div>
             <div class="model__group">
               <label for="category">Category: </label>
@@ -29,7 +29,7 @@
               />
             </div>
             <div class="model__group">
-              <input type="submit" value="Add / Edit Spending Goals" class="button" />
+              <input type="submit" value="Edit Spending Goals" class="button" />
             </div>
           </form>
         </div>
@@ -47,7 +47,7 @@ import { getAuth } from "firebase/auth";
 const db = getFirestore(firebaseApp);
 
 export default {
-  name: "ModelSpendingGoals",
+  name: "ModelEditSpendingGoals",
   props: ["status"],
   data() {
     return {
@@ -68,7 +68,7 @@ export default {
       this.$emit("model-toggle");
     },
 
-    async AddSpendingGoals() {
+    async EditSpendingGoals() {
       const auth = getAuth();
       console.log(auth, " auth from Add spending goals");
       this.fbuser = auth.currentUser.email;

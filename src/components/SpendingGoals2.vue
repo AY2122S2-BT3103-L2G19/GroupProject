@@ -7,8 +7,6 @@
       <th>Goal (Monthly) ($)</th>
       <th>Remaining Budget ($)</th>
       <th>Percentage spent(%)</th>
-      <th>Progress</th>
-      <th>Edit</th>
       <th>Delete</th>
     </tr>
   </table>
@@ -18,7 +16,8 @@
 import { getFirestore } from "firebase/firestore";
 import firebaseApp from "../firebase.js";
 const db = getFirestore(firebaseApp);
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+// import { getAuth } from "firebase/auth";
+import { getAuth } from "firebase/auth";
 import { collection, getDocs, doc, deleteDoc } from "firebase/firestore";
 
 export default {
@@ -28,27 +27,20 @@ export default {
   data() {
     return {
       fbuser: "",
+      modelStatus: false,
     };
   },
 
   mounted() {
     const auth = getAuth();
-    this.fbuser = auth.currentUser.email;
-
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        this.user = user;
-        console.log(user.email);
-        // this.$router.push("/");
-      }
-    });
-    console.log(this.fbuser, " fbuser from goals display");
-    this.display(this.fbuser);
+    console.log(auth, "  auth from display");
+    // this.fbuser = auth.currentUser.email;
+    // console.log(this.fbuser, "  from display");
+    this.display("meow@poop.com");
   },
 
   methods: {
     async display(user) {
-      console.log(this.fbuser, " fbuser from goals");
       let doc = await getDocs(
         collection(db, String(user), "Spending Goals", "Goals")
       );
@@ -67,8 +59,6 @@ export default {
         var cell5 = row.insertCell(4);
         var cell6 = row.insertCell(5);
         var cell7 = row.insertCell(6);
-        var cell8 = row.insertCell(7);
-        var cell9 = row.insertCell(8);
 
         cell1.innerHTML = ind;
         cell2.innerHTML = Category;
@@ -76,16 +66,8 @@ export default {
         cell4.innerHTML = goal;
         cell5.innerHTML = 0;
         cell6.innerHTML = 0;
-        cell7.innerHTML = 0;
-        cell8.innerHTML = 0;
 
-        var editBut = document.createElement("button");
-
-        editBut.className = "Ebwt";
-        editBut.id = "editbutton";
-        editBut.innerHTML = "Edit";
-        editBut.onclick = function () {};
-        cell8.appendChild(editBut);
+        this.getExpense(Category, user);
 
         var delBut = document.createElement("button");
         delBut.className = "bwt";
@@ -94,7 +76,7 @@ export default {
         delBut.onclick = () => {
           this.deleteInstrument(Category, user);
         };
-        cell9.appendChild(delBut);
+        cell7.appendChild(delBut);
         ind += 1;
       });
     },
@@ -110,6 +92,61 @@ export default {
         tb.deleteRow(1);
       }
       this.display(user);
+    },
+
+    modelToggle() {
+      this.modelStatus = !this.modelStatus;
+    },
+
+    async getExpense(category, user) {
+      var expenses = [];
+      var expenseDocs = null;
+      expenseDocs = await getDocs(
+        collection(db, user, "Transactions", "Expenses")
+      );
+      //extract expenses
+      expenseDocs.forEach((doc) => {
+        let docData = doc.data();
+        let transDetails = [];
+        if (docData.Category == category) {
+          transDetails.push(docData.Category);
+          transDetails.push(docData.Date);
+          transDetails.push(docData.Amount);
+          expenses.push(transDetails);
+        }
+      });
+
+      console.log(expenses, " expenses");
+
+      var expensesByMonth = new Map();
+      for (let i = 0; i < expenses.length; i++) {
+        let month = expenses[i][1].slice(3, 5);
+        if (expensesByMonth.has(month)) {
+          let currAmt = expensesByMonth.get(month);
+          expensesByMonth.set(month, currAmt + expenses[i][2]);
+        } else {
+          expensesByMonth.set(month, expenses[i][2]);
+        }
+      }
+
+      var expensesByMonthFinal = [];
+      //convert map back to array
+      expensesByMonth.forEach((value, key) => {
+        expensesByMonthFinal.push([key, value]);
+      });
+
+      var expensesByMonthSorted = expensesByMonthFinal.sort();
+
+      console.log(expensesByMonthSorted, " expensesByMonthSorted");
+
+      var currentMonth = new Date().getMonth() + 1;
+
+      console.log(currentMonth, " currentMonth ");
+
+      console.log(
+        expensesByMonthSorted[currentMonth - 1],
+        " Current mon expense"
+      );
     },
   },
 };
