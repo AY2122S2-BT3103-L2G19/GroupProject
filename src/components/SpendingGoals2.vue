@@ -67,7 +67,42 @@ export default {
         cell5.innerHTML = 0;
         cell6.innerHTML = 0;
 
-        this.getExpense(Category, user);
+        getExpense(Category);
+        var totalSpent = 0;
+        async function getExpense(category) {
+          var expenses = [];
+          var expenseDocs = null;
+          expenseDocs = await getDocs(
+            collection(db, user, "Transactions", "Expenses")
+          );
+          var currentMonth = new Date().getMonth() + 1;
+          //extract expenses
+          expenseDocs.forEach((doc) => {
+            let docData = doc.data();
+            let transDetails = [];
+            if (
+              docData.Category == category &&
+              parseInt(docData.Date.slice(3, 5)) == currentMonth
+            ) {
+              transDetails.push(docData.Category);
+              transDetails.push(docData.Date);
+              transDetails.push(docData.Amount);
+              expenses.push(transDetails);
+            }
+          });
+
+          var Spent = 0;
+          for (let i = 0; i < expenses.length; i++) {
+            Spent = Spent + expenses[i][2];
+          }
+          totalSpent = Spent;
+          console.log(totalSpent, " total inner")
+          cell3.innerHTML = Spent;
+        }
+
+        console.log(totalSpent, " total")
+        cell5.innerHTML = goal - totalSpent;
+        cell6.innerHTML = (totalSpent / goal) * 100;
 
         var delBut = document.createElement("button");
         delBut.className = "bwt";
@@ -98,56 +133,62 @@ export default {
       this.modelStatus = !this.modelStatus;
     },
 
-    async getExpense(category, user) {
-      var expenses = [];
-      var expenseDocs = null;
-      expenseDocs = await getDocs(
-        collection(db, user, "Transactions", "Expenses")
-      );
-      //extract expenses
-      expenseDocs.forEach((doc) => {
-        let docData = doc.data();
-        let transDetails = [];
-        if (docData.Category == category) {
-          transDetails.push(docData.Category);
-          transDetails.push(docData.Date);
-          transDetails.push(docData.Amount);
-          expenses.push(transDetails);
-        }
-      });
+    // async getExpense(category, user) {
+    //   var expenses = [];
+    //   var expenseDocs = null;
+    //   expenseDocs = await getDocs(
+    //     collection(db, user, "Transactions", "Expenses")
+    //   );
+    //   //extract expenses
+    //   expenseDocs.forEach((doc) => {
+    //     let docData = doc.data();
+    //     let transDetails = [];
+    //     if (docData.Category == category) {
+    //       transDetails.push(docData.Category);
+    //       transDetails.push(docData.Date);
+    //       transDetails.push(docData.Amount);
+    //       expenses.push(transDetails);
+    //     }
+    //   });
 
-      console.log(expenses, " expenses");
+    //   console.log(expenses, " expenses");
 
-      var expensesByMonth = new Map();
-      for (let i = 0; i < expenses.length; i++) {
-        let month = expenses[i][1].slice(3, 5);
-        if (expensesByMonth.has(month)) {
-          let currAmt = expensesByMonth.get(month);
-          expensesByMonth.set(month, currAmt + expenses[i][2]);
-        } else {
-          expensesByMonth.set(month, expenses[i][2]);
-        }
-      }
+    //   var expensesByMonth = new Map();
+    //   for (let i = 0; i < expenses.length; i++) {
+    //     let month = expenses[i][1].slice(3, 5);
+    //     if (expensesByMonth.has(month)) {
+    //       let currAmt = expensesByMonth.get(month);
+    //       expensesByMonth.set(month, currAmt + expenses[i][2]);
+    //     } else {
+    //       expensesByMonth.set(month, expenses[i][2]);
+    //     }
+    //   }
 
-      var expensesByMonthFinal = [];
-      //convert map back to array
-      expensesByMonth.forEach((value, key) => {
-        expensesByMonthFinal.push([key, value]);
-      });
+    //   var expensesByMonthFinal = [];
+    //   //convert map back to array
+    //   expensesByMonth.forEach((value, key) => {
+    //     expensesByMonthFinal.push([key, value]);
+    //   });
 
-      var expensesByMonthSorted = expensesByMonthFinal.sort();
+    //   var expensesByMonthSorted = expensesByMonthFinal.sort();
 
-      console.log(expensesByMonthSorted, " expensesByMonthSorted");
+    //   console.log(expensesByMonthSorted, " expensesByMonthSorted");
 
-      var currentMonth = new Date().getMonth() + 1;
+    //   var currentMonth = new Date().getMonth() + 1;
 
-      console.log(currentMonth, " currentMonth ");
+    //   console.log(currentMonth, " currentMonth ");
 
-      console.log(
-        expensesByMonthSorted[currentMonth - 1],
-        " Current mon expense"
-      );
-    },
+    //   console.log(
+    //     expensesByMonthSorted[currentMonth - 1],
+    //     " Current mon expense"
+    //   );
+
+    //   if (expensesByMonthSorted[currentMonth - 1].length > 0) {
+    //     return expensesByMonthSorted[currentMonth - 1][1];
+    //   } else {
+    //     return 0;
+    //   }
+    // },
   },
 };
 </script>
