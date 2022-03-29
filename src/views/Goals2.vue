@@ -15,6 +15,7 @@
     :status="modelStatus2"
     @added="change2"
   />
+  <saving-goals :key="refreshComp2" />
 </template>
 
 <script>
@@ -24,6 +25,7 @@ import NavbarSpendingGoals from "../components/NavbarSpendingGoals.vue";
 import ModelSpendingGoals from "../components/ModelSpendingGoals.vue";
 import NavbarSavingGoals from "../components/NavbarSavingGoals.vue";
 import ModelSavingGoals from "../components/ModelSavingGoals.vue";
+import SavingGoals from '../components/SavingGoals.vue';
 
 export default {
   name: "Goals2",
@@ -33,10 +35,12 @@ export default {
     ModelSpendingGoals,
     NavbarSavingGoals,
     ModelSavingGoals,
+    SavingGoals,
   },
   data() {
     return {
       refreshComp: 0,
+      refreshComp2: 0,
       modelStatus: false,
       modelStatus2: false,
       user: false,
@@ -71,7 +75,7 @@ export default {
     },
 
     change2() {
-      this.refreshComp += 1;
+      this.refreshComp2 += 1;
       this.modelStatus2 = false;
     },
   },
