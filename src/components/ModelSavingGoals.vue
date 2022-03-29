@@ -11,12 +11,27 @@
               <label for="category">Category: </label>
 
               <select @change="selectCategory($event)" id="category">
-                <option value="Short-term Goal">Short-term Goal (less than 1 year)</option>
-                <option value="Mid-term Goal">Mid-term Goal (1 - 3 years)</option>
-                <option value="Long-term Goal">Long-term Goal (> 3 years)</option>
+                <option value="Short-term Goal">
+                  Short-term Goal (less than 1 year)
+                </option>
+                <option value="Mid-term Goal">
+                  Mid-term Goal (1 - 3 years)
+                </option>
+                <option value="Long-term Goal">
+                  Long-term Goal (> 3 years)
+                </option>
               </select>
             </div>
-
+            <div class="model__group">
+              <label for="date">Desired Start Date: </label>
+              <input
+                type="date"
+                class="model__control"
+                placeholder="Start Date"
+                v-model="date"
+                id="date"
+              />
+            </div>
             <div class="model__group">
               <input
                 type="number"
@@ -26,7 +41,11 @@
               />
             </div>
             <div class="model__group">
-              <input type="submit" value="Add / Edit Saving Goals" class="button" />
+              <input
+                type="submit"
+                value="Add / Edit Saving Goals"
+                class="button"
+              />
             </div>
           </form>
         </div>
@@ -50,14 +69,14 @@ export default {
     return {
       title: "Short-term Goal",
       number: null,
+      date: "",
       fbuser: "",
     };
   },
   mounted() {
     const auth = getAuth();
-    console.log(auth, " auth from add goals")
+    console.log(auth, " auth from add goals");
     // this.fbuser = auth.currentUser.email;
-    
   },
 
   methods: {
@@ -68,10 +87,14 @@ export default {
     async AddSavingGoals() {
       const auth = getAuth();
       this.fbuser = auth.currentUser.email;
+      var date2 = "";
+      date2 = this.date.slice(8, 10) + "/" + this.date.slice(5, 7) + "/" + this.date.slice(0, 4)
+      this.date = date2
       await setDoc(
         doc(db, String(this.fbuser), "Saving Goals", "Goals", this.title),
         {
           Category: this.title,
+          StartDate: this.date,
           Goals: this.number,
         }
       );

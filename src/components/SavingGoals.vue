@@ -3,9 +3,10 @@
     <tr>
       <th>S/N</th>
       <th>Category</th>
+      <th>Start Date</th>
       <th>Saved ($)</th>
       <th>Goal ($)</th>
-      <th>Distance ($)</th>
+      <th>$$ more ($)</th>
       <th>Percentage spent(%)</th>
       <th>Delete</th>
     </tr>
@@ -21,7 +22,7 @@ import { getAuth } from "firebase/auth";
 import { collection, getDocs, doc, deleteDoc } from "firebase/firestore";
 
 export default {
-  name: "SpendingGoals2",
+  name: "SavingGoals",
   components: {},
 
   data() {
@@ -59,18 +60,20 @@ export default {
         var cell5 = row.insertCell(4);
         var cell6 = row.insertCell(5);
         var cell7 = row.insertCell(6);
+        var cell8 = row.insertCell(7);
 
         cell1.innerHTML = ind;
         cell2.innerHTML = Category;
-        cell3.innerHTML = 0;
-        cell4.innerHTML = goal;
-        cell5.innerHTML = 0;
+        cell3.innerHTML = docData.StartDate;
+        cell4.innerHTML = 0;
+        cell5.innerHTML = goal;
         cell6.innerHTML = 0;
+        cell7.innerHTML = 0;
 
         this.getExpense(Category, user).then((x) => {
-          cell3.innerHTML = x;
-          cell5.innerHTML = goal - x;
-          cell6.innerHTML = parseFloat((x / goal) * 100).toFixed(2);
+          cell4.innerHTML = x;
+          cell6.innerHTML = goal - x;
+          cell7.innerHTML = parseFloat((x / goal) * 100).toFixed(2);
           console.log(x, " x");
         });
 
@@ -81,21 +84,20 @@ export default {
         delBut.onclick = () => {
           this.deleteInstrument(Category, user);
         };
-        cell7.appendChild(delBut);
+        cell8.appendChild(delBut);
         ind += 1;
       });
     },
 
     async deleteInstrument(category, user) {
       alert("You are going to delete " + category);
-      await deleteDoc(
-        doc(db, String(user), "Spending Goals", "Goals", category)
-      );
+      await deleteDoc(doc(db, String(user), "Saving Goals", "Goals", category));
       let tb = document.getElementById("spendingGoalsTable");
       //delete everything, make data empty and call the display again
       while (tb.rows.length > 1) {
         tb.deleteRow(1);
       }
+      window.location.reload();
       this.display(user);
     },
 
