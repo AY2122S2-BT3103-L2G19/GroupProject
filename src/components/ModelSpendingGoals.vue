@@ -16,6 +16,7 @@
                 <option value="Shopping">Shopping</option>
                 <option value="Entertainment">Entertainment</option>
                 <option value="Groceries">Groceries</option>
+                <option value="Groceries">Bills</option>
                 <option value="Others">Others</option>
               </select>
             </div>
