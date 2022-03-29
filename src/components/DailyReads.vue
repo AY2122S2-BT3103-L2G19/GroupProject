@@ -1,13 +1,15 @@
 <template>
   <div class="article">
+    <h1 class="title">{{currentDateText()}}</h1>
     <h2 class="content"> 
-      <iframe id="iframe" v-bind:src="article" width=100% height="300" name="myFrame"></iframe>
-      <a v-bind:href="article" target="_blank">Open your {{currentDateText()}}</a>
+      <iframe id="iframe" v-bind:src="article" width="870" height="160" style="border: none;" name="myFrame"></iframe>
+      <a v-bind:href="article" target="_blank">Open Article!</a>
     </h2>
   </div>
 </template>
 
 <script>
+
 function is_iframeable(weblink) {
   try {
     var req = new XMLHttpRequest();
@@ -56,15 +58,5 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-/*
-#iframe{
-  border:2px;
-  border-color:darkgray;
-}*/
-a{
-  border: solid 2px black;
-  border-radius: 5px;
-  margin: 4px;
-  padding: 0px 6px 0px 6px;
-}
+
 </style>

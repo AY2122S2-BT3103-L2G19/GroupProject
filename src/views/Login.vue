@@ -32,7 +32,6 @@ export default {
       email: "meow@poop.com",
       password: "iwanttodie",
       user: null,
-      
     };
   },
   mounted() {

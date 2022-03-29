@@ -7,14 +7,7 @@
     :status="modelStatus"
     @added="change"
   />
-  <SpendingGoals2 :key="refreshComp" />
-  <h2>Saving Goals</h2>
-  <NavbarEditSpendingGoals @model-show="modelToggle2" />
-  <ModelEditSpendingGoals
-    @model-toggle="modelToggle2"
-    :status="modelStatus2"
-    @added="change2"
-  />
+  <SpendingGoals2 :key="refreshComp"/>
 </template>
 
 <script>
@@ -22,23 +15,14 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import SpendingGoals2 from "../components/SpendingGoals2.vue";
 import NavbarSpendingGoals from "../components/NavbarSpendingGoals.vue";
 import ModelSpendingGoals from "../components/ModelSpendingGoals.vue";
-import NavbarEditSpendingGoals from "../components/NavbarEditSpendingGoals.vue";
-import ModelEditSpendingGoals from "../components/ModelEditSpendingGoals.vue";
 
 export default {
   name: "Goals2",
-  components: {
-    SpendingGoals2,
-    NavbarSpendingGoals,
-    ModelSpendingGoals,
-    NavbarEditSpendingGoals,
-    ModelEditSpendingGoals,
-  },
+  components: { SpendingGoals2, NavbarSpendingGoals, ModelSpendingGoals },
   data() {
     return {
       refreshComp: 0,
       modelStatus: false,
-      modelStatus2: false,
       user: false,
       Goals: {
         Category: "",
@@ -52,6 +36,9 @@ export default {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         this.user = user;
+        console.log(user.email);
+      } else {
+        this.$router.push("/login");
       }
     });
   },
@@ -61,18 +48,9 @@ export default {
       this.modelStatus = !this.modelStatus;
     },
 
-    modelToggle2() {
-      this.modelStatus2 = !this.modelStatus2;
-    },
-
     change() {
       this.refreshComp += 1;
       this.modelStatus = false;
-    },
-
-    change2() {
-      this.refreshComp += 1;
-      this.modelStatus2 = false;
     },
   },
 };
