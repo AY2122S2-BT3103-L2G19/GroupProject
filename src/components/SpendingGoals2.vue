@@ -7,8 +7,6 @@
       <th>Goal (Monthly) ($)</th>
       <th>Remaining Budget ($)</th>
       <th>Percentage spent(%)</th>
-      <th>Progress</th>
-      <th>Edit</th>
       <th>Delete</th>
     </tr>
   </table>
@@ -61,8 +59,6 @@ export default {
         var cell5 = row.insertCell(4);
         var cell6 = row.insertCell(5);
         var cell7 = row.insertCell(6);
-        var cell8 = row.insertCell(7);
-        var cell9 = row.insertCell(8);
 
         cell1.innerHTML = ind;
         cell2.innerHTML = Category;
@@ -70,22 +66,8 @@ export default {
         cell4.innerHTML = goal;
         cell5.innerHTML = 0;
         cell6.innerHTML = 0;
-        cell7.innerHTML = 0;
-        cell8.innerHTML = 0;
 
-        this.getExpense(user)
-
-        var editBut = document.createElement("button");
-
-        editBut.className = "Ebwt";
-        editBut.id = "editbutton";
-        editBut.innerHTML = "Edit";
-        editBut.onclick = () => {
-          this.$emit("model-show2");
-          this.$emit("added");
-          console.log("edit on click ");
-        };
-        cell8.appendChild(editBut);
+        this.getExpense(Category, user);
 
         var delBut = document.createElement("button");
         delBut.className = "bwt";
@@ -94,7 +76,7 @@ export default {
         delBut.onclick = () => {
           this.deleteInstrument(Category, user);
         };
-        cell9.appendChild(delBut);
+        cell7.appendChild(delBut);
         ind += 1;
       });
     },
@@ -116,34 +98,37 @@ export default {
       this.modelStatus = !this.modelStatus;
     },
 
-    async getExpense(currUser) {
+    async getExpense(category, user) {
       var expenses = [];
       var expenseDocs = null;
       expenseDocs = await getDocs(
-        collection(db, currUser, "Transactions", "Expenses")
+        collection(db, user, "Transactions", "Expenses")
       );
       //extract expenses
       expenseDocs.forEach((doc) => {
         let docData = doc.data();
         let transDetails = [];
-        transDetails.push(docData.Date);
-        transDetails.push(docData.Amount);
-        expenses.push(transDetails);
+        if (docData.Category == category) {
+          transDetails.push(docData.Category);
+          transDetails.push(docData.Date);
+          transDetails.push(docData.Amount);
+          expenses.push(transDetails);
+        }
       });
 
-      console.log(expenses, " expenses")
+      console.log(expenses, " expenses");
 
       var expensesByMonth = new Map();
       for (let i = 0; i < expenses.length; i++) {
-        let month = expenses[i][0].slice(3, 5);
+        let month = expenses[i][1].slice(3, 5);
         if (expensesByMonth.has(month)) {
           let currAmt = expensesByMonth.get(month);
-          expensesByMonth.set(month, currAmt + expenses[i][1]);
+          expensesByMonth.set(month, currAmt + expenses[i][2]);
         } else {
-          expensesByMonth.set(month, expenses[i][1]);
+          expensesByMonth.set(month, expenses[i][2]);
         }
       }
-      console.log(expensesByMonth, "expense map check");
+
       var expensesByMonthFinal = [];
       //convert map back to array
       expensesByMonth.forEach((value, key) => {
@@ -152,49 +137,16 @@ export default {
 
       var expensesByMonthSorted = expensesByMonthFinal.sort();
 
-      for (let i = 0; i < expensesByMonthSorted.length; i++) {
-        let monthNum = expensesByMonthSorted[i][0];
-        let month = "";
-        switch (monthNum) {
-          case "01":
-            month = "Jan";
-            break;
-          case "02":
-            month = "Feb";
-            break;
-          case "03":
-            month = "Mar";
-            break;
-          case "04":
-            month = "Apr";
-            break;
-          case "05":
-            month = "May";
-            break;
-          case "06":
-            month = "Jun";
-            break;
-          case "07":
-            month = "Jul";
-            break;
-          case "08":
-            month = "Aug";
-            break;
-          case "09":
-            month = "Sep";
-            break;
-          case "10":
-            month = "Oct";
-            break;
-          case "11":
-            month = "Nov";
-            break;
-          case "12":
-            month = "Dec";
-            break;
-        }
-        expensesByMonthSorted[i][0] = month;
-      }
+      console.log(expensesByMonthSorted, " expensesByMonthSorted");
+
+      var currentMonth = new Date().getMonth() + 1;
+
+      console.log(currentMonth, " currentMonth ");
+
+      console.log(
+        expensesByMonthSorted[currentMonth - 1],
+        " Current mon expense"
+      );
     },
   },
 };

@@ -8,6 +8,7 @@
     @added="change"
   />
   <SpendingGoals2 :key="refreshComp" />
+  <h2>Saving Goals</h2>
   <NavbarEditSpendingGoals @model-show="modelToggle2" />
   <ModelEditSpendingGoals
     @model-toggle="modelToggle2"
