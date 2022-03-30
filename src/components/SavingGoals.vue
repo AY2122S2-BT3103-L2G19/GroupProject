@@ -75,6 +75,8 @@ export default {
         var SDmonth = parseInt(startDate.slice(3, 5));
         var SDyear = parseInt(startDate.slice(6, 10));
 
+        console.log(Category, " Category")
+
         this.getExpense(user, SDday, SDmonth, SDyear).then((x) => {
           cell4.innerHTML = x;
           var distance = goal - x;
@@ -132,7 +134,15 @@ export default {
         var EMonth = parseInt(Edate.slice(3, 5));
         var EYear = parseInt(Edate.slice(6, 10));
 
-        if (EDay >= SDday && EMonth >= SDmonth && EYear >= SDyear) {
+        if (EYear > SDyear) {
+          transDetails.push(docData.Date);
+          transDetails.push(docData.Amount);
+          expenses.push(transDetails);
+        } else if (EMonth > SDmonth && EYear == SDyear) {
+          transDetails.push(docData.Date);
+          transDetails.push(docData.Amount);
+          expenses.push(transDetails);
+        } else if (EMonth == SDmonth && EDay >= SDday && EYear == SDyear) {
           transDetails.push(docData.Date);
           transDetails.push(docData.Amount);
           expenses.push(transDetails);
@@ -161,6 +171,7 @@ export default {
       for (let i = 0; i < expensesByMonthSorted.length; i++) {
         totalSpent = totalSpent + expensesByMonthSorted[i][1];
       }
+      console.log(totalSpent, " total spent")
 
       //extract incomes
       incomeDocs = await getDocs(
@@ -181,7 +192,7 @@ export default {
           transDetails.push(docData.Date);
           transDetails.push(docData.Amount);
           incomes.push(transDetails);
-        } else if (EMonth == SDmonth && EDay >= SDday) {
+        } else if (EMonth == SDmonth && EDay >= SDday && EYear == SDyear) {
           transDetails.push(docData.Date);
           transDetails.push(docData.Amount);
           incomes.push(transDetails);
@@ -210,7 +221,10 @@ export default {
       for (let i = 0; i < incomesByMonthSorted.length; i++) {
         totalIncome = totalIncome + incomesByMonthSorted[i][1];
       }
+      console.log(totalIncome, " totalIncome")
+
       return totalIncome - totalSpent;
+
     },
   },
 };
