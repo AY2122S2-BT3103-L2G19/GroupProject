@@ -77,7 +77,7 @@ export default {
 
         console.log(Category, " Category")
 
-        this.getExpense(user, SDday, SDmonth, SDyear).then((x) => {
+        this.getSavedAmt(user, SDday, SDmonth, SDyear).then((x) => {
           cell4.innerHTML = x;
           var distance = goal - x;
           if (distance >= 0) {
@@ -117,7 +117,7 @@ export default {
       this.modelStatus = !this.modelStatus;
     },
 
-    async getExpense(currUser, SDday, SDmonth, SDyear) {
+    async getSavedAmt(currUser, SDday, SDmonth, SDyear) {
       var incomes = [];
       var expenses = [];
       var expenseDocs = null;
@@ -221,8 +221,6 @@ export default {
       for (let i = 0; i < incomesByMonthSorted.length; i++) {
         totalIncome = totalIncome + incomesByMonthSorted[i][1];
       }
-      console.log(totalIncome, " totalIncome")
-
       return totalIncome - totalSpent;
 
     },
