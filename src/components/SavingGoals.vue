@@ -17,8 +17,7 @@
 import { getFirestore } from "firebase/firestore";
 import firebaseApp from "../firebase.js";
 const db = getFirestore(firebaseApp);
-// import { getAuth } from "firebase/auth";
-import { getAuth } from "firebase/auth";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { collection, getDocs, doc, deleteDoc } from "firebase/firestore";
 
 export default {
@@ -34,10 +33,16 @@ export default {
 
   mounted() {
     const auth = getAuth();
-    console.log(auth, "  auth from display");
-    // this.fbuser = auth.currentUser.email;
-    // console.log(this.fbuser, "  from display");
-    this.display("meow@poop.com");
+    onAuthStateChanged(auth, (currUser) => {
+      if (currUser) {
+        console.log(currUser.email, " is current user id");
+        const userEmail = currUser.email;
+        this.user = userEmail;
+        this.display(this.user);
+      } else {
+        console.log(currUser, "user not found....");
+      }
+    });
   },
 
   methods: {

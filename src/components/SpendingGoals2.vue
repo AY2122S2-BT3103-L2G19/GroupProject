@@ -16,8 +16,7 @@
 import { getFirestore } from "firebase/firestore";
 import firebaseApp from "../firebase.js";
 const db = getFirestore(firebaseApp);
-// import { getAuth } from "firebase/auth";
-import { getAuth } from "firebase/auth";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { collection, getDocs, doc, deleteDoc } from "firebase/firestore";
 
 export default {
@@ -33,10 +32,16 @@ export default {
 
   mounted() {
     const auth = getAuth();
-    console.log(auth, "  auth from display");
-    // this.fbuser = auth.currentUser.email;
-    // console.log(this.fbuser, "  from display");
-    this.display("meow@poop.com");
+    onAuthStateChanged(auth, (currUser) => {
+      if (currUser) {
+        console.log(currUser.email, " is current user id");
+        const userEmail = currUser.email;
+        this.user = userEmail;
+        this.display(this.user);
+      } else {
+        console.log(currUser, "user not found....");
+      }
+    });
   },
 
   methods: {
@@ -69,8 +74,14 @@ export default {
 
         this.getExpense(Category, user).then((x) => {
           cell3.innerHTML = x;
-          cell5.innerHTML = goal - x;
-          cell6.innerHTML = parseFloat((x / goal) * 100).toFixed(2);
+          var distance = goal - x;
+          if (distance > 0) {
+            cell5.innerHTML = goal - x;
+            cell6.innerHTML = parseFloat((x / goal) * 100).toFixed(2);
+          } else {
+            cell5.innerHTML = 0;
+            cell6.innerHTML = parseFloat((x / goal) * 100).toFixed(2);
+          }
         });
 
         var delBut = document.createElement("button");
