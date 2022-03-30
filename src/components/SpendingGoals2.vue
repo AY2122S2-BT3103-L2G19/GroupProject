@@ -67,7 +67,7 @@ export default {
         cell5.innerHTML = 0;
         cell6.innerHTML = 0;
 
-        this.getExpense(Category, user).then((x) => {
+        this.getSavedAmount(Category, user).then((x) => {
           cell3.innerHTML = x;
           cell5.innerHTML = goal - x;
           cell6.innerHTML = parseFloat((x / goal) * 100).toFixed(2);
@@ -102,7 +102,7 @@ export default {
       this.modelStatus = !this.modelStatus;
     },
 
-    async getExpense(category, user) {
+    async getSavedAmount(category, user) {
       var expenses = [];
       var expenseDocs = null;
       expenseDocs = await getDocs(

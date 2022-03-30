@@ -16,6 +16,7 @@
     @added="change2"
   />
   <saving-goals :key="refreshComp2" />
+  <saving-goals-chart />
 </template>
 
 <script>
@@ -26,6 +27,7 @@ import ModelSpendingGoals from "../components/ModelSpendingGoals.vue";
 import NavbarSavingGoals from "../components/NavbarSavingGoals.vue";
 import ModelSavingGoals from "../components/ModelSavingGoals.vue";
 import SavingGoals from '../components/SavingGoals.vue';
+import SavingGoalsChart from '../components/SavingGoalsChart.vue';
 
 export default {
   name: "Goals2",
@@ -36,6 +38,7 @@ export default {
     NavbarSavingGoals,
     ModelSavingGoals,
     SavingGoals,
+    SavingGoalsChart,
   },
   data() {
     return {
