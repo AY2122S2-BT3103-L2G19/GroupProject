@@ -7,7 +7,7 @@
       <th>Saved ($)</th>
       <th>Goal ($)</th>
       <th>$$ more ($)</th>
-      <th>Percentage spent(%)</th>
+      <th>Completion (%)</th>
       <th>Delete</th>
     </tr>
   </table>
@@ -70,11 +70,21 @@ export default {
         cell6.innerHTML = 0;
         cell7.innerHTML = 0;
 
-        this.getExpense(Category, user).then((x) => {
+        var startDate = docData.StartDate;
+        var SDday = parseInt(startDate.slice(0, 2));
+        var SDmonth = parseInt(startDate.slice(3, 5));
+        var SDyear = parseInt(startDate.slice(6, 10));
+
+        this.getExpense(user, SDday, SDmonth, SDyear).then((x) => {
           cell4.innerHTML = x;
-          cell6.innerHTML = goal - x;
-          cell7.innerHTML = parseFloat((x / goal) * 100).toFixed(2);
-          console.log(x, " x");
+          var distance = goal - x;
+          if (distance >= 0) {
+            cell6.innerHTML = distance;
+            cell7.innerHTML = parseFloat((x / goal) * 100).toFixed(2);
+          } else {
+            cell6.innerHTML = 0;
+            cell7.innerHTML = parseFloat(100).toFixed(2);
+          }
         });
 
         var delBut = document.createElement("button");
@@ -105,33 +115,102 @@ export default {
       this.modelStatus = !this.modelStatus;
     },
 
-    async getExpense(category, user) {
+    async getExpense(currUser, SDday, SDmonth, SDyear) {
+      var incomes = [];
       var expenses = [];
       var expenseDocs = null;
+      var incomeDocs = null;
       expenseDocs = await getDocs(
-        collection(db, user, "Transactions", "Expenses")
+        collection(db, currUser, "Transactions", "Expenses")
       );
-      var currentMonth = new Date().getMonth() + 1;
       //extract expenses
       expenseDocs.forEach((doc) => {
         let docData = doc.data();
         let transDetails = [];
-        if (
-          docData.Category == category &&
-          parseInt(docData.Date.slice(3, 5)) == currentMonth
-        ) {
-          transDetails.push(docData.Category);
+        var Edate = docData.Date;
+        var EDay = parseInt(Edate.slice(0, 2));
+        var EMonth = parseInt(Edate.slice(3, 5));
+        var EYear = parseInt(Edate.slice(6, 10));
+
+        if (EDay >= SDday && EMonth >= SDmonth && EYear >= SDyear) {
           transDetails.push(docData.Date);
           transDetails.push(docData.Amount);
           expenses.push(transDetails);
         }
       });
-
-      var Spent = 0;
+      var expensesByMonth = new Map();
       for (let i = 0; i < expenses.length; i++) {
-        Spent = Spent + expenses[i][2];
+        let month = expenses[i][0].slice(3, 5);
+        if (expensesByMonth.has(month)) {
+          let currAmt = expensesByMonth.get(month);
+          expensesByMonth.set(month, currAmt + expenses[i][1]);
+        } else {
+          expensesByMonth.set(month, expenses[i][1]);
+        }
       }
-      return Spent;
+
+      var expensesByMonthFinal = [];
+
+      expensesByMonth.forEach((value, key) => {
+        expensesByMonthFinal.push([key, value]);
+      });
+
+      var expensesByMonthSorted = expensesByMonthFinal.sort();
+
+      var totalSpent = 0;
+      for (let i = 0; i < expensesByMonthSorted.length; i++) {
+        totalSpent = totalSpent + expensesByMonthSorted[i][1];
+      }
+
+      //extract incomes
+      incomeDocs = await getDocs(
+        collection(db, currUser, "Transactions", "Income")
+      );
+      incomeDocs.forEach((doc) => {
+        let docData = doc.data();
+        let transDetails = [];
+        var Edate = docData.Date;
+        var EDay = parseInt(Edate.slice(0, 2));
+        var EMonth = parseInt(Edate.slice(3, 5));
+        var EYear = parseInt(Edate.slice(6, 10));
+        if (EYear > SDyear) {
+          transDetails.push(docData.Date);
+          transDetails.push(docData.Amount);
+          incomes.push(transDetails);
+        } else if (EMonth > SDmonth && EYear == SDyear) {
+          transDetails.push(docData.Date);
+          transDetails.push(docData.Amount);
+          incomes.push(transDetails);
+        } else if (EMonth == SDmonth && EDay >= SDday) {
+          transDetails.push(docData.Date);
+          transDetails.push(docData.Amount);
+          incomes.push(transDetails);
+        }
+      });
+
+      var incomesByMonth = new Map();
+      for (let i = 0; i < incomes.length; i++) {
+        let month = incomes[i][0].slice(3, 5);
+        if (incomesByMonth.has(month)) {
+          let currAmt = expensesByMonth.get(month);
+          incomesByMonth.set(month, currAmt + incomes[i][1]);
+        } else {
+          incomesByMonth.set(month, incomes[i][1]);
+        }
+      }
+
+      var incomesByMonthFinal = [];
+      incomesByMonth.forEach((value, key) => {
+        incomesByMonthFinal.push([key, value]);
+      });
+
+      var incomesByMonthSorted = incomesByMonthFinal.sort();
+      var totalIncome = 0;
+
+      for (let i = 0; i < incomesByMonthSorted.length; i++) {
+        totalIncome = totalIncome + incomesByMonthSorted[i][1];
+      }
+      return totalIncome - totalSpent;
     },
   },
 };

@@ -67,15 +67,10 @@ export default {
         cell5.innerHTML = 0;
         cell6.innerHTML = 0;
 
-        // getExpense(Category, user).then((x) => {
-        //   console.log(x);
-        // });
-
         this.getExpense(Category, user).then((x) => {
           cell3.innerHTML = x;
           cell5.innerHTML = goal - x;
           cell6.innerHTML = parseFloat((x / goal) * 100).toFixed(2);
-          console.log(x, " x");
         });
 
         var delBut = document.createElement("button");
@@ -114,13 +109,15 @@ export default {
         collection(db, user, "Transactions", "Expenses")
       );
       var currentMonth = new Date().getMonth() + 1;
+      var currentYear = new Date().getFullYear();
       //extract expenses
       expenseDocs.forEach((doc) => {
         let docData = doc.data();
         let transDetails = [];
         if (
           docData.Category == category &&
-          parseInt(docData.Date.slice(3, 5)) == currentMonth
+          parseInt(docData.Date.slice(3, 5)) == currentMonth &&
+          parseInt(docData.Date.slice(6, 10)) == currentYear
         ) {
           transDetails.push(docData.Category);
           transDetails.push(docData.Date);
