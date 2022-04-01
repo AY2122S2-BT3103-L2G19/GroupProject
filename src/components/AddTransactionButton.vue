@@ -1,6 +1,6 @@
 <template>
   <br> <br>
-  <button @click="redirectToAddTrans()" class="button addtrans">Add Transaction</button> <br> <br>
+  <button @click="redirectToAddTrans()" class="button addtrans">Manage Transactions</button> <br> <br>
   <h3>Do you know that people who track their expenses are 75% more likely to be able to afford a house 
     before they turn 30? Start tracking your expenses and transactions now!</h3>
 </template>

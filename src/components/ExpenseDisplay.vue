@@ -134,6 +134,7 @@ components: {},
 </script>
 
 <style>
+/*
 h1,h2 {
   text-align: center;
   background-color: rgb(175, 214, 221);
@@ -145,7 +146,7 @@ h1,h2 {
   margin-inline-start: 0px;
   margin-inline-end: 0px;
   font-weight: bold;
-}
+}*/
 
 table {
 
