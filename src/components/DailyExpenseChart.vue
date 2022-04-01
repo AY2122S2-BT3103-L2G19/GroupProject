@@ -1,6 +1,6 @@
 <template>
   <div class="chart">
-    <h4 class="title">Past expenses</h4>
+    <h4 class="title">Past 5 expenses</h4>
     <line-chart id="linechart" class = "user" width = 100% ytitle="Expenditure ($)" :data = "chartParams"></line-chart>
   </div>
 </template>

@@ -37,8 +37,11 @@ export default {
         expenses.push(transDetails);
       });
       var expensesByMonth = new Map();
+      //to compare with income months later
+      var expensesByMonthMap = new Map();
+
       for (let i = 0; i < expenses.length; i++) {
-        let month = expenses[i][0].slice(3,5);
+        let month = expenses[i][0].slice(3,10);
         if (expensesByMonth.has(month)) {
           let currAmt = expensesByMonth.get(month);
           expensesByMonth.set(month, currAmt + expenses[i][1])
@@ -46,18 +49,25 @@ export default {
           expensesByMonth.set(month, expenses[i][1]);
         }
       }
-      console.log(expensesByMonth, "expense map check");
+
       var expensesByMonthFinal = [];
       //convert map back to array
       expensesByMonth.forEach((value, key)=> {
         expensesByMonthFinal.push([key, value]);
+        console.log([key, value], " Expense by month instance check");
       });
 
       
-      var expensesByMonthSorted = expensesByMonthFinal.sort();
-      
+      var expensesByMonthSorted = expensesByMonthFinal.slice(-3);
+      expensesByMonthSorted = expensesByMonthSorted.sort();
+  
       for (let i = 0; i < expensesByMonthSorted.length; i++){
-        let monthNum = expensesByMonthSorted[i][0];
+        let monthNum = expensesByMonthSorted[i][0].slice(0,2);
+        if (expensesByMonthMap.has(expensesByMonthSorted[i][0])) {
+          console.log(expenses[i][0], "already contained");
+        } else {
+          expensesByMonthMap.set(expensesByMonthSorted[i][0], 1);
+        }
         let month = "";
         switch (monthNum) {
         case "01":
@@ -100,8 +110,6 @@ export default {
       expensesByMonthSorted[i][0] = month;
       }
 
-
-
       //extract incomes
       incomeDocs = await getDocs(
         collection(db, currUser, "Transactions", "Income"));
@@ -114,9 +122,12 @@ export default {
       });
       var incomesByMonth = new Map();
       for (let i = 0; i < incomes.length; i++) {
-        let month = incomes[i][0].slice(3,5);
+        let month = incomes[i][0].slice(3,10);
+        if (!expensesByMonthMap.has(month)) {
+          continue;
+        }
         if (incomesByMonth.has(month)) {
-          let currAmt = expensesByMonth.get(month);
+          let currAmt = incomesByMonth.get(month);
           incomesByMonth.set(month, currAmt + incomes[i][1])
         } else {
           incomesByMonth.set(month, incomes[i][1]);
@@ -126,14 +137,20 @@ export default {
       var incomesByMonthFinal = [];
       //convert map back to array
       incomesByMonth.forEach((value, key)=> {
-        incomesByMonthFinal.push([key, value]);
+        //if (expensesByMonthMap.has(key)) {
+          incomesByMonthFinal.push([key, value]);
+          console.log([key, value], " Income by month instance check");
+        //}
       });
 
       
-      var incomesByMonthSorted = incomesByMonthFinal.sort();
+      var incomesByMonthSorted = incomesByMonthFinal.slice(-3);
+      //for (var e in incomesByMonthSorted) {console.log(e, " Income by month sorted check");}
+      //incomesByMonthSorted = incomesByMonthSorted.sort();
+      console.log(incomesByMonthSorted, "incomes by month sorted")
 
       for (let i = 0; i < incomesByMonthSorted.length; i++){
-        let monthNum = incomesByMonthSorted[i][0];
+        let monthNum = incomesByMonthSorted[i][0].slice(0,2);
         let month = "";
         switch (monthNum) {
         case "01":
