@@ -28,6 +28,7 @@ export default {
           docs = await getDocs(
           collection(db, currUser, "Transactions", "Expenses"));
           var expensesByDate = new Map();
+          
           docs.forEach((doc) => {
           let docData = doc.data();
           let date = docData.Date;
@@ -37,11 +38,8 @@ export default {
           } else {
             expensesByDate.set(date, docData.Amount);
           }
-          if (expensesByDate.size > 4) {
-            return false;
-          }
-          return true;
           });
+          
           
           var expensesByDateFinal = [];
           expensesByDate.forEach((value, key)=> {
@@ -49,6 +47,7 @@ export default {
             console.log([key, value], "each date?");
           });
           console.log("daily expense done")
+          expensesByDateFinal = expensesByDateFinal.slice(-5);
           this.chartParams = expensesByDateFinal;
           return expensesByDateFinal;
         }
