@@ -1,15 +1,15 @@
 <template>
   <nav>
-    <button class="button" @click="openModel">Edit Spending Goals</button>
+    <button class="button" @click="openModel">Add / Edit Saving Goals</button>
   </nav>
 </template>
 
 <script>
 export default {
-  name: "NavbarEditSpendingGoals",
+  name: "NavbarSavingGoals",
   methods: {
     openModel() {
-      this.$emit("model-show2");
+      this.$emit("model-show");
     },
   },
 };

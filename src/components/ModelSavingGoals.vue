@@ -3,7 +3,7 @@
     <div class="model" @click.self="toggle">
       <div class="model__container">
         <div class="model__form">
-          <form @submit.prevent="EditSpendingGoals">
+          <form @submit.prevent="AddSavingGoals">
             <div class="model__group">
               <h3>Edit Spending Goals</h3>
             </div>
@@ -11,15 +11,27 @@
               <label for="category">Category: </label>
 
               <select @change="selectCategory($event)" id="category">
-                <option value="Food & Drinks">Food & Drinks</option>
-                <option value="Transport">Transport</option>
-                <option value="Shopping">Shopping</option>
-                <option value="Entertainment">Entertainment</option>
-                <option value="Groceries">Groceries</option>
-                <option value="Others">Others</option>
+                <option value="Short-term Goal">
+                  Short-term Goal (less than 1 year)
+                </option>
+                <option value="Mid-term Goal">
+                  Mid-term Goal (1 - 3 years)
+                </option>
+                <option value="Long-term Goal">
+                  Long-term Goal (> 3 years)
+                </option>
               </select>
             </div>
-
+            <div class="model__group">
+              <label for="date">Desired Start Date: </label>
+              <input
+                type="date"
+                class="model__control"
+                placeholder="Start Date"
+                v-model="date"
+                id="date"
+              />
+            </div>
             <div class="model__group">
               <input
                 type="number"
@@ -29,7 +41,11 @@
               />
             </div>
             <div class="model__group">
-              <input type="submit" value="Edit Spending Goals" class="button" />
+              <input
+                type="submit"
+                value="Add / Edit Saving Goals"
+                class="button"
+              />
             </div>
           </form>
         </div>
@@ -42,25 +58,33 @@
 import firebaseApp from "../firebase.js";
 import { doc, setDoc } from "firebase/firestore";
 import { getFirestore } from "firebase/firestore";
-// import { getAuth } from "firebase/auth";
-import { getAuth } from "firebase/auth";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+
 const db = getFirestore(firebaseApp);
 
 export default {
-  name: "ModelEditSpendingGoals",
+  name: "ModelSavingGoals",
   props: ["status"],
   data() {
     return {
-      title: "Food & Drink",
+      title: "Short-term Goal",
       number: null,
+      date: "",
       fbuser: "",
     };
   },
+
   mounted() {
     const auth = getAuth();
-    console.log(auth, " auth from add goals")
-    // this.fbuser = auth.currentUser.email;
-    
+    onAuthStateChanged(auth, (currUser) => {
+      if (currUser) {
+        console.log(currUser.email, " is current user id");
+        const userEmail = currUser.email;
+        this.user = userEmail;
+      } else {
+        console.log(currUser, "user not found....");
+      }
+    });
   },
 
   methods: {
@@ -68,21 +92,28 @@ export default {
       this.$emit("model-toggle");
     },
 
-    async EditSpendingGoals() {
+    async AddSavingGoals() {
       const auth = getAuth();
-      console.log(auth, " auth from Add spending goals");
       this.fbuser = auth.currentUser.email;
-      console.log(this.fbuser, " fbuser from Add spending goals");
+      var date2 = "";
+      date2 =
+        this.date.slice(8, 10) +
+        "/" +
+        this.date.slice(5, 7) +
+        "/" +
+        this.date.slice(0, 4);
+      this.date = date2;
       await setDoc(
-        doc(db, String(this.fbuser), "Spending Goals", "Goals", this.title),
+        doc(db, String(this.fbuser), "Saving Goals", "Goals", this.title),
         {
           Category: this.title,
+          StartDate: this.date,
           Goals: this.number,
         }
       );
       this.$emit("added");
       window.location.reload();
-      this.title = "Food & Drink";
+      this.title = "Short-term Goal";
       this.number = "";
     },
 

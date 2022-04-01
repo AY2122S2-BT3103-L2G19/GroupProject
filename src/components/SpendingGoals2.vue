@@ -7,8 +7,6 @@
       <th>Goal (Monthly) ($)</th>
       <th>Remaining Budget ($)</th>
       <th>Percentage spent(%)</th>
-      <th>Progress</th>
-      <th>Edit</th>
       <th>Delete</th>
     </tr>
   </table>
@@ -18,28 +16,32 @@
 import { getFirestore } from "firebase/firestore";
 import firebaseApp from "../firebase.js";
 const db = getFirestore(firebaseApp);
-// import { getAuth } from "firebase/auth";
-import { getAuth } from "firebase/auth";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { collection, getDocs, doc, deleteDoc } from "firebase/firestore";
 
 export default {
   name: "SpendingGoals2",
-  components: { },
+  components: {},
 
   data() {
     return {
       fbuser: "",
-      modelStatus: false, 
-
+      modelStatus: false,
     };
   },
 
   mounted() {
     const auth = getAuth();
-    console.log(auth, "  auth from display");
-    // this.fbuser = auth.currentUser.email;
-    // console.log(this.fbuser, "  from display");
-    this.display("meow@poop.com");
+    onAuthStateChanged(auth, (currUser) => {
+      if (currUser) {
+        console.log(currUser.email, " is current user id");
+        const userEmail = currUser.email;
+        this.user = userEmail;
+        this.display(this.user);
+      } else {
+        console.log(currUser, "user not found....");
+      }
+    });
   },
 
   methods: {
@@ -62,8 +64,6 @@ export default {
         var cell5 = row.insertCell(4);
         var cell6 = row.insertCell(5);
         var cell7 = row.insertCell(6);
-        var cell8 = row.insertCell(7);
-        var cell9 = row.insertCell(8);
 
         cell1.innerHTML = ind;
         cell2.innerHTML = Category;
@@ -71,20 +71,18 @@ export default {
         cell4.innerHTML = goal;
         cell5.innerHTML = 0;
         cell6.innerHTML = 0;
-        cell7.innerHTML = 0;
-        cell8.innerHTML = 0;
 
-        var editBut = document.createElement("button");
-
-        editBut.className = "Ebwt";
-        editBut.id = "editbutton";
-        editBut.innerHTML = "Edit";
-        editBut.onclick = () => {
-          this.$emit("model-show2")
-          this.$emit("added")
-          console.log("edit on click ")
-        };
-        cell8.appendChild(editBut);
+        this.getExpense(Category, user).then((x) => {
+          cell3.innerHTML = x;
+          var distance = goal - x;
+          if (distance > 0) {
+            cell5.innerHTML = goal - x;
+            cell6.innerHTML = parseFloat((x / goal) * 100).toFixed(2);
+          } else {
+            cell5.innerHTML = 0;
+            cell6.innerHTML = parseFloat((x / goal) * 100).toFixed(2);
+          }
+        });
 
         var delBut = document.createElement("button");
         delBut.className = "bwt";
@@ -93,7 +91,7 @@ export default {
         delBut.onclick = () => {
           this.deleteInstrument(Category, user);
         };
-        cell9.appendChild(delBut);
+        cell7.appendChild(delBut);
         ind += 1;
       });
     },
@@ -115,6 +113,36 @@ export default {
       this.modelStatus = !this.modelStatus;
     },
 
+    async getExpense(category, user) {
+      var expenses = [];
+      var expenseDocs = null;
+      expenseDocs = await getDocs(
+        collection(db, user, "Transactions", "Expenses")
+      );
+      var currentMonth = new Date().getMonth() + 1;
+      var currentYear = new Date().getFullYear();
+      //extract expenses
+      expenseDocs.forEach((doc) => {
+        let docData = doc.data();
+        let transDetails = [];
+        if (
+          docData.Category == category &&
+          parseInt(docData.Date.slice(3, 5)) == currentMonth &&
+          parseInt(docData.Date.slice(6, 10)) == currentYear
+        ) {
+          transDetails.push(docData.Category);
+          transDetails.push(docData.Date);
+          transDetails.push(docData.Amount);
+          expenses.push(transDetails);
+        }
+      });
+
+      var Spent = 0;
+      for (let i = 0; i < expenses.length; i++) {
+        Spent = Spent + expenses[i][2];
+      }
+      return Spent;
+    },
   },
 };
 </script>

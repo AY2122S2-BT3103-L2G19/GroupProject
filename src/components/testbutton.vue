@@ -1,10 +1,10 @@
 <template>
-  <button>Delete</button>
+  <button>test</button>
 </template>
 
 <script>
 export default {
-    name: "DeleteGoals"
+    name: "testbutton"
 }
 </script>
 

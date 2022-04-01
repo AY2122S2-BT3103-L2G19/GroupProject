@@ -8,12 +8,14 @@
     @added="change"
   />
   <SpendingGoals2 :key="refreshComp" />
-  <NavbarEditSpendingGoals @model-show="modelToggle2" />
-  <ModelEditSpendingGoals
+  <h2>Saving Goals</h2>
+  <NavbarSavingGoals @model-show="modelToggle2" />
+  <ModelSavingGoals
     @model-toggle="modelToggle2"
     :status="modelStatus2"
     @added="change2"
   />
+  <saving-goals :key="refreshComp2" />
 </template>
 
 <script>
@@ -21,16 +23,24 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import SpendingGoals2 from "../components/SpendingGoals2.vue";
 import NavbarSpendingGoals from "../components/NavbarSpendingGoals.vue";
 import ModelSpendingGoals from "../components/ModelSpendingGoals.vue";
-import NavbarEditSpendingGoals from "../components/NavbarEditSpendingGoals.vue";
-import ModelEditSpendingGoals from "../components/ModelEditSpendingGoals.vue";
-
+import NavbarSavingGoals from "../components/NavbarSavingGoals.vue";
+import ModelSavingGoals from "../components/ModelSavingGoals.vue";
+import SavingGoals from '../components/SavingGoals.vue';
 
 export default {
   name: "Goals2",
-  components: { SpendingGoals2, NavbarSpendingGoals, ModelSpendingGoals, NavbarEditSpendingGoals, ModelEditSpendingGoals },
+  components: {
+    SpendingGoals2,
+    NavbarSpendingGoals,
+    ModelSpendingGoals,
+    NavbarSavingGoals,
+    ModelSavingGoals,
+    SavingGoals,
+  },
   data() {
     return {
       refreshComp: 0,
+      refreshComp2: 0,
       modelStatus: false,
       modelStatus2: false,
       user: false,
@@ -65,7 +75,7 @@ export default {
     },
 
     change2() {
-      this.refreshComp += 1;
+      this.refreshComp2 += 1;
       this.modelStatus2 = false;
     },
   },

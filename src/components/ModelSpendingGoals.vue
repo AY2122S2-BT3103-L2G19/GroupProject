@@ -5,7 +5,7 @@
         <div class="model__form">
           <form @submit.prevent="AddSpendingGoals">
             <div class="model__group">
-              <h3>Add Spending Goals</h3>
+              <h3>Add / Edit Spending Goals</h3>
             </div>
             <div class="model__group">
               <label for="category">Category: </label>
@@ -16,6 +16,7 @@
                 <option value="Shopping">Shopping</option>
                 <option value="Entertainment">Entertainment</option>
                 <option value="Groceries">Groceries</option>
+                <option value="Groceries">Bills</option>
                 <option value="Others">Others</option>
               </select>
             </div>
@@ -29,7 +30,11 @@
               />
             </div>
             <div class="model__group">
-              <input type="submit" value="Add Spending Goals" class="button" />
+              <input
+                type="submit"
+                value="Add / Edit Spending Goals"
+                class="button"
+              />
             </div>
           </form>
         </div>
@@ -42,8 +47,8 @@
 import firebaseApp from "../firebase.js";
 import { doc, setDoc } from "firebase/firestore";
 import { getFirestore } from "firebase/firestore";
-// import { getAuth } from "firebase/auth";
-import { getAuth } from "firebase/auth";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+
 const db = getFirestore(firebaseApp);
 
 export default {
@@ -56,11 +61,18 @@ export default {
       fbuser: "",
     };
   },
+
   mounted() {
     const auth = getAuth();
-    console.log(auth, " auth from add goals")
-    // this.fbuser = auth.currentUser.email;
-    
+    onAuthStateChanged(auth, (currUser) => {
+      if (currUser) {
+        console.log(currUser.email, " is current user id");
+        const userEmail = currUser.email;
+        this.user = userEmail;
+      } else {
+        console.log(currUser, "user not found....");
+      }
+    });
   },
 
   methods: {
@@ -70,9 +82,7 @@ export default {
 
     async AddSpendingGoals() {
       const auth = getAuth();
-      console.log(auth, " auth from Add spending goals");
       this.fbuser = auth.currentUser.email;
-      console.log(this.fbuser, " fbuser from Add spending goals");
       await setDoc(
         doc(db, String(this.fbuser), "Spending Goals", "Goals", this.title),
         {

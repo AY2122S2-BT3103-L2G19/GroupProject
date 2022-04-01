@@ -6,16 +6,12 @@
     @store-expence="storeExpence"
   />
   <Expences :allExpences="expences" />
-  <ExpenseDisplay/>
 </template>
 
 <script>
 import Navbar from "../components/Navbar.vue";
 import Model from "../components/Model.vue";
 import Expences from "../components/Expences.vue";
-import ExpenseDisplay from "../components/ExpenseDisplay.vue";
-import {getAuth, onAuthStateChanged} from "firebase/auth";
-
 
 export default {
   name: "App",
@@ -23,7 +19,6 @@ export default {
     Navbar,
     Model,
     Expences,
-    ExpenseDisplay
   },
   data() {
     return {
@@ -32,22 +27,11 @@ export default {
         balance: 0,
         income: 0,
         expence: 0,
+        owned: 0,
         history: [],
       },
-      user:false,
     };
   },
-  mounted() {
-    const auth = getAuth();
-    onAuthStateChanged(auth, (user) => {
-        if (user) {
-            this.user = user;
-            console.log(user.email)
-        } else {
-          this.$router.push("/login")
-        }
-    })
-},
   methods: {
     modelToggle() {
       this.modelStatus = !this.modelStatus;
@@ -76,5 +60,13 @@ export default {
 </script>
 
 <style>
-
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  background: #fafafa;
+  font-family: sans-serif;
+}
 </style>
