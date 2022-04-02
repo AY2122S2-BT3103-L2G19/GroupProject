@@ -12,8 +12,12 @@ export default {
   methods: {
     redirectToAddTrans() {
       this.$router.push({ path: '/expenses' });
+      this.$emit('redirectToAddTrans');
     }
-  }
+  },
+  props: {
+   redirectCheck: Boolean,
+ }
 };
 </script>
 

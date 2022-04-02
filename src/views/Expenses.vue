@@ -7,6 +7,7 @@
   />
   <Expences :allExpences="expences" />
   <ExpenseDisplay/>
+  <add-transaction-button class="redirectChecker" @redirectToAddTrans="modelToggle" />
 </template>
 
 <script>
@@ -15,6 +16,7 @@ import Model from "../components/Model.vue";
 import Expences from "../components/Expences.vue";
 import ExpenseDisplay from "../components/ExpenseDisplay.vue";
 import {getAuth, onAuthStateChanged} from "firebase/auth";
+import AddTransactionButton from '../components/AddTransactionButton.vue';
 
 
 export default {
@@ -23,8 +25,9 @@ export default {
     Navbar,
     Model,
     Expences,
-    ExpenseDisplay
-  },
+    ExpenseDisplay,
+    AddTransactionButton
+    },
   data() {
     return {
       modelStatus: false,
