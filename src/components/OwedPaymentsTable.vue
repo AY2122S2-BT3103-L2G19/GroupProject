@@ -45,7 +45,10 @@ export default {
       console.log("updated running")
 
       async function display(user) {
-        this.clearInitialData();
+        var table = document.getElementById("table")
+          while (table.rows.length > 1) {
+          table.deleteRow(1);
+        }
         let collection_required = await getDocs(collection(db, user, "Transactions", "Owed Payments"));
         let start_sn = 1;
         
@@ -76,15 +79,6 @@ export default {
       
     } 
   },
-
-  methods: {
-    clearInitialData() {
-      var table = document.getElementById("table")
-      while (table.rows.length > 1) {
-        table.deleteRow(1);
-      }
-    }
-  }
 }
 
 </script>
