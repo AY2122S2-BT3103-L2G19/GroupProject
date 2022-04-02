@@ -30,7 +30,7 @@ export default {
     },
   data() {
     return {
-      modelStatus: false,
+      modelStatus: true,
       expences: {
         balance: 0,
         income: 0,
