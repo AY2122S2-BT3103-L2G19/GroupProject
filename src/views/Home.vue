@@ -6,7 +6,7 @@
       <div id="button"><AddTransactionButton/></div>
       <div id="chart1"><IncomeExpenseChart/></div>
       <div id="chart2"><DailyExpenseChart/></div>
-      <div id="table1"><OwedPaymentsTable/></div>
+      <div id="table1"><OwedPaymentsTable :key = "refreshComp"/></div>
     </div>
     <LogOut/>
 </template>
@@ -35,6 +35,7 @@ export default {
 data() {
     return {
         user:false,
+        refreshComp: 0
     }
 },
 
@@ -49,6 +50,12 @@ mounted() {
         }
     })
 },
+
+methods: {
+  change() {
+    this.refreshComp += 1
+  }
+}
 }
 </script>
 
