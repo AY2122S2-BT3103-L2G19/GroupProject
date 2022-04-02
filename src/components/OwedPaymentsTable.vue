@@ -45,11 +45,10 @@ export default {
       console.log("updated running")
 
       async function display(user) {
-        /*this.clearInitialData();*/
+        this.clearInitialData();
         let collection_required = await getDocs(collection(db, user, "Transactions", "Owed Payments"));
-
         let start_sn = 1;
-
+        
         collection_required.forEach((docs) => {
           let data_required = docs.data()
           var table = document.getElementById("table")
@@ -80,11 +79,10 @@ export default {
 
   methods: {
     clearInitialData() {
-      document.getElementById('table').innerHTML = ''; 
-      /*var table = document.getElementById("table")
-      var rowCount = table.rows.length;
-      for (var i = 0; i < rowCount; i++) {
-        table.deleteRow(i);*/
+      var table = document.getElementById("table")
+      while (table.rows.length > 1) {
+        table.deleteRow(1);
+      }
     }
   }
 }
