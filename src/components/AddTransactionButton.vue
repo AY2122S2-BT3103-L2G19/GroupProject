@@ -11,7 +11,7 @@ export default {
   name: "#AddTransactionButton",
   methods: {
     redirectToAddTrans() {
-      this.$router.push({ path: '/expenses' });
+      this.$router.push({ name:"Expenses", params:{togglePopup:true} });
     }
   }
 };

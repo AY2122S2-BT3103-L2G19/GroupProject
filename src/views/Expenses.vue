@@ -1,12 +1,14 @@
 <template>
+<div>
   <Navbar @model-show="modelToggle" />
   <Model
     @model-toggle="modelToggle"
-    :status="modelStatus"
+    :status="(togglePopup == 'true')"
     @store-expence="storeExpence"
   />
   <Expences :allExpences="expences" />
   <ExpenseDisplay/>
+</div>
 </template>
 
 <script>
@@ -24,6 +26,12 @@ export default {
     Model,
     Expences,
     ExpenseDisplay
+  },
+  props: {
+    togglePopup: {
+      type: String,
+      default: ""
+    }
   },
   data() {
     return {

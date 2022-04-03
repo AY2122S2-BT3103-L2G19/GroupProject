@@ -13,9 +13,10 @@ const routes = [
     component: Home,
   },
   {
-    path: "/expenses",
+    path: "/expenses/:togglePopup",
     name: "Expenses",
     component: Expenses,
+    props: true
   },
   {
     path: "/goals",
