@@ -88,7 +88,7 @@ methods: {
   height:355px; 
   background:rgb(255, 255, 255); 
   margin:10px;
-  padding: 5px 0px 5px 0px;
+  padding: 5px 0px 15px 0px;
   border: solid 2px rgb(0, 0, 0);
   border-radius: 4px;
 }
@@ -100,14 +100,14 @@ methods: {
   height:350px; 
   background:rgb(255, 255, 255); 
   margin:10px;
-  padding: 5px 0px 5px 0px;
+  padding: 5px 0px 20px 0px;
   border: solid 2px rgb(0, 0, 0);
   border-radius: 4px;
 }
 
 #table1 {
   background-color: burlywood;
-  width:34%; 
+  width:35%; 
   float:left; 
   height:350px;
   background:burlywood;

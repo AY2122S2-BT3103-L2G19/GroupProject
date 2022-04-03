@@ -3,7 +3,7 @@
   <Navbar @model-show="modelToggle" />
   <Model
     @model-toggle="modelToggle"
-    :status="(togglePopup == 'true')"
+    :status="modelStatus"
     @store-expence="storeExpence"
   />
   <Expences :allExpences="expences" />
@@ -25,8 +25,8 @@ export default {
     Navbar,
     Model,
     Expences,
-    ExpenseDisplay
-  },
+    ExpenseDisplay,
+    },
   props: {
     togglePopup: {
       type: String,
@@ -55,6 +55,9 @@ export default {
           this.$router.push("/login")
         }
     })
+    if (this.togglePopup == "true") {
+      this.modelStatus = true;
+    }
 },
   methods: {
     modelToggle() {

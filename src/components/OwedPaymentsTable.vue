@@ -87,11 +87,10 @@ export default {
 <style scoped>
 table {
     font-family: arial, sans-serif;
-    border-collapse: collapse;
-    width: 100%;
+    width: 30%;
 }
 th,td {
-    border:1px solid #dddddd;
+    border:1px solid #000000;
     text-align: center;
     padding: 8px;
 }

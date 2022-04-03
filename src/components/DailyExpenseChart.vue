@@ -78,6 +78,5 @@ export default {
 <style scoped>
 .user {
   margin: auto;
-  border: 3px solid grey
 }
 </style>

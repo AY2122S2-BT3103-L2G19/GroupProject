@@ -111,7 +111,7 @@ components: {},
     }) 
   },              
 
-     async deleteinstrument2(title,user){      
+    async deleteinstrument2(title,user){      
         alert("You are going to delete " + title)
         await deleteDoc(doc(db,user,title))
         let tb = document.getElementById("table")
@@ -121,7 +121,7 @@ components: {},
           }
         //document.getElementById("totalProfit").innerHTML=""
         this.display(this.fbuser) 
-           }    ,
+     },
     
     async editinstrument2(title,user) {
         alert("You are going to delete " + title)
@@ -155,9 +155,9 @@ table {
   width: 100%;
 }
 
-tr:nth-child(even) {
+/*tr:nth-child(even) {
   background-color: #e3edee;
-}
+}*/
 
 th,td {
   border: 1px solid #dddddd;
@@ -165,9 +165,8 @@ th,td {
   padding: 8px;
 }
 
-.bwt{
+/*.bwt{
     color:rgb(248, 240, 240);
     background-color: rgb(122, 139, 197);
-}
-
+}*/
 </style>
