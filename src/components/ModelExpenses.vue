@@ -16,23 +16,37 @@
                 <option value="Owed Payments">Owed Payment</option>
               </select>   
             </div>
-            <div class="model__group">
+            <div class="model__group" v-show="!isOwedPayment">
+              <label for="title">Title</label>
               <input
+                id="title"
                 type="text"
                 class="model__control"
                 placeholder="Title..."
                 v-model="title"
               />
             </div>
-            <div class="model__group">
+              <div class="model__group" v-show="isOwedPayment">
+              <label for="name">Name of person owing:</label>
               <input
+                id="name"
+                type="text"
+                class="model__control"
+                placeholder="Name..."
+                v-model="name"
+              />
+            </div>
+            <div class="model__group">
+              <label for="amount">Amount</label>
+              <input
+                id="amount"
                 type="number"
                 class="model__control"
                 placeholder="Amount..."
                 v-model="number"
               />
             </div>
-            <div class="model__group">
+            <div class="model__group" v-show="isExpense">
               <label for="category">Category:   </label>
 
               <select id="category" v-model = "category">
@@ -43,26 +57,29 @@
               </select>   
             </div>
             <div class="model__group">
+              <label for="date">Transaction Date</label>
               <input
+                id = "date"
                 type= "date"
                 class="model__control"
                 placeholder="Date..."
                 v-model="date"
               />
             </div>
-            <div class="model__group">
-              <label>Recurring?  </label>
-                <label>
-                  <input type="radio" name="choice-radio">
-                  Yes
-                </label>
-                <label>
-                  <input type="radio" name="choice-radio">
-                  No
-                </label>
+            <div class="model__group" v-show="isOwedPayment">
+              <label for="date_due">Payment Due Date</label>
+              <input
+                id = "date_due"
+                type= "date"
+                class="model__control"
+                placeholder="Date..."
+                v-model="date_due"
+              />
             </div>
             <div class="model__group">
+              <label for="description">Description</label>
               <input
+                id="description"
                 type="text"
                 class="model__control"
                 placeholder="Description..."
@@ -94,13 +111,15 @@ export default {
   props: ["status"],
   data() {
     return {
-      type:"",
+      type:"Expenses",
       title: "",
       category:"",
       number: "",
       date:"",
       description:"",
-      fbuser: ""
+      fbuser: "",
+      date_due: "",
+      name: "",
     };
   },
   methods: {
@@ -117,15 +136,17 @@ export default {
     
     const auth = getAuth(); 
     this.fbuser = auth.currentUser.email;
+    this.isValidParams
+    
 
-    if (!((this.type ==""  || this.title == "" || this.category == "")  || (this.number == "" || this.date == ""))){
+    if (this.isValidParams){
 
       try{
         var date = this.date;
         date = date.slice(8,10) + "/" + date.slice(5,7) + "/" + date.slice(0,4);
         this.date = date;
         const docRef = await setDoc(doc(db, String(this.fbuser), "Transactions", this.type, this.title),{
-        type: this.type , title : this.title, category : this.category, amount: this.number, date : this.date, description : this.description
+        type: this.type , title : this.title, category : this.category, amount: this.number, date : this.date, description : this.description, date_due : this.date_due, name : this.name
         })
         console.log(docRef)
         console.log("adding")
@@ -138,7 +159,38 @@ export default {
       }
     }
     else alert("Cannot take empty Values. Please enter the values")
-  }
+  },
+
+  },
+  computed: {
+    isExpense: function() {
+      return this.type == "Expenses";
+    },
+    isOwedPayment: function() {
+      return this.type == "Owed Payments";
+    },
+    isValidParams: function() {
+      if (this.type == "Expenses") {
+        if (this.title.trim() == "" || this.category.trim() == "" || this.number == "" || this.date.trim() == "" || this.description.trim() == "") {
+          return false;
+        } else {
+          return true;
+        }
+      } else if (this.type == "Owed Payments") {
+        if (this.name.trim() == "" || this.date_due.trim() == "" || this.number == "" || this.date.trim() == "" || this.description.trim() == "") {
+          return false;
+        } else {
+          return true;
+        }
+      } else if (this.type == "Income") {
+        if (this.title.trim() == "" ||  this.number == "" || this.date.trim() == "" || this.description.trim() == "") {
+          return false;
+        } else {
+          return true;
+        }
+      }
+      return false;
+    },
   }
 };
 </script>
