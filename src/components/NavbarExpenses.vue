@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  name: "Navbar",
+  name: "NavbarExpenses",
   methods: {
     openModel() {
       this.$emit("model-show");

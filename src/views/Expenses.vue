@@ -1,6 +1,6 @@
 <template>
 <div>
-  <Navbar @model-show="modelToggle" />
+  <NavbarExpenses @model-show="modelToggle" />
   <ModelExpenses
     @model-toggle="modelToggle"
     :status="modelStatus"
@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import Navbar from "../components/Navbar.vue";
+import NavbarExpenses from "../components/NavbarExpenses.vue";
 import ModelExpenses from "../components/ModelExpenses.vue";
 import Expenses from "../components/Expenses.vue";
 import ExpenseDisplay from "../components/ExpenseDisplay.vue";
@@ -22,7 +22,7 @@ import {getAuth, onAuthStateChanged} from "firebase/auth";
 export default {
   name: "App",
   components: {
-    Navbar,
+    NavbarExpenses,
     ModelExpenses,
     Expenses,
     ExpenseDisplay,

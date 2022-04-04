@@ -12,8 +12,8 @@
 
               <select id="type" v-model ="type">
                 <option value="Income">Income</option>
-                <option value="Expense">Expense</option>
-                <option value="OwnedPayment">Owned Payment</option>
+                <option value="Expenses">Expense</option>
+                <option value="Owed Payments">Owed Payment</option>
               </select>   
             </div>
             <div class="model__group">
@@ -70,8 +70,7 @@
               />
             </div>
             <div class="model__group">
-              <input type="submit" value="Add Expense" class="button" />
-              <button  id = "savebutton"  type="button"  @click="savetofs()"> Add Expense </button>
+              <button  id = "savebutton"  class="button" type="submit"  @click="savetofs()"> Add Expense </button>
             </div>
           </form>
         </div>
@@ -122,13 +121,14 @@ export default {
     if (!((this.type ==""  || this.title == "" || this.category == "")  || (this.number == "" || this.date == ""))){
 
       try{
-        const docRef = await setDoc(doc(db, String(this.fbuser), this.title),{
+        const docRef = await setDoc(doc(db, String(this.fbuser), "Transactions", this.type, this.title),{
         type: this.type , title : this.title, category : this.category, number: this.number, date : this.date, description : this.description
         })
         console.log(docRef)
         console.log("adding")
         this.type= this.title=this.number=this.date=this.description = ""  
         this.$emit("added")
+        alert("Transaction successfully added!")
         }
       catch(error) {
           console.error("Error adding document: ", error);

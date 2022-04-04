@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import Navbar from "../components/Navbar.vue";
+import Navbar from "../components/NavbarExpenses.vue";
 import Model from "../components/ModelExpenses.vue";
 import Expences from "../components/Expenses.vue";
 
