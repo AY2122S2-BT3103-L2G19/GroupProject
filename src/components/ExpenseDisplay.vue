@@ -50,19 +50,95 @@ components: {},
   //user becomes an email in display
 
   async display(user){    
-    let z = await getDocs(collection(db,String(user), "Transactions", "Owed Payments"))   
+    var owedPayments = await getDocs(collection(db,String(user), "Transactions", "Owed Payments"))  
+    var expenses = await getDocs(collection(db,String(user), "Transactions", "Expenses"))   
+    var income = await getDocs(collection(db,String(user), "Transactions", "Income"))   
     let ind = 1;
-    //var tp = 0
+    
+    var transactions = [];
 
-    z.forEach((docs) => {
-      let yy = docs.data()
+    owedPayments.forEach((docs) => {
+      let eachDoc = docs.data();
+      let temp = {};
+      var type = (eachDoc.type)
+      var title = (eachDoc.title)
+      var category = (eachDoc.category)
+      var number = (eachDoc.amount)
+      var date = (eachDoc.date)
+      var description = (eachDoc.description)
+      temp.type = type;
+      temp.title = title;
+      temp.category = category;
+      temp.amount = number;
+      temp.date = date;
+      temp.description = description;
+      transactions.push(temp);
+    })
+
+    expenses.forEach((docs) => {
+      let eachDoc = docs.data();
+      let temp = {};
+      var type = (eachDoc.type)
+      var title = (eachDoc.title)
+      var category = (eachDoc.category)
+      var number = (eachDoc.amount)
+      var date = (eachDoc.date)
+      var description = (eachDoc.description)
+      temp.type = type;
+      temp.title = title;
+      temp.category = category;
+      temp.amount = number;
+      temp.date = date;
+      temp.description = description;
+      transactions.push(temp);
+    })
+
+    income.forEach((docs) => {
+      let eachDoc = docs.data();
+      let temp = {};
+      var type = (eachDoc.type)
+      var title = (eachDoc.title)
+      var category = (eachDoc.category)
+      var number = (eachDoc.amount)
+      var date = (eachDoc.date)
+      var description = (eachDoc.description)
+      temp.type = type;
+      temp.title = title;
+      temp.category = category;
+      temp.amount = number;
+      temp.date = date;
+      temp.description = description;
+      transactions.push(temp);
+    })
+    
+    transactions.sort(function(a,b){
+      if (a.date.slice(6,10) == b.date.slice(6,10)) {
+        if (a.date.slice(3,5) == b.date.slice(3,5)) {
+          let aDay = parseInt(a.date.slice(0,2));
+          let bDay = parseInt(b.date.slice(0,2));
+          return aDay - bDay;
+        }
+        let aMonth = parseInt(a.date.slice(3,5));
+        let bMonth = parseInt(b.date.slice(3,5));
+        return aMonth - bMonth;
+      }
+      let aYear = parseInt(a.date.slice(6,10));
+      let bYear = parseInt(b.date.slice(6,10));
+      return aYear - bYear;
+    })
+    
+    for (var i = 0; i < transactions.length; i++) {
       var table = document.getElementById("table")
       var row = table.insertRow(ind)
+      var yy = transactions[i]
     // type, title, category, number, date, description 
       var type = (yy.type)
       var title = (yy.title)
       var category = (yy.category)
-      var number = (yy.number)
+      if (category == "") {
+        category = "-";
+      }
+      var number = (yy.amount)
       var date = (yy.date)
       var description = (yy.description)
 
@@ -80,7 +156,7 @@ components: {},
       bu.id = String(title)
       bu.innerHTML ="Delete"
       bu.onclick =  ()=>{
-        this.deleteinstrument(title,user)
+        this.deleteinstrument(user, type, title)
       }
       cell9.appendChild(bu) 
 
@@ -93,12 +169,12 @@ components: {},
       }
       cell8.appendChild(bu2)
       ind+= 1   
-    }) 
+    }
   },              
 
-    async deleteinstrument(title,user){      
+    async deleteinstrument(user, type, title){      
         alert("You are going to delete " + title)
-        await deleteDoc(doc(db,user,title))
+        await deleteDoc(doc(db, user, type, title))
         let tb = document.getElementById("table")
         //delete everything, make data empty and call the display again
         while (tb.rows.length >1){
