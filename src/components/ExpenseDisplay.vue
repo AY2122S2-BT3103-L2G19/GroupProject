@@ -1,7 +1,7 @@
 <template>
     <h1>Transactions</h1>    
 
-    <table id = "table" class = "auto-index" :key="count">
+    <table id = "table" class = "va-table" :key="count">
         <tr>  
         <th>S.No</th>    
         <th>Date</th>   
@@ -222,15 +222,10 @@ h1,h2 {
 }*/
 
 table {
-
   font-family: arial, sans-serif;
   border-collapse: collapse;
   width: 100%;
 }
-
-/*tr:nth-child(even) {
-  background-color: #e3edee;
-}*/
 
 th,td {
   border: 1px solid #dddddd;
@@ -238,8 +233,7 @@ th,td {
   padding: 8px;
 }
 
-/*.bwt{
-    color:rgb(248, 240, 240);
-    background-color: rgb(122, 139, 197);
-}*/
+.va-table-responsive {
+    overflow: auto;
+  }
 </style>

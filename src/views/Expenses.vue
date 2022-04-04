@@ -7,9 +7,10 @@
     @store-expense="storeExpense"
     @added = "change"
   />
-  <Expenses :allExpenses="expenses" />
+  <br>
   <ExpenseDisplay
     :key ="refresh"/>
+  <Expenses :allExpenses="expenses" />
 </div>
 </template>
 

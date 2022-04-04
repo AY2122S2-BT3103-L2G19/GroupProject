@@ -1,14 +1,13 @@
 <template>
   <div class="table">
     <h2 id = "owed_payments_table">Owed Payments Table</h2>
-    <table id = "table" class = "auto-index">
+    <table id = "table" class = "va-table">
         <tr>
         <th>S.No</th>
         <th>Name</th>
         <th>Amount</th>
         <th>Date</th>
-        <th>Date of Return</th>
-        <th>Description</th>       
+        <th>Date of Return</th>    
         </tr>
     </table><br><br>
   </div>
@@ -60,13 +59,12 @@ export default {
           var amount = (data_required.amount)
           var date = (data_required.date)
           var date_of_return = (data_required.date_due)
-          var description = (data_required.description)
 
           var cell0 = row.insertCell(0); var cell1 = row.insertCell(1); var cell2 = row.insertCell(2);
-          var cell3 = row.insertCell(3); var cell4 = row.insertCell(4); var cell5 = row.insertCell(5);
+          var cell3 = row.insertCell(3); var cell4 = row.insertCell(4);
 
           cell0.innerHTML = start_sn; cell1.innerHTML = title; cell2.innerHTML = amount; cell3.innerHTML = date;
-          cell4.innerHTML = date_of_return; cell5.innerHTML = description; 
+          cell4.innerHTML = date_of_return;
 
           start_sn += 1
         });
@@ -82,10 +80,6 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-table {
-    font-family: arial, sans-serif;
-    width: 30%;
-}
 th,td {
     border:1px solid #000000;
     text-align: center;

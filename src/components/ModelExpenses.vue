@@ -155,7 +155,6 @@ export default {
         console.log(docRef)
         this.type= this.title=this.number=this.date=this.description = "";
         this.$emit("added")
-        alert("Transaction successfully added!")
         }
       catch(error) {
           console.error("Error adding document: ", error);

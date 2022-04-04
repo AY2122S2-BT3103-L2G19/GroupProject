@@ -1,5 +1,5 @@
 <template>
-    <h1>Welcome back to your Dashboard</h1>
+    <h1>Dashboard</h1>
     <br> <br>
     <div id = "home_container">
       <div id="article"><DailyReads/></div>
@@ -106,11 +106,9 @@ methods: {
 }
 
 #table1 {
-  background-color: burlywood;
-  width:35%; 
+  width:30%; 
   float:left; 
   height:350px;
-  background:burlywood;
   margin:10px
 }
 
