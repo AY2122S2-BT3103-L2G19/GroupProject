@@ -5,9 +5,11 @@
     @model-toggle="modelToggle"
     :status="modelStatus"
     @store-expense="storeExpense"
+    @added = "change"
   />
   <Expenses :allExpenses="expenses" />
-  <ExpenseDisplay/>
+  <ExpenseDisplay
+    :key ="refresh"/>
 </div>
 </template>
 
@@ -36,6 +38,7 @@ export default {
   data() {
     return {
       modelStatus: false,
+      refresh: 0,
       expenses: {
         balance: 0,
         income: 0,
@@ -60,6 +63,9 @@ export default {
     }
 },
   methods: {
+    change() {
+      this.refresh += 1;
+    },
     modelToggle() {
       this.modelStatus = !this.modelStatus;
     },

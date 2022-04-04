@@ -26,7 +26,7 @@
 import { getFirestore } from "firebase/firestore";
 import firebaseApp from "../firebase.js";
 const db = getFirestore(firebaseApp);
-import { getAuth } from "firebase/auth";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { collection, getDocs, doc, deleteDoc } from "firebase/firestore";
 
 export default {
@@ -41,10 +41,19 @@ components: {},
   }, 
 
   mounted(){
-  const auth = getAuth();      
-  this.fbuser = auth.currentUser.email; 
+  const auth = getAuth();
+    onAuthStateChanged(auth, (currUser) => {
+      if (currUser) {
+        console.log(currUser.email, " is current user id");
+        const userEmail = currUser.email;
+        this.fbuser = userEmail;
+        this.display(this.fbuser);
+      } else {
+        console.log(currUser, "user not found....");
+      }
+    }); 
+  },
   // this.fbuser = firebase.auth().currentUser.email
-  this.display(this.fbuser)},
 
   methods:{
   //user becomes an email in display
@@ -53,18 +62,19 @@ components: {},
     var owedPayments = await getDocs(collection(db,String(user), "Transactions", "Owed Payments"))  
     var expenses = await getDocs(collection(db,String(user), "Transactions", "Expenses"))   
     var income = await getDocs(collection(db,String(user), "Transactions", "Income"))   
-    
+
+    var ind = 1;
     var transactions = [];
 
     owedPayments.forEach((docs) => {
       let eachDoc = docs.data();
       let temp = {};
-      var type = (eachDoc.type)
-      var title = (eachDoc.title)
-      var category = (eachDoc.category)
-      var number = (eachDoc.amount)
-      var date = (eachDoc.date)
-      var description = (eachDoc.description)
+      let type = (eachDoc.type)
+      let title = (eachDoc.title)
+      let category = (eachDoc.category)
+      let number = (eachDoc.amount)
+      let date = (eachDoc.date)
+      let description = (eachDoc.description)
       temp.type = type;
       temp.title = title;
       temp.category = category;
@@ -77,12 +87,12 @@ components: {},
     expenses.forEach((docs) => {
       let eachDoc = docs.data();
       let temp = {};
-      var type = (eachDoc.type)
-      var title = (eachDoc.title)
-      var category = (eachDoc.category)
-      var number = (eachDoc.amount)
-      var date = (eachDoc.date)
-      var description = (eachDoc.description)
+      let type = (eachDoc.type)
+      let title = (eachDoc.title)
+      let category = (eachDoc.category)
+      let number = (eachDoc.amount)
+      let date = (eachDoc.date)
+      let description = (eachDoc.description)
       temp.type = type;
       temp.title = title;
       temp.category = category;
@@ -95,12 +105,12 @@ components: {},
     income.forEach((docs) => {
       let eachDoc = docs.data();
       let temp = {};
-      var type = (eachDoc.type)
-      var title = (eachDoc.title)
-      var category = (eachDoc.category)
-      var number = (eachDoc.amount)
-      var date = (eachDoc.date)
-      var description = (eachDoc.description)
+      let type = (eachDoc.type)
+      let title = (eachDoc.title)
+      let category = (eachDoc.category)
+      let number = (eachDoc.amount)
+      let date = (eachDoc.date)
+      let description = (eachDoc.description)
       temp.type = type;
       temp.title = title;
       temp.category = category;
@@ -127,14 +137,13 @@ components: {},
     })
     
     for (var i = 0; i < transactions.length; i++) {
-      var ind = i+1;
       var table = document.getElementById("table")
       var row = table.insertRow(ind)
       var yy = transactions[i]
     // type, title, category, number, date, description 
-      var type = (yy.type)
-      var title = (yy.title)
-      var category = (yy.category)
+      let type = (yy.type)
+      let title = (yy.title)
+      let category = (yy.category)
       if (category == "") {
         category = "-";
       }
@@ -153,16 +162,17 @@ components: {},
      
       var bu = document.createElement("button")
       bu.className = "bwt"
-      bu.id = String(title)
+      bu.id = String(type)
+      bu.title = String(title)
       bu.innerHTML ="Delete"
-      bu.onclick =  ()=>{
+      bu.onclick =  () =>{
         this.deleteinstrument(user, type, title)
       }
       cell9.appendChild(bu) 
 
     var bu2 = document.createElement("button")
       bu2.className = "bwt"
-      bu2.id = String(title)
+      bu2.id = String(type)
       bu2.innerHTML ="Edit"
       bu2.onclick =  ()=>{
         this.editinstrument(title,user)
@@ -172,9 +182,11 @@ components: {},
     }
   },              
 
-    async deleteinstrument(user, type, title){      
-        alert("You are going to delete " + title)
-        await deleteDoc(doc(db, String(user), "Transactions", type, title))
+    async deleteinstrument(user, currType, currTitle){
+        var currentType = currType;
+        var currentTitle = currTitle;
+        alert("You are going to delete " + currTitle)
+        await deleteDoc(doc(db, String(user), "Transactions", currentType, currentTitle))
         let tb = document.getElementById("table")
         //delete everything, make data empty and call the display again
         while (tb.rows.length >1){
@@ -185,7 +197,7 @@ components: {},
      },
     
     async editinstrument(title,user) {
-        alert("You are going to delete " + title)
+        alert("You are going to edit " + title)
         await deleteDoc(doc(db,user,title))
         console.log("working on edit")
     }

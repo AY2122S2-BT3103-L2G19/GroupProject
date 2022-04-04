@@ -44,9 +44,9 @@ export default {
           var expensesByDateFinal = [];
           expensesByDate.forEach((value, key)=> {
             expensesByDateFinal.push([key, value]);
-            console.log([key, value], "each date?");
+            //console.log([key, value], "each date?");
           });
-          console.log("daily expense done")
+          //console.log("daily expense done")
           expensesByDateFinal = expensesByDateFinal.slice(-5);
           this.chartParams = expensesByDateFinal;
           return expensesByDateFinal;
