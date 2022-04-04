@@ -127,10 +127,11 @@ export default {
       this.$emit("model-toggle");
     },
     addExpense() {
-      this.$emit("store-expense", { type: this.type, title: this.title, amount: this.number,  });
+      this.$emit("store-expense", { type: this.type, title: this.title, date: this.date, number: this.number});
       this.type = "";
       this.title = "";
       this.number = "";
+      this.date = "";
     },
     async savetofs(){   
     
@@ -149,8 +150,7 @@ export default {
         type: this.type , title : this.title, category : this.category, amount: this.number, date : this.date, description : this.description, date_due : this.date_due, name : this.name
         })
         console.log(docRef)
-        console.log("adding")
-        this.type= this.title=this.number=this.date=this.description = ""  
+        this.type= this.title=this.number=this.date=this.description = "";
         this.$emit("added")
         alert("Transaction successfully added!")
         }

@@ -70,14 +70,14 @@ export default {
           ...this.expenses,
           income: this.expenses.income + number,
           balance: this.expenses.balance + number,
-          history: [{ title: payload.title, number }, ...this.expenses.history],
+          history: [{ type: payload.type, title: payload.title, date: payload.date, number }, ...this.expenses.history],
         };
       } else if (number < 1) {
         this.expenses = {
           ...this.expenses,
           expense: this.expenses.expense + number,
           balance: this.expenses.balance + number,
-          history: [{ title: payload.title, number }, ...this.expenses.history],
+          history: [{ type: payload.type, title: payload.title, date: payload.date, number }, ...this.expenses.history],
         };
       }
       this.modelStatus = false;

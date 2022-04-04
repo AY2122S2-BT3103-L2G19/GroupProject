@@ -13,12 +13,13 @@
         <span>Expense</span>
         <p>{{ allExpenses.expense }}$</p>
       </div>
-      <div class="OwnedPayments">
-        <span>Owned Payments</span>
+      <div class="OwedPayments">
+        <span>Owed Payments</span>
         <p>{{ allExpenses.owned }}$</p>
       </div>
     </div>
 
+    <h2>Most Recent Additions</h2>
     <div
       class="history"
       v-for="history in allExpenses.history"
@@ -27,7 +28,8 @@
     >
       <div class="history__type">{{ history.type }}</div>
       <div class="history__title">{{ history.title }}</div>
-      <div class="history__number">{{ history.number }}$</div>
+      <div class="history__date">${{ history.date }}</div>
+      <div class="history__number">${{ history.number }}</div>
     </div>
   </div>
 </template>
@@ -112,7 +114,7 @@ export default {
   font-size: 12px;
   padding: 5px;
 }
-.OwnedPayments {
+.OwedPayments {
   background: #ffff;
   padding: 20px;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
@@ -124,7 +126,7 @@ export default {
   position: relative;
   border-bottom: 4px solid #329ac4;
 }
-.OwnedPayments span {
+.OwedPayments span {
   position: absolute;
   top: 0;
   left: 0;
@@ -140,7 +142,7 @@ p {
 .history {
   width: 800px;
   margin: 15px auto;
-  background: #fff;
+  background: rgb(255, 230, 166);
   padding: 12px;
   display: flex;
   animation: animate 0.5s linear;
@@ -153,11 +155,18 @@ p {
     opacity: 1;
   }
 }
+.history__type {
+  width: 20%;
+  text-align: left;
+}
 .history__title {
-  width: 70%;
+  width: 30%;
+}
+.history__date {
+  width: 30%;
 }
 .history__number {
-  width: 30%;
+  width: 20%;
   text-align: right;
 }
 .border-green {
