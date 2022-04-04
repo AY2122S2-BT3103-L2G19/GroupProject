@@ -50,8 +50,8 @@ components: {},
   //user becomes an email in display
 
   async display(user){    
-    let z = await getDocs(collection(db,String(user), "Transactions"))   
-    let ind = 1 
+    let z = await getDocs(collection(db,String(user), "Transactions", "Owed Payments"))   
+    let ind = 1;
     //var tp = 0
 
     z.forEach((docs) => {

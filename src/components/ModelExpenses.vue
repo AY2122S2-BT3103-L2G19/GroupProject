@@ -108,7 +108,7 @@ export default {
       this.$emit("model-toggle");
     },
     addExpense() {
-      this.$emit("store-expense", { type: this.type, title: this.title, number: this.number,  });
+      this.$emit("store-expense", { type: this.type, title: this.title, amount: this.number,  });
       this.type = "";
       this.title = "";
       this.number = "";
@@ -121,8 +121,11 @@ export default {
     if (!((this.type ==""  || this.title == "" || this.category == "")  || (this.number == "" || this.date == ""))){
 
       try{
+        var date = this.date;
+        date = date.slice(8,10) + "/" + date.slice(5,7) + "/" + date.slice(0,4);
+        this.date = date;
         const docRef = await setDoc(doc(db, String(this.fbuser), "Transactions", this.type, this.title),{
-        type: this.type , title : this.title, category : this.category, number: this.number, date : this.date, description : this.description
+        type: this.type , title : this.title, category : this.category, amount: this.number, date : this.date, description : this.description
         })
         console.log(docRef)
         console.log("adding")

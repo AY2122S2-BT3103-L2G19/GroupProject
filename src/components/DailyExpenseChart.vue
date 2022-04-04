@@ -31,12 +31,12 @@ export default {
           
           docs.forEach((doc) => {
           let docData = doc.data();
-          let date = docData.Date;
+          let date = docData.date;
           if (expensesByDate.has(date)) {
             let currAmt = expensesByDate.get(date);
-            expensesByDate.set(date, currAmt + docData.Amount)
+            expensesByDate.set(date, currAmt + docData.amount)
           } else {
-            expensesByDate.set(date, docData.Amount);
+            expensesByDate.set(date, docData.amount);
           }
           });
           

@@ -32,8 +32,8 @@ export default {
       expenseDocs.forEach((doc) => {
         let docData = doc.data();
         let transDetails = [];
-        transDetails.push(docData.Date);
-        transDetails.push(docData.Amount);
+        transDetails.push(docData.date);
+        transDetails.push(docData.amount);
         expenses.push(transDetails);
       });
       var expensesByMonth = new Map();
@@ -116,8 +116,8 @@ export default {
       incomeDocs.forEach((doc) => {
         let docData = doc.data();
         let transDetails = [];
-        transDetails.push(docData.Date);
-        transDetails.push(docData.Amount);
+        transDetails.push(docData.date);
+        transDetails.push(docData.amount);
         incomes.push(transDetails);
       });
       var incomesByMonth = new Map();
