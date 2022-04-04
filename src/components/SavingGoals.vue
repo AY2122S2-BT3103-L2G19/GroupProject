@@ -134,22 +134,22 @@ export default {
       expenseDocs.forEach((doc) => {
         let docData = doc.data();
         let transDetails = [];
-        var Edate = docData.Date;
+        var Edate = docData.date;
         var EDay = parseInt(Edate.slice(0, 2));
         var EMonth = parseInt(Edate.slice(3, 5));
         var EYear = parseInt(Edate.slice(6, 10));
 
         if (EYear > SDyear) {
-          transDetails.push(docData.Date);
-          transDetails.push(docData.Amount);
+          transDetails.push(docData.date);
+          transDetails.push(docData.amount);
           expenses.push(transDetails);
         } else if (EMonth > SDmonth && EYear == SDyear) {
-          transDetails.push(docData.Date);
-          transDetails.push(docData.Amount);
+          transDetails.push(docData.date);
+          transDetails.push(docData.amount);
           expenses.push(transDetails);
         } else if (EMonth == SDmonth && EDay >= SDday && EYear == SDyear) {
-          transDetails.push(docData.Date);
-          transDetails.push(docData.Amount);
+          transDetails.push(docData.date);
+          transDetails.push(docData.amount);
           expenses.push(transDetails);
         }
       });
@@ -185,21 +185,21 @@ export default {
       incomeDocs.forEach((doc) => {
         let docData = doc.data();
         let transDetails = [];
-        var Edate = docData.Date;
+        var Edate = docData.date;
         var EDay = parseInt(Edate.slice(0, 2));
         var EMonth = parseInt(Edate.slice(3, 5));
         var EYear = parseInt(Edate.slice(6, 10));
         if (EYear > SDyear) {
-          transDetails.push(docData.Date);
-          transDetails.push(docData.Amount);
+          transDetails.push(docData.date);
+          transDetails.push(docData.amount);
           incomes.push(transDetails);
         } else if (EMonth > SDmonth && EYear == SDyear) {
-          transDetails.push(docData.Date);
-          transDetails.push(docData.Amount);
+          transDetails.push(docData.date);
+          transDetails.push(docData.amount);
           incomes.push(transDetails);
         } else if (EMonth == SDmonth && EDay >= SDday && EYear == SDyear) {
-          transDetails.push(docData.Date);
-          transDetails.push(docData.Amount);
+          transDetails.push(docData.date);
+          transDetails.push(docData.amount);
           incomes.push(transDetails);
         }
       });
