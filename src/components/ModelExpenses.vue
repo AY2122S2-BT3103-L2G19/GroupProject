@@ -145,6 +145,9 @@ export default {
         var date = this.date;
         date = date.slice(8,10) + "/" + date.slice(5,7) + "/" + date.slice(0,4);
         this.date = date;
+        if (this.type == "Owed Payments") {
+          this.title = this.name;
+        }
         const docRef = await setDoc(doc(db, String(this.fbuser), "Transactions", this.type, this.title),{
         type: this.type , title : this.title, category : this.category, amount: this.number, date : this.date, description : this.description, date_due : this.date_due, name : this.name
         })
