@@ -150,7 +150,7 @@ export default {
           this.title = this.name;
         }
         const docRef = await setDoc(doc(db, String(this.fbuser), "Transactions", this.type, this.title),{
-        type: this.type , title : this.title, category : this.category, amount: this.number, date : this.date, description : this.description, date_due : this.date_due, name : "Owed by" + this.name
+        type: this.type , title : this.title, category : this.category, amount: this.number, date : this.date, description : this.description, date_due : this.date_due, name : this.name
         })
         console.log(docRef)
         this.type= this.title=this.number=this.date=this.description = "";

@@ -8,7 +8,6 @@
         <th>Amount</th>
         <th>Date</th>
         <th>Date of Return</th>
-        <th>Category</th>
         <th>Description</th>       
         </tr>
     </table><br><br>
@@ -60,16 +59,14 @@ export default {
           var title = (data_required.title)
           var amount = (data_required.amount)
           var date = (data_required.date)
-          var date_of_return = (data_required.Date_Of_Return)
-          var category = (data_required.category)
+          var date_of_return = (data_required.date_due)
           var description = (data_required.description)
 
           var cell0 = row.insertCell(0); var cell1 = row.insertCell(1); var cell2 = row.insertCell(2);
           var cell3 = row.insertCell(3); var cell4 = row.insertCell(4); var cell5 = row.insertCell(5);
-          var cell6 = row.insertCell(6);
 
           cell0.innerHTML = start_sn; cell1.innerHTML = title; cell2.innerHTML = amount; cell3.innerHTML = date;
-          cell4.innerHTML = date_of_return; cell5.innerHTML = category; cell6.innerHTML = description; 
+          cell4.innerHTML = date_of_return; cell5.innerHTML = description; 
 
           start_sn += 1
         });

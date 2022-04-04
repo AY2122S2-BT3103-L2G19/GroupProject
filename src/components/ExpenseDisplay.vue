@@ -53,7 +53,6 @@ components: {},
     var owedPayments = await getDocs(collection(db,String(user), "Transactions", "Owed Payments"))  
     var expenses = await getDocs(collection(db,String(user), "Transactions", "Expenses"))   
     var income = await getDocs(collection(db,String(user), "Transactions", "Income"))   
-    let ind = 1;
     
     var transactions = [];
 
@@ -128,6 +127,7 @@ components: {},
     })
     
     for (var i = 0; i < transactions.length; i++) {
+      var ind = i+1;
       var table = document.getElementById("table")
       var row = table.insertRow(ind)
       var yy = transactions[i]
@@ -174,7 +174,7 @@ components: {},
 
     async deleteinstrument(user, type, title){      
         alert("You are going to delete " + title)
-        await deleteDoc(doc(db, user, type, title))
+        await deleteDoc(doc(db, String(user), "Transactions", type, title))
         let tb = document.getElementById("table")
         //delete everything, make data empty and call the display again
         while (tb.rows.length >1){
