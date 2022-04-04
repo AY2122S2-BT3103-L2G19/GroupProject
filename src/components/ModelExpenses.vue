@@ -3,7 +3,7 @@
     <div class="model" @click.self="toggle">
       <div class="model__container">
         <div class="model__form">
-          <form @submit.prevent="addExpence">
+          <form @submit.prevent="addExpense">
             <div class="model__group">
               <h3>Add Transaction</h3>
             </div>
@@ -70,7 +70,7 @@
               />
             </div>
             <div class="model__group">
-              <input type="submit" value="Add Expence" class="button" />
+              <input type="submit" value="Add Expense" class="button" />
               <button  id = "savebutton"  type="button"  @click="savetofs()"> Add Expense </button>
             </div>
           </form>
@@ -91,7 +91,7 @@ import { getAuth} from "firebase/auth";
 const db = getFirestore(firebaseApp);
 
 export default {
-  name: "Model",
+  name: "ModelExpenses",
   props: ["status"],
   data() {
     return {
@@ -108,8 +108,8 @@ export default {
     toggle() {
       this.$emit("model-toggle");
     },
-    addExpence() {
-      this.$emit("store-expence", { type: this.type, title: this.title, number: this.number,  });
+    addExpense() {
+      this.$emit("store-expense", { type: this.type, title: this.title, number: this.number,  });
       this.type = "";
       this.title = "";
       this.number = "";

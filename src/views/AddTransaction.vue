@@ -10,8 +10,8 @@
 
 <script>
 import Navbar from "../components/Navbar.vue";
-import Model from "../components/Model.vue";
-import Expences from "../components/Expences.vue";
+import Model from "../components/ModelExpenses.vue";
+import Expences from "../components/Expenses.vue";
 
 export default {
   name: "App",

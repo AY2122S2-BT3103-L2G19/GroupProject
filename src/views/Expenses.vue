@@ -1,20 +1,20 @@
 <template>
 <div>
   <Navbar @model-show="modelToggle" />
-  <Model
+  <ModelExpenses
     @model-toggle="modelToggle"
     :status="modelStatus"
-    @store-expence="storeExpence"
+    @store-expense="storeExpense"
   />
-  <Expences :allExpences="expences" />
+  <Expenses :allExpenses="expenses" />
   <ExpenseDisplay/>
 </div>
 </template>
 
 <script>
 import Navbar from "../components/Navbar.vue";
-import Model from "../components/Model.vue";
-import Expences from "../components/Expences.vue";
+import ModelExpenses from "../components/ModelExpenses.vue";
+import Expenses from "../components/Expenses.vue";
 import ExpenseDisplay from "../components/ExpenseDisplay.vue";
 import {getAuth, onAuthStateChanged} from "firebase/auth";
 
@@ -23,8 +23,8 @@ export default {
   name: "App",
   components: {
     Navbar,
-    Model,
-    Expences,
+    ModelExpenses,
+    Expenses,
     ExpenseDisplay,
     },
   props: {
@@ -36,10 +36,10 @@ export default {
   data() {
     return {
       modelStatus: false,
-      expences: {
+      expenses: {
         balance: 0,
         income: 0,
-        expence: 0,
+        expense: 0,
         history: [],
       },
       user:false,
@@ -63,21 +63,21 @@ export default {
     modelToggle() {
       this.modelStatus = !this.modelStatus;
     },
-    storeExpence(payload) {
+    storeExpense(payload) {
       const number = parseInt(payload.number);
       if (number > 1) {
-        this.expences = {
-          ...this.expences,
-          income: this.expences.income + number,
-          balance: this.expences.balance + number,
-          history: [{ title: payload.title, number }, ...this.expences.history],
+        this.expenses = {
+          ...this.expenses,
+          income: this.expenses.income + number,
+          balance: this.expenses.balance + number,
+          history: [{ title: payload.title, number }, ...this.expenses.history],
         };
       } else if (number < 1) {
-        this.expences = {
-          ...this.expences,
-          expence: this.expences.expence + number,
-          balance: this.expences.balance + number,
-          history: [{ title: payload.title, number }, ...this.expences.history],
+        this.expenses = {
+          ...this.expenses,
+          expense: this.expenses.expense + number,
+          balance: this.expenses.balance + number,
+          history: [{ title: payload.title, number }, ...this.expenses.history],
         };
       }
       this.modelStatus = false;

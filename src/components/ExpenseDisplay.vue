@@ -21,7 +21,7 @@
 
 <script>
 
-console.log("in ED")
+//console.log("in ED")
 
 import { getFirestore } from "firebase/firestore";
 import firebaseApp from "../firebase.js";
@@ -80,7 +80,7 @@ components: {},
       bu.id = String(title)
       bu.innerHTML ="Delete"
       bu.onclick =  ()=>{
-        this.deleteinstrument2(title,user)
+        this.deleteinstrument(title,user)
       }
       cell9.appendChild(bu) 
 
@@ -89,29 +89,14 @@ components: {},
       bu2.id = String(title)
       bu2.innerHTML ="Edit"
       bu2.onclick =  ()=>{
-        this.editinstrument2(title,user)
+        this.editinstrument(title,user)
       }
       cell8.appendChild(bu2)
-
-    // val(ticker)
-    //   setInterval(()=>{
-    //   val(ticker)
-    //   },2000)    
-    /*
-      async function val(ticker){
-        let binance = new ccxt.binance()
-        let x = await binance.fetch_ohlcv(ticker,"5m")
-        cell6.innerHTML =  x[499][4]
-        cell7.innerHTML =  Math.round(quantity * (-parseFloat(price) + parseFloat(cell6.innerHTML)))       
-        tp = tp + parseFloat(cell7.innerHTML)
-        console.log("TP is ",tp)
-        document.getElementById("totalProfit").innerHTML = (" Total Profit is :  " + String(tp))      
-      }   */
       ind+= 1   
     }) 
   },              
 
-    async deleteinstrument2(title,user){      
+    async deleteinstrument(title,user){      
         alert("You are going to delete " + title)
         await deleteDoc(doc(db,user,title))
         let tb = document.getElementById("table")
@@ -123,7 +108,7 @@ components: {},
         this.display(this.fbuser) 
      },
     
-    async editinstrument2(title,user) {
+    async editinstrument(title,user) {
         alert("You are going to delete " + title)
         await deleteDoc(doc(db,user,title))
         console.log("working on edit")

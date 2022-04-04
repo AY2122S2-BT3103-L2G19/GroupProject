@@ -1,27 +1,27 @@
 <template>
   <div>
-    <div class="expences">
+    <div class="expenses">
       <div class="balance">
         <span>Balance</span>
-        <p>{{ allExpences.balance }}$</p>
+        <p>{{ allExpenses.balance }}$</p>
       </div>
       <div class="income">
         <span>Income</span>
-        <p>{{ allExpences.income }}$</p>
+        <p>{{ allExpenses.income }}$</p>
       </div>
-      <div class="expence">
-        <span>Expence</span>
-        <p>{{ allExpences.expence }}$</p>
+      <div class="expense">
+        <span>Expense</span>
+        <p>{{ allExpenses.expense }}$</p>
       </div>
       <div class="OwnedPayments">
         <span>Owned Payments</span>
-        <p>{{ allExpences.owned }}$</p>
+        <p>{{ allExpenses.owned }}$</p>
       </div>
     </div>
 
     <div
       class="history"
-      v-for="history in allExpences.history"
+      v-for="history in allExpenses.history"
       :key="history.title"
       :class="[history.number > 0 ? 'border-green' : 'border-red']"
     >
@@ -34,13 +34,13 @@
 
 <script>
 export default {
-  name: "Expences",
-  props: ["allExpences"],
+  name: "Expenses",
+  props: ["allExpenses"],
 };
 </script>
 
 <style scoped>
-.expences {
+.expenses {
   width: 800px;
   margin: 70px auto;
   display: flex;
@@ -90,7 +90,7 @@ export default {
   font-size: 12px;
   padding: 5px;
 }
-.expence {
+.expense {
   background: #ffff;
   padding: 20px;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
@@ -102,7 +102,7 @@ export default {
   position: relative;
   border-bottom: 4px solid #d4075d;
 }
-.expence span {
+.expense span {
   position: absolute;
   top: 0;
   left: 0;
