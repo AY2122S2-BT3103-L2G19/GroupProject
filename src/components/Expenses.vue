@@ -3,47 +3,149 @@
     <div class="expenses">
       <div class="balance">
         <span>Balance</span>
-        <p>{{ allExpenses.balance }}$</p>
+        <p>${{ allExpenses.balance }}</p>
       </div>
       <div class="income">
         <span>Income</span>
-        <p>{{ allExpenses.income }}$</p>
+        <p>${{ allExpenses.income }}</p>
       </div>
       <div class="expense">
         <span>Expense</span>
-        <p>{{ allExpenses.expense }}$</p>
+        <p>${{ allExpenses.expense }}</p>
       </div>
       <div class="OwedPayments">
         <span>Owed Payments</span>
-        <p>{{ allExpenses.owned }}$</p>
+        <p>${{ allExpenses.owed }}</p>
       </div>
-    </div>
-    
-    <div
-      class="history"
-      v-for="history in allExpenses.history"
-      :key="history.title"
-      :class="[history.number > 0 ? 'border-green' : 'border-red']"
-    >
-      <div class="history__type">{{ history.type }}</div>
-      <div class="history__title">{{ history.title }}</div>
-      <div class="history__date">${{ history.date }}</div>
-      <div class="history__number">${{ history.number }}</div>
     </div>
   </div>
 </template>
 
 <script>
+import firebaseApp from "../firebase.js";
+import { getFirestore } from "firebase/firestore";
+import { collection, getDocs } from "firebase/firestore";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+
+const db = getFirestore(firebaseApp);
+
 export default {
   name: "Expenses",
-  props: ["allExpenses"],
-};
+  data() {
+    return {
+      allExpenses: {
+        balance: 3,
+        income: 4,
+        expense: 5,
+        owed: 6,
+      },
+    }
+  },
+  methods: {
+    async updatedData(currUser) {
+        var docs = null;
+          
+        docs = await getDocs(
+        collection(db, currUser, "Transactions", "Expenses"));
+        var expensesByDate = new Map();
+        docs.forEach((doc) => {
+        let docData = doc.data();
+        let date = docData.date.slice(3,10);
+        if (expensesByDate.has(date)) {
+          let currAmt = expensesByDate.get(date);
+          expensesByDate.set(date, currAmt + docData.amount)
+        } else {
+          expensesByDate.set(date, docData.amount);
+        }
+        });
+        var sortedExpense = [...expensesByDate.entries()].sort(function(b,a){
+            if (a[0].slice(3,7) == b[0].slice(3,7)) {
+              let aMonth = parseInt(a[0].slice(0,2));
+              let bMonth = parseInt(b[0].slice(0,2));
+              return aMonth - bMonth;
+            }
+            let aYear = parseInt(a[0].slice(3,7));
+            let bYear = parseInt(b[0].slice(3,7));
+            return aYear - bYear;
+            }
+          )
+        this.allExpenses.expense = sortedExpense[0][1];
+
+        docs = await getDocs(
+        collection(db, currUser, "Transactions", "Income"));
+        var incomeByDate = new Map();
+        docs.forEach((doc) => {
+        let docData = doc.data();
+        let date = docData.date.slice(3,10);
+        if (incomeByDate.has(date)) {
+          let currAmt = incomeByDate.get(date);
+          incomeByDate.set(date, currAmt + docData.amount)
+        } else {
+          incomeByDate.set(date, docData.amount);
+        }
+        });
+        var sortedIncome = [...incomeByDate.entries()].sort(function(b,a){
+            if (a[0].slice(3,7) == b[0].slice(3,7)) {
+              let aMonth = parseInt(a[0].slice(0,2));
+              let bMonth = parseInt(b[0].slice(0,2));
+              return aMonth - bMonth;
+            }
+            let aYear = parseInt(a[0].slice(3,7));
+            let bYear = parseInt(b[0].slice(3,7));
+            return aYear - bYear;
+            }
+          )
+        this.allExpenses.income = sortedIncome[0][1];
+      console.log(currUser, 'currdate');
+      this.allExpenses.balance = this.allExpenses.income - this.allExpenses.expense;
+
+      docs = await getDocs(
+        collection(db, currUser, "Transactions", "Owed Payments"));
+        var owedByDate = new Map();
+        docs.forEach((doc) => {
+        let docData = doc.data();
+        let date = docData.date.slice(3,10);
+        if (owedByDate.has(date)) {
+          let currAmt = owedByDate.get(date);
+          owedByDate.set(date, currAmt + docData.amount)
+        } else {
+          owedByDate.set(date, docData.amount);
+        }
+        });
+        var sortedOwed = [...owedByDate.entries()].sort(function(b,a){
+            if (a[0].slice(3,7) == b[0].slice(3,7)) {
+              let aMonth = parseInt(a[0].slice(0,2));
+              let bMonth = parseInt(b[0].slice(0,2));
+              return aMonth - bMonth;
+            }
+            let aYear = parseInt(a[0].slice(3,7));
+            let bYear = parseInt(b[0].slice(3,7));
+            return aYear - bYear;
+            }
+          )
+        this.allExpenses.owed = sortedOwed[0][1];
+    }
+  },
+  mounted() {
+    //this.updateUser();
+    const auth = getAuth();      
+    onAuthStateChanged(auth, (currUser) => {
+      if (currUser) {
+      console.log(currUser.email, " is current user id")
+      const userEmail = currUser.email;
+      this.user = userEmail;
+      this.updatedData(this.user);
+      } else {
+      console.log(currUser, "user not found....") }
+    });
+  },
+}
 </script>
 
 <style scoped>
 .expenses {
   width: 800px;
-  margin: 70px auto;
+  margin: auto;
   display: flex;
   justify-content: space-between;
 }
@@ -140,7 +242,6 @@ p {
 }
 .history {
   width: 800px;
-  margin: 15px auto;
   background: rgb(255, 230, 166);
   padding: 12px;
   display: flex;

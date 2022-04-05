@@ -5,7 +5,8 @@
       <div id="chart2"><DailyExpenseChart/></div>
       <div id="article"><DailyReads/></div>
       <div id="button"><AddTransactionButton/></div>
-      <div id="insights"><Expenses :allExpenses="expenses"/></div>
+      <div id="insightsHeader" class="title">Transaction totals for the past month</div>
+      <div id="insights"><Expenses/></div>
       <div id="table1"><OwedPaymentsTable :key = "refreshComp"/></div>
     </div>
 </template>
@@ -32,18 +33,12 @@ export default {
      OwedPaymentsTable,
      Expenses,
  },
-data() {
+ data() {
     return {
         user:false,
         refreshComp: 0,
-        expenses: {
-        balance: 0,
-        income: 0,
-        expense: 0,
-        history: [],
-      },
-    }
-},
+      }
+ },
 
 mounted() {
     const auth = getAuth();
@@ -88,6 +83,10 @@ methods: {
   margin-right:100px;
 }
 
+#insightsHeader {
+  margin-bottom: 30px;
+}
+
 #chart1 {
   background-color: burlywood;
   width:30%; 
@@ -112,7 +111,8 @@ methods: {
   width:30%; 
   float:left; 
   height:350px;
-  margin:10px
+  margin-top:30px;
+  margin-left:10px;
 }
 
 #home_container {

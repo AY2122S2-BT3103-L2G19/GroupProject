@@ -1,5 +1,5 @@
 <template>
-  <va-navbar class="tab1" color="lightblue" shape="true">
+  <va-navbar shape class="tab1" color="lightblue">
     <template #left>
       <va-navbar-item text-align="center">
         <router-link to="/" class="routerlink" id="initial">
@@ -20,7 +20,7 @@
       <va-navbar-item text-align="center">
         <router-link to="/expenses/false" class="routerlink" id="expense">
         <va-icon class="material-icons">paid</va-icon>
-        Expenses
+        Transactions
         </router-link>
       </va-navbar-item>
     </template>
@@ -66,7 +66,6 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 50px;
 }
 .routerlink {
   font-size: 24px;
@@ -83,9 +82,10 @@ export default {
   width:60%;
   margin-bottom: 30px;
   float:left;
+  font-family: Avenir, Helvetica, Arial, sans-serif;
 }
 .extra {
-  width:20%;
+  width:30%;
   background-color: lightblue;
   float:left;
   margin-bottom: 30px;
@@ -93,7 +93,7 @@ export default {
 }
 .tab2 {
   background-color: lightblue;
-  width:20%;
+  width:10%;
   height: 65px;
   display: grid;
   float:left;
