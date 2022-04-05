@@ -1,5 +1,34 @@
 <template>
-  <div id="navbar" v-if="checkUser()">
+  <div id="navbar" v-if="checkUser()" class="tab-wrapper">
+  <va-tabs class="tab1"
+    stateful
+    grow
+  >
+    <template #tabs>
+      <va-tab>
+        <router-link to="/" class="routerlink" id="initial">
+        <va-icon class="material-icons">dashboard</va-icon> 
+        Dashboard
+        </router-link>
+      </va-tab>
+      <va-divider vertical/>
+      <va-tab>
+        <router-link to="/goals" class="routerlink">
+        <va-icon class="material-icons">account_balance</va-icon>
+          Goals
+        </router-link>
+      </va-tab>
+      <va-divider vertical/>
+      <va-tab>
+        <router-link to="/expenses/false" class="routerlink" id="expense">
+        <va-icon class="material-icons">paid</va-icon>
+        Transactions
+        </router-link>
+      </va-tab>
+      <va-divider vertical/>
+    </template>
+  </va-tabs>
+  <!--
   <va-navbar shape class="tab1" color="lightblue">
     <template #left>
       <va-navbar-item text-align="center">
@@ -25,7 +54,7 @@
         </router-link>
       </va-navbar-item>
     </template>
-  </va-navbar>
+  </va-navbar>-->
   </div>
   <div class="extra" v-if="checkUser()">
     
@@ -33,9 +62,11 @@
   <div class="tab2" v-if="checkUser()">
     <LogOut/>
   </div>
-  <router-view/>
-  <br> <br>
   <br>
+  <br>
+  <br>
+  <hr>
+  <router-view/>
 </template>
 
 <script>
@@ -58,7 +89,7 @@ export default {
       elem.click(); 
     },
     checkUser() {
-      if (this.$route.path == '/' || this.$route.path == '/goals' || this.$route.path == '/expenses/:togglePopup') {
+      if (this.$route.path == '/' || this.$route.path == '/goals' || this.$route.path == '/expenses/true' || this.$route.path=='/expenses/false') {
         return true;
       }
       return false;
@@ -75,6 +106,7 @@ export default {
   text-align: center;
   color: #2c3e50;
 }
+
 .routerlink {
   font-size: 24px;
   color:rgb(0, 0, 0);
@@ -85,26 +117,26 @@ export default {
   /*border-bottom: 2px solid black;*/
 }
 
-.tab1 {
-  width:60%;
-  margin-bottom: 30px;
-  float:left;
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+#navbar {
+  float: left;
+  margin-top: 10px;
+  width: 50%;
 }
+
+/*
 .extra {
   width:30%;
   background-color: lightblue;
   float:left;
   margin-bottom: 30px;
   min-height: 65px;
-}
+}*/
 .tab2 {
-  background-color: lightblue;
   width:10%;
   height: 65px;
   display: grid;
-  float:left;
-  margin-bottom: 30px;
+  float:right;
+  margin-bottom: 10px;
 }
 /*
 #dashboardtab {

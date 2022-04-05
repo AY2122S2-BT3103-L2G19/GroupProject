@@ -1,4 +1,5 @@
 <template>
+  
   <Navbar @model-show="modelToggle" />
   <Model
     @model-toggle="modelToggle"

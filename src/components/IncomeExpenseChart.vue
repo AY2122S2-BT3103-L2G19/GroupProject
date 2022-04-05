@@ -1,6 +1,7 @@
 <template>
   <div class="chart">
     <h4 class="title">Expense vs Income for Past 3 Months</h4>
+    <br>
     <bar-chart empty="Start adding expenses to view data now!" loading="Loading your expenses/income" class = "user" width = 100% :data = "chartParams" :colors="['red','green']"></bar-chart>
   </div>
 </template>
@@ -227,4 +228,7 @@ export default {
   bar-chart{
     margin:0px;
   }
+  .title {
+  font-size: 15px;
+}
 </style>

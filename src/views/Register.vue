@@ -1,5 +1,5 @@
 <template>
-    <h1>Hello from Register</h1>
+    <h1>Please Register with a valid Email Address!</h1>
     <form>
         <label for="email">Email: </label>
         <input id="email" type="text" v-model="email"/> <br><br>

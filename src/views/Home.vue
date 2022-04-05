@@ -4,7 +4,7 @@
       <div id="chart1"><IncomeExpenseChart/></div>
       <div id="chart2"><DailyExpenseChart/></div>
       <div id="article"><DailyReads/></div>
-      <div id="insightsHeader" class="title">Transaction totals for the past month</div>
+      <div id="insightsHeader" class="title" >Transaction totals for the past month</div>
       <div id="insights"><Expenses/></div>
       <div id="button"><AddTransactionButton/></div>
       <div id="table1"><OwedPaymentsTable :key = "refreshComp"/></div>
@@ -85,6 +85,7 @@ methods: {
 }
 
 #insightsHeader {
+  font-size: 15px;
   position: relative;
   width: 55%;
   margin: 30px 20px 30px 20px;
@@ -104,7 +105,8 @@ methods: {
   float:left; 
   background:rgb(255, 255, 255); 
   padding: 0px 0px 0px 0px;
-  border-radius: 4px;
+  margin-right: 10px;
+  border-right: 1px grey solid;
 }
 
 #chart2 {
