@@ -7,7 +7,6 @@
       <div id="chart2"><DailyExpenseChart/></div>
       <div id="table1"><OwedPaymentsTable :key = "refreshComp"/></div>
     </div>
-    <LogOut/>
 </template>
 
 <script>
@@ -16,20 +15,19 @@ import AddTransactionButton from '@/components/AddTransactionButton.vue'
 import IncomeExpenseChart from '@/components/IncomeExpenseChart.vue'
 import DailyExpenseChart from '@/components/DailyExpenseChart.vue'
 import OwedPaymentsTable from '@/components/OwedPaymentsTable.vue'
-import LogOut from '@/components/LogOut.vue'
+//import LogOut from '@/components/LogOut.vue'
 import {getAuth, onAuthStateChanged} from "firebase/auth";
 
 
 
 export default {
- name: 'App',
+ name: "Home",
  components: {
      DailyReads,
      AddTransactionButton,
      IncomeExpenseChart,
      DailyExpenseChart,
      OwedPaymentsTable,
-     LogOut,
  },
 data() {
     return {
@@ -59,9 +57,6 @@ methods: {
 </script>
 
 <style>
-#app{
-  height:300px;
-}
 #article {
   background-color: burlywood;
   width:60%; 

@@ -38,5 +38,4 @@ methods: {
 </script>
 
 <style>
-
 </style>

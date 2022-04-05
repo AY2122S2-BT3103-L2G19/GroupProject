@@ -1,30 +1,33 @@
 <template>
-  <va-tabs
-    stateful
-    left
-    class="tab1"
-  >
-    <template #tabs>
-      <va-tab id="dashboardtab">
+  <va-navbar class="tab1" color="lightblue" shape="true">
+    <template #left>
+      <va-navbar-item text-align="center">
         <router-link to="/" class="routerlink" id="initial">
         <va-icon class="material-icons">dashboard</va-icon> 
         Dashboard
         </router-link>
-      </va-tab>
-      <va-tab id="goalstab">
+      </va-navbar-item>
+    </template>
+    <template #center>
+      <va-navbar-item text-align="center">
         <router-link to="/goals" class="routerlink">
         <va-icon class="material-icons">account_balance</va-icon>
           Goals
-          </router-link>
-      </va-tab>
-      <va-tab id="expensetab">
+        </router-link>
+      </va-navbar-item>
+    </template>
+    <template #right>
+      <va-navbar-item text-align="center">
         <router-link to="/expenses/false" class="routerlink" id="expense">
         <va-icon class="material-icons">paid</va-icon>
         Expenses
         </router-link>
-      </va-tab>
+      </va-navbar-item>
     </template>
-  </va-tabs>
+  </va-navbar>
+  <div class="extra">
+    
+  </div>
   <div class="tab2">
     <LogOut/>
   </div>
@@ -52,7 +55,7 @@ export default {
       const elem = document.getElementById('expense');
       elem.click(); 
     }
-  }
+  },
 }
 </script>
 
@@ -72,20 +75,31 @@ export default {
 
 .routerlink:hover {
   color:rgb(244, 186, 111);
+  /*border-bottom: 2px solid black;*/
 }
+
 
 .tab1 {
-  width:50%;
-  height: 60px;
+  width:60%;
+  margin-bottom: 30px;
   float:left;
+}
+.extra {
+  width:20%;
+  background-color: lightblue;
+  float:left;
+  margin-bottom: 30px;
+  min-height: 65px;
 }
 .tab2 {
-  width:40%;
-  height: 60px;
+  background-color: lightblue;
+  width:20%;
+  height: 65px;
+  display: grid;
   float:left;
-  text-align: right;
+  margin-bottom: 30px;
 }
-
+/*
 #dashboardtab {
   text-align: center;
   height: 40px;
@@ -101,5 +115,5 @@ export default {
   text-align: center;
   height: 40px;
   width: 200px;
-}
+}*/
 </style>
