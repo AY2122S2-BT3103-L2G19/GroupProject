@@ -224,7 +224,7 @@ export default {
 </script>
 
 <style scoped>
-.user {
-  margin: auto;
-}
+  bar-chart{
+    margin:0px;
+  }
 </style>

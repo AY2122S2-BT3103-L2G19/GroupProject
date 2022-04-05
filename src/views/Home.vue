@@ -4,9 +4,9 @@
       <div id="chart1"><IncomeExpenseChart/></div>
       <div id="chart2"><DailyExpenseChart/></div>
       <div id="article"><DailyReads/></div>
-      <div id="button"><AddTransactionButton/></div>
       <div id="insightsHeader" class="title">Transaction totals for the past month</div>
       <div id="insights"><Expenses/></div>
+      <div id="button"><AddTransactionButton/></div>
       <div id="table1"><OwedPaymentsTable :key = "refreshComp"/></div>
     </div>
 </template>
@@ -65,10 +65,10 @@ methods: {
   background-color: burlywood;
   width:35%; 
   float:left; 
-  height:300px; 
+  height:350px; 
   background:gray; 
   margin-left: 10px;
-  margin-bottom: 60px;
+  margin-bottom: 40px;
   border: solid 2px black;
   border-radius: 5px;
   padding: 10px 2px 10px 2px;
@@ -80,20 +80,30 @@ methods: {
   float:right; 
   height:220px; 
   background:none; 
+  margin-top: 20px;
   margin-right:100px;
 }
 
 #insightsHeader {
-  margin-bottom: 30px;
+  position: relative;
+  width: 55%;
+  margin: 30px 20px 30px 20px;
+}
+
+#insights {
+  margin: 0px 20px 30px 20px;
+  position: relative;
+  align-self: start;;
+  float:left;
+  width: 55%;
 }
 
 #chart1 {
   background-color: burlywood;
   width:30%; 
   float:left; 
-  height:355px; 
   background:rgb(255, 255, 255); 
-  padding: 5px 0px 15px 0px;
+  padding: 0px 0px 0px 0px;
   border-radius: 4px;
 }
 
@@ -101,9 +111,8 @@ methods: {
   background-color: burlywood;
   width:30%; 
   float:left; 
-  height:350px; 
   background:rgb(255, 255, 255); 
-  padding: 5px 0px 20px 0px;
+  padding: 0px 0px 0px 0px;
   border-radius: 4px;
 }
 

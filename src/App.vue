@@ -1,4 +1,5 @@
 <template>
+  <div id="navbar" v-if="checkUser()">
   <va-navbar shape class="tab1" color="lightblue">
     <template #left>
       <va-navbar-item text-align="center">
@@ -25,10 +26,11 @@
       </va-navbar-item>
     </template>
   </va-navbar>
-  <div class="extra">
+  </div>
+  <div class="extra" v-if="checkUser()">
     
   </div>
-  <div class="tab2">
+  <div class="tab2" v-if="checkUser()">
     <LogOut/>
   </div>
   <router-view/>
@@ -54,6 +56,12 @@ export default {
     redirectToExpense() {
       const elem = document.getElementById('expense');
       elem.click(); 
+    },
+    checkUser() {
+      if (this.$route.path == '/' || this.$route.path == '/goals' || this.$route.path == '/expenses/:togglePopup') {
+        return true;
+      }
+      return false;
     }
   },
 }
@@ -76,7 +84,6 @@ export default {
   color:rgb(244, 186, 111);
   /*border-bottom: 2px solid black;*/
 }
-
 
 .tab1 {
   width:60%;

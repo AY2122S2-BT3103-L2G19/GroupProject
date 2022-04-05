@@ -1,5 +1,5 @@
 <template>
-  <h1>Hello from Login</h1>
+  <h1>Please Login to start using our application!</h1>
   <form>
     <label for="email">Email: </label>
     <input id="email" type="text" v-model="email" /> <br /><br />

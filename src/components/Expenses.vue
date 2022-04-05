@@ -144,8 +144,8 @@ export default {
 
 <style scoped>
 .expenses {
-  width: 800px;
-  margin: auto;
+  width: 100%;
+  margin: 2px;
   display: flex;
   justify-content: space-between;
 }
@@ -153,7 +153,7 @@ export default {
   background: #ffff;
   padding: 20px;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-  width: 200px;
+  width: 25%;
   height: 80px;
   display: flex;
   justify-content: center;
@@ -175,7 +175,7 @@ export default {
   background: #ffff;
   padding: 20px;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-  width: 200px;
+  width: 25%;
   height: 80px;
   display: flex;
   justify-content: center;
@@ -197,7 +197,7 @@ export default {
   background: #ffff;
   padding: 20px;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-  width: 200px;
+  width: 25%;
   height: 80px;
   display: flex;
   justify-content: center;
@@ -219,7 +219,7 @@ export default {
   background: #ffff;
   padding: 20px;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-  width: 200px;
+  width: 25%;
   height: 80px;
   display: flex;
   justify-content: center;
