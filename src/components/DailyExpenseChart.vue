@@ -40,9 +40,25 @@ export default {
           }
           });
           
+          var expensesByDateSorted = new Map([...expensesByDate.entries()].sort(function(a,b){
+            if (a[0].slice(6,10) == b[0].slice(6,10)) {
+              if (a[0].slice(3,5) == b[0].slice(3,5)) {
+                let aDay = parseInt(a[0].slice(0,2));
+                let bDay = parseInt(b[0].slice(0,2));
+                return aDay - bDay;
+              }
+              let aMonth = parseInt(a[0].slice(3,5));
+              let bMonth = parseInt(b[0].slice(3,5));
+              return aMonth - bMonth;
+            }
+            let aYear = parseInt(a[0].slice(6,10));
+            let bYear = parseInt(b[0].slice(6,10));
+            return aYear - bYear;
+            }
+          ))
           
           var expensesByDateFinal = [];
-          expensesByDate.forEach((value, key)=> {
+          expensesByDateSorted.forEach((value, key)=> {
             expensesByDateFinal.push([key, value]);
             //console.log([key, value], "each date?");
           });

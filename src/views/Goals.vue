@@ -1,5 +1,4 @@
 <template>
-  <h2>Spending Goals</h2>
   <NavbarSpendingGoals @model-show="modelToggle" />
   <ModelSpendingGoals
     @model-toggle="modelToggle"
@@ -7,7 +6,6 @@
     @added="change"
   />
   <SpendingGoals2 :key="refreshComp" />
-  <h2>Saving Goals</h2>
   <NavbarSavingGoals @model-show="modelToggle2" />
   <ModelSavingGoals
     @model-toggle="modelToggle2"

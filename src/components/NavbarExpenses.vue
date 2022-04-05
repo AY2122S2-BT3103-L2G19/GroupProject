@@ -19,8 +19,7 @@ export default {
 nav {
   width: 100%;
   height: 60px;
-  background: rgb(250, 242, 242);
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+  background: rgb(255, 255, 255);
   display: flex;
   justify-content: center;
   align-items: center;

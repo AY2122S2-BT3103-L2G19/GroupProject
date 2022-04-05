@@ -120,7 +120,7 @@ components: {},
       transactions.push(temp);
     })
     
-    transactions.sort(function(a,b){
+    transactions.sort(function(b,a){
       if (a.date.slice(6,10) == b.date.slice(6,10)) {
         if (a.date.slice(3,5) == b.date.slice(3,5)) {
           let aDay = parseInt(a.date.slice(0,2));
