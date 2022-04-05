@@ -1,10 +1,11 @@
 <template>
     <br> <br>
     <div id = "home_container">
-      <div id="article"><DailyReads/></div>
-      <div id="button"><AddTransactionButton/></div>
       <div id="chart1"><IncomeExpenseChart/></div>
       <div id="chart2"><DailyExpenseChart/></div>
+      <div id="article"><DailyReads/></div>
+      <div id="button"><AddTransactionButton/></div>
+      <div id="insights"><Expenses :allExpenses="expenses"/></div>
       <div id="table1"><OwedPaymentsTable :key = "refreshComp"/></div>
     </div>
 </template>
@@ -15,6 +16,7 @@ import AddTransactionButton from '@/components/AddTransactionButton.vue'
 import IncomeExpenseChart from '@/components/IncomeExpenseChart.vue'
 import DailyExpenseChart from '@/components/DailyExpenseChart.vue'
 import OwedPaymentsTable from '@/components/OwedPaymentsTable.vue'
+import Expenses from '@/components/Expenses.vue'
 //import LogOut from '@/components/LogOut.vue'
 import {getAuth, onAuthStateChanged} from "firebase/auth";
 
@@ -28,11 +30,18 @@ export default {
      IncomeExpenseChart,
      DailyExpenseChart,
      OwedPaymentsTable,
+     Expenses,
  },
 data() {
     return {
         user:false,
-        refreshComp: 0
+        refreshComp: 0,
+        expenses: {
+        balance: 0,
+        income: 0,
+        expense: 0,
+        history: [],
+      },
     }
 },
 
@@ -59,11 +68,12 @@ methods: {
 <style>
 #article {
   background-color: burlywood;
-  width:60%; 
+  width:35%; 
   float:left; 
   height:300px; 
   background:gray; 
-  margin:0px;
+  margin-left: 10px;
+  margin-bottom: 60px;
   border: solid 2px black;
   border-radius: 5px;
   padding: 10px 2px 10px 2px;
@@ -72,10 +82,10 @@ methods: {
 #button {
   background-color: burlywood;
   width:30%; 
-  float:left; 
-  height:355px; 
+  float:right; 
+  height:220px; 
   background:none; 
-  margin:20px
+  margin-right:100px;
 }
 
 #chart1 {
@@ -84,9 +94,7 @@ methods: {
   float:left; 
   height:355px; 
   background:rgb(255, 255, 255); 
-  margin:10px;
   padding: 5px 0px 15px 0px;
-  border: solid 2px rgb(0, 0, 0);
   border-radius: 4px;
 }
 
@@ -96,9 +104,7 @@ methods: {
   float:left; 
   height:350px; 
   background:rgb(255, 255, 255); 
-  margin:10px;
   padding: 5px 0px 20px 0px;
-  border: solid 2px rgb(0, 0, 0);
   border-radius: 4px;
 }
 

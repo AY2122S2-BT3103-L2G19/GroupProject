@@ -1,6 +1,7 @@
 <template>
   <div class="table">
-    <h2 id = "owed_payments_table">Owed Payments Table</h2>
+    <h2 id = "owed_payments_table">Owed Payments</h2>
+    <br>
     <table id = "table" class = "va-table">
         <tr>
         <th>S.No</th>

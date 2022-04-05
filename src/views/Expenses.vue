@@ -10,14 +10,12 @@
   <br>
   <ExpenseDisplay
     :key ="refresh"/>
-  <Expenses :allExpenses="expenses" />
 </div>
 </template>
 
 <script>
 import NavbarExpenses from "../components/NavbarExpenses.vue";
 import ModelExpenses from "../components/ModelExpenses.vue";
-import Expenses from "../components/Expenses.vue";
 import ExpenseDisplay from "../components/ExpenseDisplay.vue";
 import {getAuth, onAuthStateChanged} from "firebase/auth";
 
@@ -27,7 +25,6 @@ export default {
   components: {
     NavbarExpenses,
     ModelExpenses,
-    Expenses,
     ExpenseDisplay,
     },
   props: {

@@ -1,7 +1,7 @@
 <template>
   <div class="chart">
     <h4 class="title">Past 5 expenses</h4>
-    <line-chart id="linechart" class = "user" width = 100% ytitle="Expenditure ($)" :data = "chartParams"></line-chart>
+    <area-chart :colors="['cornflowerblue']" empty="Start adding expenses to view data now!" loading="Loading your expenses" id="linechart" class = "user" width = 100% ytitle="Expenditure ($)" :data = "chartParams"></area-chart>
   </div>
 </template>
 
