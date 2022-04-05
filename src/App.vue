@@ -77,12 +77,7 @@ export default {
   components: {
      LogOut
  },
- mounted: function () {
-                setTimeout(function(){ 
-                    const elem = document.getElementById('initial');
-                    elem.click(); 
-                }, 100);
-            },
+ mounted() {},
   methods: {
     redirectToExpense() {
       const elem = document.getElementById('expense');
@@ -155,4 +150,34 @@ export default {
   height: 40px;
   width: 200px;
 }*/
+.bwt {
+  background-color: #EA4C89;
+  border-radius: 8px;
+  border-style: none;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  cursor: pointer;
+  font-family: "Haas Grot Text R Web", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  height: 30px;
+  line-height: 15px;
+  list-style: none;
+  margin: 0;
+  outline: none;
+  padding: 4px 16px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  transition: color 100ms;
+  vertical-align: baseline;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.bwt:hover,
+.bwt:focus {
+  background-color: #F082AC;
+}
 </style>
