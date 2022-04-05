@@ -1,7 +1,29 @@
 <template>
     <h1>Transactions</h1>    
 
-    <table id = "table" class = "va-table" :key="count">
+    <div class="row">
+    <va-input
+      class="flex mb-2 md6"
+      placeholder="Filter..."
+      v-model="filter"
+    />
+
+    <va-checkbox
+      class="flex mb-2 md6"
+      label="Use custom filtering function (looks for an exact match)"
+      v-model="useCustomFilteringFn"
+    />
+  </div>
+
+  <va-data-table
+    :items="items"
+    :columns="columns"
+    :filter="filter"
+    :filter-method="customFilteringFn"
+    @filtered="filteredCount = $event.items.length"
+    id="table"
+    :key="count"
+  >
         <tr>  
         <th>S.No</th>    
         <th>Date</th>   
@@ -13,10 +35,7 @@
         <th>Edit</th>
         <th>Delete</th>
         </tr>
-    </table><br><br>
-
-     <h2 id = "totalProfit">  </h2> 
-
+    </va-data-table><br><br>
 </template>
 
 <script>
@@ -36,9 +55,15 @@ components: {},
   return{
     fbuser:"",
     count:"",
-
+    filter: '',
+    useCustomFilteringFn: false,
     }
   }, 
+  computed: {
+    customFilteringFn () {
+      return this.useCustomFilteringFn ? this.filterExact : undefined
+    },
+  },
 
   mounted(){
   const auth = getAuth();
@@ -56,6 +81,13 @@ components: {},
   // this.fbuser = firebase.auth().currentUser.email
 
   methods:{
+    filterExact (source) {
+      if (this.filter === '') {
+        return true
+      }
+
+      return source?.toString?.() === this.filter
+    },
   //user becomes an email in display
 
   async display(user){    
