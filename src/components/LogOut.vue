@@ -1,5 +1,5 @@
 <template>
-  <va-button id='btn' @click="signOut()" v-if="user">
+  <va-button id='btn' color="lightblue" size="medium" @click="signOut()" v-if="user">
     <va-icon class="material-icons">logout</va-icon>
     Logout
   </va-button>

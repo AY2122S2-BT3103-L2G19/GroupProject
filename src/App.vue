@@ -1,5 +1,5 @@
 <template>
-  <div id="navbar" v-if="checkUser()" class="tab-wrapper">
+  <div id="navbar" v-if="checkUser()">
   <va-tabs class="tab1"
     stateful
     grow
@@ -127,9 +127,11 @@ export default {
   min-height: 65px;
 }*/
 .tab2 {
+  margin-right:10px;
+  margin-top:5px;
   width:10%;
-  height: 65px;
-  display: grid;
+  height:46px;
+  display:grid;
   float:right;
   margin-bottom: 10px;
 }
@@ -150,6 +152,7 @@ export default {
   height: 40px;
   width: 200px;
 }*/
+/*
 .bwt {
   background-color: #EA4C89;
   border-radius: 8px;
@@ -174,7 +177,7 @@ export default {
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
-}
+}*/
 
 .bwt:hover,
 .bwt:focus {

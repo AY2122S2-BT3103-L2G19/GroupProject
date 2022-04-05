@@ -2,7 +2,7 @@
   <div class="chart">
     <h4 class="title">Past 5 expenses</h4>
     <br>
-    <line-chart :colors="['cornflowerblue']" empty="Start adding expenses to view data now!" loading="Loading your expenses" id="linechart" class = "user" width = 100% ytitle="Expenditure($)" :data = "chartParams"></line-chart>
+    <line-chart :colors="['cornflowerblue']" empty="Start adding expenses to view data now!" loading="Loading your expenses" id="linechart" class = "user" width = 100% ytitle="Expenditure($)" :data = "chartData"></line-chart>
   </div>
 </template>
 
@@ -19,7 +19,7 @@ export default {
   data () {
     return {
         user: false,
-        chartParams:[]
+        chartData:[]
     }
   },
   methods: {
@@ -32,7 +32,7 @@ export default {
           
           docs.forEach((doc) => {
           let docData = doc.data();
-          let date = docData.date;
+          let date = String(docData.date);
           if (expensesByDate.has(date)) {
             let currAmt = expensesByDate.get(date);
             expensesByDate.set(date, currAmt + docData.amount)
@@ -40,6 +40,7 @@ export default {
             expensesByDate.set(date, docData.amount);
           }
           });
+          
           
           var expensesByDateSorted = new Map([...expensesByDate.entries()].sort(function(a,b){
             if (a[0].slice(6,10) == b[0].slice(6,10)) {
@@ -60,12 +61,18 @@ export default {
           
           var expensesByDateFinal = [];
           expensesByDateSorted.forEach((value, key)=> {
-            expensesByDateFinal.push([key, value]);
-            //console.log([key, value], "each date?");
+            var newdate = key.slice(3,5) + "/" + key.slice(0,2) + "/" + key.slice(6,10);
+            expensesByDateFinal.push([newdate, value]);
+            console.log([key, value], "each date?");
           });
           //console.log("daily expense done")
           expensesByDateFinal = expensesByDateFinal.slice(-5);
-          this.chartParams = expensesByDateFinal;
+          /*var expensesByDateFinal = [];
+          expensesByDate.forEach((value,key) => {
+            expensesByDateFinal.push([key, value]);
+            console.log(key,value,"is current key value pair")
+          })*/
+          this.chartData = expensesByDateFinal;
           return expensesByDateFinal;
         }
     

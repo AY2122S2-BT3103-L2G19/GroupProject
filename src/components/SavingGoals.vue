@@ -87,6 +87,8 @@ export default {
           var distance = goal - x;
           if (distance >= 0) {
             cell6.innerHTML = distance;
+            //let percentage = parseFloat((x / goal) * 100).toFixed(2);
+            //let percentageString = String(percentage) + "%";
             cell7.innerHTML = parseFloat((x / goal) * 100).toFixed(2);
           } else {
             cell6.innerHTML = 0;

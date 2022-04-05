@@ -94,12 +94,12 @@ methods: {
 #insights {
   margin: 0px 20px 30px 20px;
   position: relative;
-  align-self: start;;
   float:left;
   width: 55%;
 }
 
 #chart1 {
+  position: relative;
   background-color: burlywood;
   width:30%; 
   float:left; 
@@ -110,6 +110,7 @@ methods: {
 }
 
 #chart2 {
+  position: relative;
   background-color: burlywood;
   width:30%; 
   float:left; 
