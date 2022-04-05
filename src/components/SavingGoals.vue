@@ -1,5 +1,5 @@
 <template>
-  <table id="savingGoalsTable">
+  <table id="savingGoalsTable" class="va-table">
     <tr>
       <th>S/N</th>
       <th>Category</th>

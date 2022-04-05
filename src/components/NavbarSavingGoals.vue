@@ -1,6 +1,6 @@
 <template>
   <nav>
-    <button class="button" @click="openModel">Add / Edit Saving Goals</button>
+    <button class="button" @click="openModel">Manage Saving Goals</button>
   </nav>
 </template>
 

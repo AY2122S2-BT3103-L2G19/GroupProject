@@ -2,7 +2,7 @@
   <div class="article">
     <h2 class="content"> 
       <iframe id="iframe" v-bind:src="article" width=100% height="300" name="myFrame"></iframe>
-      <a v-bind:href="article" target="_blank">Open your {{currentDateText()}}</a>
+      <va-button color="cadetblue" icon="open_in_new" v-bind:href="article" target="_blank">Open your {{currentDateText()}}</va-button>
     </h2>
   </div>
 </template>
@@ -61,9 +61,7 @@ export default {
   border:2px;
   border-color:darkgray;
 }*/
-a{
-  border: solid 2px black;
-  border-radius: 5px;
+va-button{
   margin: 4px;
   padding: 0px 6px 0px 6px;
 }
