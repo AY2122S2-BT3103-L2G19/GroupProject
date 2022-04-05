@@ -1,5 +1,4 @@
 <template>
-    <h1>Dashboard</h1>
     <br> <br>
     <div id = "home_container">
       <div id="article"><DailyReads/></div>
@@ -60,6 +59,9 @@ methods: {
 </script>
 
 <style>
+#app{
+  height:300px;
+}
 #article {
   background-color: burlywood;
   width:60%; 

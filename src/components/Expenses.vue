@@ -18,8 +18,7 @@
         <p>{{ allExpenses.owned }}$</p>
       </div>
     </div>
-
-    <h2>Most Recent Additions</h2>
+    
     <div
       class="history"
       v-for="history in allExpenses.history"

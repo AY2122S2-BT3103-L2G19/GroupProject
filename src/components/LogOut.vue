@@ -1,5 +1,8 @@
 <template>
-  <button id='btn' @click="signOut()" v-if="user">Logout</button>
+  <va-button id='btn' @click="signOut()" v-if="user">
+    <va-icon class="material-icons">logout</va-icon>
+    Logout
+  </va-button>
 </template>
 
 <script>

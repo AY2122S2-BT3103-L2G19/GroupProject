@@ -56,6 +56,9 @@ export default {
       this.modelStatus = false;
     },
   },
+  mounted: function () {
+                this.$emit("redirectToExpense");
+            },
 };
 </script>
 
