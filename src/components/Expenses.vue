@@ -34,10 +34,10 @@ export default {
   data() {
     return {
       allExpenses: {
-        balance: 3,
-        income: 4,
-        expense: 5,
-        owed: 6,
+        balance: 0,
+        income: 0,
+        expense: 0,
+        owed: 0,
       },
     }
   },
@@ -69,8 +69,20 @@ export default {
             return aYear - bYear;
             }
           )
-        this.allExpenses.expense = sortedExpense[0][1];
-
+        var currDate = new Date();
+        var currMonth = String(currDate.getMonth() + 1);
+        var currYear = String(currDate.getFullYear());
+        console.log(currMonth, " CURR MONTH")
+        console.log(currYear, " CURR YEAR")
+        console.log(sortedExpense[0][0], "yes current")
+        if (currMonth.length == 1) {
+          currMonth = "0" + currMonth;
+        }
+        var currDateCheck = currMonth + "/" + currYear;
+        console.log(currDateCheck, " CURR DATE CHECK")
+        if (currDateCheck == sortedExpense[0][0]) {
+          this.allExpenses.expense = sortedExpense[0][1];
+        }
         docs = await getDocs(
         collection(db, currUser, "Transactions", "Income"));
         var incomeByDate = new Map();
@@ -95,7 +107,9 @@ export default {
             return aYear - bYear;
             }
           )
+      if (currDateCheck == sortedIncome[0][0]) {
         this.allExpenses.income = sortedIncome[0][1];
+      }
       console.log(currUser, 'currdate');
       this.allExpenses.balance = this.allExpenses.income - this.allExpenses.expense;
 
@@ -123,7 +137,9 @@ export default {
             return aYear - bYear;
             }
           )
-        this.allExpenses.owed = sortedOwed[0][1];
+        if (currDateCheck == sortedOwed[0][0]) {
+          this.allExpenses.owed = sortedOwed[0][1];
+        }
     }
   },
   mounted() {
