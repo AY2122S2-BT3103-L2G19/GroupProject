@@ -79,6 +79,6 @@ mounted() {
 <style>
 .card {
     width:600px;
-    border-radius: 10px;
+    border-radius: 10px !important;
 }
 </style>
