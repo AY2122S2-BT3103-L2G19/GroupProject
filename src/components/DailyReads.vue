@@ -45,7 +45,7 @@ export default {
     dailyArticleRotate() {
       const current = new Date();
       const currentDate = current.getDate();
-      const articleNumber = currentDate % this.articles.length;
+      const articleNumber = currentDate % (this.articles.length-1);
       this.article = this.articles[articleNumber]
       if (!is_iframeable(this.article)) {
         this.dailyArticleRotate();
