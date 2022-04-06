@@ -98,7 +98,7 @@ import { getFirestore } from "firebase/firestore";
 import firebaseApp from "../firebase.js";
 const db = getFirestore(firebaseApp);
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { collection, getDocs, doc, deleteDoc } from "firebase/firestore";
+import { collection, getDocs, doc, deleteDoc, setDoc } from "firebase/firestore";
 
 export default {
 name : "ExpenseDisplay",
@@ -130,6 +130,11 @@ components: {},
     currentPage: 1,
     editedItemId: null,
     editedItem: null,
+    tempuid : null,
+    temptype : null,
+    tempdate : null,
+    tempindex : null,
+    tempdd:null,
     }
   }, 
 
@@ -252,6 +257,12 @@ methods:{
     async deleteinstrument(user, currType, currID){
         await deleteDoc(doc(db, String(user), "Transactions", currType, currID))
     },
+    async setinstrument(user, currType, currTitle, currCat, currAmt, currDesc, currID){
+        await setDoc(doc(db, String(user), "Transactions", currType, currID),
+        {
+          title: currTitle, category: currCat, amount: currAmt, description: currDesc, uid: this.tempuid, date: this.tempdate, type: this.temptype, date_due:this.tempdd,
+        });
+    },
     filterExact (source) {
       if (this.filter === '') {
         return true
@@ -269,6 +280,11 @@ methods:{
     resetEditedItem () {
       this.editedItem = null
       this.editedItemId = null
+      this.tempuid = null;
+      this.temptype = null;
+      this.tempdate = null;
+      this.tempindex = null;
+      this.tempdd = null;
     },
     deleteItemById (id) {
       var currItem = this.items[id];
@@ -279,19 +295,39 @@ methods:{
         ...this.items.slice(0, id),
         ...this.items.slice(id + 1),
       ]
+      //window.location.reload();
+      //dont even need to reload and table just dynamically updates
+      this.updateData(this.fbuser)
     },
     editItem () {
-      //this.deleteinstrument(this.fbuser, this.editedItem.type, this.editedItem.title);
+      console.log(this.tempuid, "tempuid check")
+      this.setinstrument(this.fbuser, this.temptype, this.editedItem.title, 
+      this.editedItem.category, this.editedItem.amount, this.editedItem.description, this.tempuid);
+      this.editedItem.date = this.tempdate;
+      this.editedItem.type = this.temptype;
+      this.editedItem.index = this.tempindex;
+      this.editedItem.date_due = this.tempdd;
+      this.editedItem.uid = this.tempuid;
       this.items = [
         ...this.items.slice(0, this.editedItemId),
         { ...this.editedItem },
         ...this.items.slice(this.editedItemId + 1),
       ]
       this.resetEditedItem()
+      //this.updateData(this.fbuser)
     },
     openModalToEditItemById (id) {
       this.editedItemId = id
-      this.editedItem = { ...this.items[id] }
+      var temp = { ...this.items[id] }
+      this.tempuid = temp.uid;
+      this.temptype = temp.type;
+      this.tempdate = temp.date;
+      this.tempindex = temp.index;
+      delete temp.uid;
+      delete temp.type;
+      delete temp.date;
+      delete temp.index;
+      this.editedItem = temp;
     },
   },
   computed: {
