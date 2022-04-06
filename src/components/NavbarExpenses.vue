@@ -1,6 +1,6 @@
 <template>
   <nav>
-    <button class="button" @click="openModel">Add Transaction</button>
+    <va-button class="button" @click="openModel">Add Transaction</va-button>
   </nav>
 </template>
 
