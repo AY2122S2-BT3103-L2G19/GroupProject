@@ -1,8 +1,8 @@
 <template>
   <div class="article">
     <h2 class="content"> 
-      <iframe id="iframe" v-bind:src="article" width=100% height="400" name="myFrame"></iframe>
-      <va-button color="cadetblue" icon="open_in_new" v-bind:href="article" target="_blank">Open your {{currentDateText()}}</va-button>
+      <iframe id="iframe" v-bind:src="article" width=100% height="600" name="myFrame"></iframe>
+      <va-button class="mt-2" color="cadetblue" icon="open_in_new" v-bind:href="article" target="_blank">Open your Daily Article</va-button>
     </h2>
   </div>
 </template>
@@ -23,8 +23,6 @@ function is_iframeable(weblink) {
     return false
   }
 }
-
-console.log(is_iframeable("https://dollarsandsense.sg/4-reasons-financial-literacy-important-young-singaporeans/"));
 
 export default {
   mounted() {
@@ -47,8 +45,11 @@ export default {
     dailyArticleRotate() {
       const current = new Date();
       const currentDate = current.getDate();
-      const articleNumber = currentDate % 2;
+      const articleNumber = currentDate % (this.articles.length-1);
       this.article = this.articles[articleNumber]
+      if (!is_iframeable(this.article)) {
+        this.dailyArticleRotate();
+      }
     }
   }
 }
