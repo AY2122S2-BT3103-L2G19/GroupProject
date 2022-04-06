@@ -20,7 +20,26 @@
     :filter="filter"
     :filter-method="customFilteringFn"
     @filtered="filteredCount = $event.items.length"
+    :selectable="selectable"
+    v-model="selectedItems"
+    :select-mode="selectMode"
+    :selected-color="selectedColor"
+    @selectionChange="selectedItemsEmitted = $event.currentSelectedItems"
     />
+
+    <va-alert class="mt-3" border="left">
+      <span>
+        Selected items (click to unselect):
+        <va-chip
+          class="ml-2"
+          :key="item.index"
+          v-for="item in selectedItemsEmitted"
+          @click="unselectItem(item)"
+        >
+          {{ item.index }}
+        </va-chip>
+      </span>
+    </va-alert>
 
     <va-alert class="mt-3" border="left">
     <span>
@@ -48,7 +67,7 @@ components: {},
       { key: 'title', sortable: true, width: '15%' },
       { key: 'category', sortable: true, width: '15%' },
       { key: 'amount', sortable: true, width: '10%' },
-      { key: 'date', sortable: true, width: '15%' }
+      { key: 'date', sortable: true, width: '37%' }
     ]
   return{
     fbuser:"",
@@ -58,6 +77,11 @@ components: {},
     filter: '',
     useCustomFilteringFn: false,
     filteredCount: 0,
+    selectable: true,
+    selectedItems: [],
+    selectedItemsEmitted: [],
+    selectMode: 'multiple',
+    selectedColor: '#888888',
     }
   }, 
 
@@ -76,7 +100,7 @@ components: {},
   },
   // this.fbuser = firebase.auth().currentUser.email
 
-  methods:{
+methods:{
   //user becomes an email in display
   checkData() {
     this.updated = true;
@@ -197,12 +221,26 @@ components: {},
 
       return source?.toString?.() === this.filter
     },
+    unselectItem (item) {
+      const index = this.selectedItems.indexOf(item)
+      this.selectedItems = [
+        ...this.selectedItems.slice(0, index),
+        ...this.selectedItems.slice(index + 1),
+      ]
     },
-    computed: {
-      customFilteringFn () {
-        return this.useCustomFilteringFn ? this.filterExact : undefined
-      },
+  },
+  computed: {
+    customFilteringFn () {
+      return this.useCustomFilteringFn ? this.filterExact : undefined
     },
+  },
+  watch: {
+    selectable (value) {
+      if (!value) {
+        this.selectedItems = []
+      }
+    },
+  },
   }
 
 </script>
