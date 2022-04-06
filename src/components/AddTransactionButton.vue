@@ -1,6 +1,6 @@
 <template>
   <br> <br>
-  <va-button @click="redirectToAddTrans()" class="button addtrans">Add Transaction Now</va-button> <br> <br>
+  <button @click="redirectToAddTrans()" class="button addtrans">Add Transaction Now</button> <br> <br>
 </template>
 
 <script>
