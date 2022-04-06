@@ -50,10 +50,12 @@
               <label for="category">Category:   </label>
 
               <select id="category" v-model = "category">
-                <option value="Food">Food</option>
-                <option value="Transportation">Transportation</option>
+                <option value="Food & Drink">Food & Drink</option>
+                <option value="Transport">Transport</option>
                 <option value="Entertainment">Entertainment</option>
-                <option value="Education">Education</option>
+                <option value="Groceries">Groceries</option>
+                <option value="Shopping">Shopping</option>
+                <option value="Others">Others</option>
               </select>   
             </div>
             <div class="model__group">

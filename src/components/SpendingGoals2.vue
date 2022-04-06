@@ -72,6 +72,7 @@ export default {
         cell5.innerHTML = 0;
         cell6.innerHTML = 0;
 
+
         this.getExpense(Category, user).then((x) => {
           cell3.innerHTML = x;
           var distance = goal - x;
@@ -94,6 +95,7 @@ export default {
         cell7.appendChild(delBut);
         ind += 1;
       });
+
     },
 
     async deleteInstrument(category, user) {
@@ -126,13 +128,13 @@ export default {
         let docData = doc.data();
         let transDetails = [];
         if (
-          docData.Category == category &&
-          parseInt(docData.Date.slice(3, 5)) == currentMonth &&
-          parseInt(docData.Date.slice(6, 10)) == currentYear
+          docData.category == category &&
+          parseInt(docData.date.slice(3, 5)) == currentMonth &&
+          parseInt(docData.date.slice(6, 10)) == currentYear
         ) {
-          transDetails.push(docData.Category);
-          transDetails.push(docData.Date);
-          transDetails.push(docData.Amount);
+          transDetails.push(docData.category);
+          transDetails.push(docData.date);
+          transDetails.push(docData.amount);
           expenses.push(transDetails);
         }
       });
