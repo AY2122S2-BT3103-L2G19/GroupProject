@@ -1,17 +1,26 @@
 <template>
-    <h1>Transactions</h1>    
+    <h1>Transactions</h1>  
+    <br>  
 
     <div class="row">
       <va-input
-        class="flex mb-2 md6"
+        class="flex mb-2 md3"
         placeholder="Filter..."
         v-model="filter"
       />
 
       <va-checkbox
-        class="flex mb-2 md6"
-        label="Use custom filtering function (looks for an exact match)"
+        class="flex mb-2 md3"
+        label="Use Exact Match Filtering"
         v-model="useCustomFilteringFn"
+      />
+
+      <va-input
+        class="flex mb-2 md3"
+        type="number"
+        placeholder="Items..."
+        label="Items per page"
+        v-model.number="perPage"
       />
     </div>
     <va-data-table 
@@ -20,12 +29,47 @@
     :filter="filter"
     :filter-method="customFilteringFn"
     @filtered="filteredCount = $event.items.length"
-    :selectable="selectable"
+    :selectable="true"
     v-model="selectedItems"
     :select-mode="selectMode"
     :selected-color="selectedColor"
     @selectionChange="selectedItemsEmitted = $event.currentSelectedItems"
-    />
+    :per-page="perPage"
+    :current-page="currentPage"
+    :striped="true"
+    :animated="true"
+    >
+      <template #cell(actions)="{ rowIndex }">
+        <va-button flat icon="edit" @click="openModalToEditItemById(rowIndex)" />
+        <va-button flat icon="delete" @click="deleteItemById(rowIndex)" />
+      </template>
+      <template #bodyAppend>
+        <tr><td colspan="10" class="table-example--pagination">
+          <va-pagination
+            v-model="currentPage"
+            input
+            :pages="pages"
+          />
+        </td></tr>
+      </template>
+    </va-data-table>
+
+    <va-modal
+      :model-value="!!editedItem"
+      message="Edit item"
+      @ok="editItem()"
+      @cancel="resetEditedItem()"
+    >
+      <slot>
+        <va-input
+          v-for="key in Object.keys(editedItem)"
+          :key="key"
+          class="my-3"
+          :label="key"
+          v-model="editedItem[key]"
+        />
+      </slot>
+    </va-modal>
 
     <va-alert class="mt-3" border="left">
       <span>
@@ -47,7 +91,6 @@
       <va-chip>{{ filteredCount }}</va-chip>
     </span>
   </va-alert>
-    
 </template>
 
 <script>
@@ -67,7 +110,8 @@ components: {},
       { key: 'title', sortable: true, width: '15%' },
       { key: 'category', sortable: true, width: '15%' },
       { key: 'amount', sortable: true, width: '10%' },
-      { key: 'date', sortable: true, width: '37%' }
+      { key: 'date', sortable: true, width: '20%' },
+      { key: 'actions', width: '10%' }
     ]
   return{
     fbuser:"",
@@ -75,13 +119,17 @@ components: {},
     items: [], columns,
     updated: false,
     filter: '',
+    filtered: [],
     useCustomFilteringFn: false,
     filteredCount: 0,
-    selectable: true,
     selectedItems: [],
     selectedItemsEmitted: [],
     selectMode: 'multiple',
     selectedColor: '#888888',
+    perPage: 10,
+    currentPage: 1,
+    editedItemId: null,
+    editedItem: null,
     }
   }, 
 
@@ -124,6 +172,8 @@ methods:{
       let number = (eachDoc.amount)
       let date = (eachDoc.date)
       let description = (eachDoc.description)
+      let uid = (eachDoc.uid);
+      temp.uid = uid;
       temp.type = type;
       temp.title = "Ower is " + title;
       temp.category = "-";
@@ -142,6 +192,9 @@ methods:{
       let number = (eachDoc.amount)
       let date = (eachDoc.date)
       let description = (eachDoc.description)
+      let uid = (eachDoc.uid);
+      //console.log(String(id), " ID CHECK EXPENSE")
+      temp.uid = uid;
       temp.type = type;
       temp.title = title;
       temp.category = category;
@@ -160,6 +213,8 @@ methods:{
       let number = (eachDoc.amount)
       let date = (eachDoc.date)
       let description = (eachDoc.description)
+      let uid = (eachDoc.uid);
+      temp.uid = uid;
       temp.type = type;
       temp.title = title;
       temp.category = "-";
@@ -191,28 +246,11 @@ methods:{
     })
     this.items = transactions;
     this.filteredCount = transactions.length;
+    this.filtered = transactions;
   },              
 
-    async deleteinstrument(user, currType, currTitle){
-        var currentType = currType;
-        var currentTitle = currTitle;
-        if (!confirm("You are going to delete " + currTitle)){
-          return
-        }
-        await deleteDoc(doc(db, String(user), "Transactions", currentType, currentTitle))
-        let tb = document.getElementById("table")
-        //delete everything, make data empty and call the display again
-        while (tb.rows.length >1){
-            tb.deleteRow(1)
-          }
-        //document.getElementById("totalProfit").innerHTML=""
-        this.updateData(this.fbuser) 
-     },
-    
-    async editinstrument(title,user) {
-        alert("You are going to edit " + title)
-        await deleteDoc(doc(db,user,title))
-        console.log("working on edit")
+    async deleteinstrument(user, currType, currID){
+        await deleteDoc(doc(db, String(user), "Transactions", currType, currID))
     },
     filterExact (source) {
       if (this.filter === '') {
@@ -228,10 +266,42 @@ methods:{
         ...this.selectedItems.slice(index + 1),
       ]
     },
+    resetEditedItem () {
+      this.editedItem = null
+      this.editedItemId = null
+    },
+    deleteItemById (id) {
+      var currItem = this.items[id];
+      //deleteDoc(doc(db, String(this.fbuser), "Transactions", currItem.type, currItem.id))
+      console.log(currItem.id, " delete type check")
+      this.deleteinstrument(this.fbuser, currItem.type, currItem.uid);
+      this.items = [
+        ...this.items.slice(0, id),
+        ...this.items.slice(id + 1),
+      ]
+    },
+    editItem () {
+      //this.deleteinstrument(this.fbuser, this.editedItem.type, this.editedItem.title);
+      this.items = [
+        ...this.items.slice(0, this.editedItemId),
+        { ...this.editedItem },
+        ...this.items.slice(this.editedItemId + 1),
+      ]
+      this.resetEditedItem()
+    },
+    openModalToEditItemById (id) {
+      this.editedItemId = id
+      this.editedItem = { ...this.items[id] }
+    },
   },
   computed: {
     customFilteringFn () {
       return this.useCustomFilteringFn ? this.filterExact : undefined
+    },
+    pages () {
+      return (this.perPage && this.perPage !== 0)
+        ? Math.ceil(this.filtered.length / this.perPage)
+        : this.filtered.length
     },
   },
   watch: {
@@ -266,4 +336,11 @@ h1,h2 {
 }
 
 */
+.table-example--pagination {
+    text-align: center;
+    align-self: center;
+    vertical-align: middle;
+    text-align: -webkit-center;
+  }
+
 </style>
