@@ -3,11 +3,12 @@
     <div id = "home_container">
       <div id="insightsHeader" class="title" >Transaction totals for the past month</div>
       <div id="insights"><Expenses/></div>
-      <div id="button"><AddTransactionButton/></div>
+      <div id="button"><AddTransactionButton/></div> 
       <div id="chart1"><va-card class="ml-4"><va-card-content><IncomeExpenseChart/></va-card-content></va-card></div>
       <div id="chart2"><va-card class="mx-4"><va-card-content><DailyExpenseChart/></va-card-content></va-card></div>
-      <div id="article"><va-card class="mx-4"><va-card-content><DailyReads/></va-card-content></va-card></div>      
-      <div id="table1"><va-card class="mx-4"><OwedPaymentsTable :key = "refreshComp"/></va-card></div>
+      <div id="article"><va-card class="mx-4"><va-card-content><DailyReads/></va-card-content></va-card></div>   
+      <div id="table1"><va-card class="mx-4"><OwedPaymentsTable :key = "refreshComp"/></va-card></div>   
+
     </div>
 </template>
 
@@ -63,7 +64,7 @@ methods: {
 <style>
 #article {
   width:35%; 
-  float:left; 
+  float:right; 
   height:600px; 
   margin-left: 10px;
   margin-bottom: 40px;
@@ -79,6 +80,7 @@ methods: {
   background:none; 
   /* margin-top: 20px; */
   margin-right:100px;
+  margin-bottom: 18px
 }
 
 #insightsHeader {
@@ -118,7 +120,7 @@ methods: {
 }
 
 #table1 {
-  width:55%; 
+  width:60%; 
   float:left; 
   height:350px;
   margin-top:30px;
