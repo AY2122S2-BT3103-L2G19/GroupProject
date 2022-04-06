@@ -1,6 +1,6 @@
 <template>
   <nav>
-    <button class="button" @click="openModel">Manage Spending Goals</button>
+    <va-button class="button" @click="openModel">Manage Spending Goals</va-button>
   </nav>
 </template>
 
