@@ -185,7 +185,9 @@ components: {},
     async deleteinstrument(user, currType, currTitle){
         var currentType = currType;
         var currentTitle = currTitle;
-        alert("You are going to delete " + currTitle)
+        if (!confirm("You are going to delete " + currTitle)){
+          return
+        }
         await deleteDoc(doc(db, String(user), "Transactions", currentType, currentTitle))
         let tb = document.getElementById("table")
         //delete everything, make data empty and call the display again

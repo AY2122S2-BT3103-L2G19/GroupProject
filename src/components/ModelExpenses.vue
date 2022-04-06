@@ -101,7 +101,7 @@
 console.log("in AC")
 import firebaseApp from '@/firebase.js';
 import { getFirestore } from "firebase/firestore"
-import { doc, setDoc } from "firebase/firestore";
+import { collection, addDoc } from "firebase/firestore";
 import { getAuth} from "firebase/auth";
 
 const db = getFirestore(firebaseApp);
@@ -149,7 +149,7 @@ export default {
         if (this.type == "Owed Payments") {
           this.title = this.name;
         }
-        const docRef = await setDoc(doc(db, String(this.fbuser), "Transactions", this.type, this.title),{
+        const docRef = await addDoc(collection(db, String(this.fbuser), "Transactions",this.type),{
         type: this.type , title : this.title, category : this.category, amount: this.number, date : this.date, description : this.description, date_due : this.date_due, name : this.name
         })
         console.log(docRef)
