@@ -1,15 +1,33 @@
 <template>
-  <h1>Please Login to start using our application!</h1>
+  <div class="flex md6 lg4" style="margin: auto">
+  <va-card color="#c2c2c2" class="flex">
+
+  <va-card-title class="justify-center">Login</va-card-title>
+  <va-vard-content>
   <form>
-    <label for="email">Email: </label>
-    <input id="email" type="text" v-model="email" /> <br /><br />
-    <label for="password">Password: </label>
-    <input id="password" type="password" v-model="password" /> <br /><br />
-    <button type="submit" @click.prevent="submitLogin()">Submit</button>
-    <button @click.prevent="() => this.$router.push('/register')">
+    <va-input
+      class="ml-4 mb-4 mr-4"
+      v-model="email"
+      label="E-mail"
+      placeholder="example@gmail.com"
+    />
+    <va-input
+      class="ml-4 mb-4 mr-4"
+      type = "password"
+      v-model="password"
+      label="Password"
+      placeholder="Password"
+    />
+    <va-button class="mb-2" type="submit" @click.prevent="submitLogin()"> Login </va-button> 
+    <!-- <va-button @click.prevent="() => this.$router.push('/register')">
       Register
-    </button>
+    </va-button> -->
+    <p>Don't have an account? <a @click.prevent="() => this.$router.push('/register')" style="color:blue; cursor: pointer">Register here! </a></p>
   </form>
+  <br />
+  </va-vard-content>
+  </va-card>
+  </div>
 </template>
 
 <script>

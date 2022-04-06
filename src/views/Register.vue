@@ -1,13 +1,37 @@
 <template>
-    <h1>Please Register with a valid Email Address!</h1>
-    <form>
-        <label for="email">Email: </label>
-        <input id="email" type="text" v-model="email"/> <br><br>
-        <label for="password">Password: </label>
-        <input id="password" type="password" v-model="password"/> <br><br>
-        <button type="submit" @click.prevent="submitLogin()"> Submit </button>
-        <button @click.prevent="()=>this.$router.push('/login')"> Login </button>
-    </form>
+  <div class="flex md6 lg4" style="margin: auto">
+  <va-card color="#c2c2c2" class="flex">
+
+  <va-card-title class="justify-center">Register</va-card-title>
+  <va-vard-content>
+  <form>
+    <va-input
+      class="ml-4 mb-4 mr-4"
+      v-model="email"
+      label="E-mail"
+      placeholder="example@gmail.com"
+    />
+    <va-input
+      class="ml-4 mb-4 mr-4"
+      type = "password"
+      v-model="password"
+      label="Password"
+      placeholder="Password"
+    />
+    <va-input
+      class="ml-4 mb-4 mr-4"
+      type = "password"
+      v-model="password2"
+      label="Re-enter Password"
+      placeholder="Password"
+    />
+    <va-button class="mb-2" type="submit" @click.prevent="submitLogin()"> Register </va-button> 
+    <p>Already have an account? <a @click.prevent="() => this.$router.push('/login')" style="color:blue; cursor: pointer">Login here! </a></p>
+  </form>
+  <br />
+  </va-vard-content>
+  </va-card>
+  </div>
 </template>
 
 <script>
@@ -19,6 +43,7 @@ export default {
      return {
          email:"meow@poop.com",
          password:"iwanttodie",
+         password2:"iwanttodie",
          user:null,
      }
  },
@@ -35,7 +60,10 @@ mounted() {
  methods:{
      submitLogin: function() {
          const auth = getAuth();
-         console.log(this.email,this.password,auth);
+         if (this.password != this.password2) {
+             alert("Passwords entered are not the same!")
+             return
+         }
          createUserWithEmailAndPassword(auth, this.email, this.password)
             .then((userCredential) => {
                 const user = userCredential.user
