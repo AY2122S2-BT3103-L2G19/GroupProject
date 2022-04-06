@@ -1,13 +1,14 @@
 <template>
     <br> <br>
     <div id = "home_container">
-      <div id="chart1"><IncomeExpenseChart/></div>
-      <div id="chart2"><DailyExpenseChart/></div>
-      <div id="article"><DailyReads/></div>
       <div id="insightsHeader" class="title" >Transaction totals for the past month</div>
       <div id="insights"><Expenses/></div>
-      <div id="button"><AddTransactionButton/></div>
-      <div id="table1"><OwedPaymentsTable :key = "refreshComp"/></div>
+      <div id="button"><AddTransactionButton/></div> 
+      <div id="chart1"><va-card class="ml-4"><va-card-content><IncomeExpenseChart/></va-card-content></va-card></div>
+      <div id="chart2"><va-card class="mx-4"><va-card-content><DailyExpenseChart/></va-card-content></va-card></div>
+      <div id="article"><va-card class="mx-4"><va-card-content><DailyReads/></va-card-content></va-card></div>   
+      <div id="table1"><va-card class="mx-4"><OwedPaymentsTable :key = "refreshComp"/></va-card></div>   
+
     </div>
 </template>
 
@@ -62,14 +63,11 @@ methods: {
 
 <style>
 #article {
-  background-color: burlywood;
   width:35%; 
-  float:left; 
-  height:350px; 
-  background:gray; 
+  float:right; 
+  height:600px; 
   margin-left: 10px;
   margin-bottom: 40px;
-  border: solid 2px black;
   border-radius: 5px;
   padding: 10px 2px 10px 2px;
 }
@@ -78,16 +76,18 @@ methods: {
   background-color: burlywood;
   width:30%; 
   float:right; 
-  height:220px; 
+  /* height:220px;  */
   background:none; 
-  margin-top: 20px;
+  /* margin-top: 20px; */
   margin-right:100px;
+  margin-bottom: 18px
 }
 
 #insightsHeader {
   font-size: 15px;
   position: relative;
-  width: 55%;
+  float:left; 
+  width: 58%;
   margin: 30px 20px 30px 20px;
 }
 
@@ -95,7 +95,7 @@ methods: {
   margin: 0px 20px 30px 20px;
   position: relative;
   float:left;
-  width: 55%;
+  width: 58%;
 }
 
 #chart1 {
@@ -106,7 +106,7 @@ methods: {
   background:rgb(255, 255, 255); 
   padding: 0px 0px 0px 0px;
   margin-right: 10px;
-  border-right: 1px grey solid;
+  /* border-right: 1px grey solid; */
 }
 
 #chart2 {
@@ -120,7 +120,7 @@ methods: {
 }
 
 #table1 {
-  width:30%; 
+  width:60%; 
   float:left; 
   height:350px;
   margin-top:30px;

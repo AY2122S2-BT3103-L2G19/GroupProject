@@ -1,8 +1,8 @@
 <template>
-  <div class="flex md6 lg4" style="margin: auto">
-  <va-card color="#c2c2c2" class="flex">
+  <div class="flex md6 lg4" style="  margin: 0; position: absolute; top: 50%; left: 50%; -ms-transform: translate(-50%, -50%); transform: translate(-50%, -50%);">
+  <va-card color="#c2c2c2" class="card">
 
-  <va-card-title class="justify-center">Login</va-card-title>
+  <va-card-title class="" style="font-size: 20px">Login</va-card-title>
   <va-vard-content>
   <form>
     <va-input
@@ -79,4 +79,9 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.card {
+    width:600px;
+    border-radius: 10px;
+}
+</style>

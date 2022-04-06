@@ -10,7 +10,7 @@
         <th>Date</th>
         <th>Date of Return</th>    
         </tr>
-    </table><br><br>
+    </table>
   </div>
 </template>
 

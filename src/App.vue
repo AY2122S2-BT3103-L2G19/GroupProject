@@ -1,6 +1,6 @@
 <template>
   <div id="navbar" v-if="checkUser()">
-  <va-tabs class="tab1"
+  <va-tabs class="my-2"
     stateful
     grow
   >
@@ -24,6 +24,10 @@
         <va-icon class="material-icons">paid</va-icon>
         Transactions
         </router-link>
+      </va-tab>
+
+      <va-tab>
+        <LogOut/>
       </va-tab>
       <va-divider vertical/>
     </template>
@@ -55,17 +59,8 @@
       </va-navbar-item>
     </template>
   </va-navbar>-->
-  </div>
-  <div class="extra" v-if="checkUser()">
-    
-  </div>
-  <div class="tab2" v-if="checkUser()">
-    <LogOut/>
-  </div>
-  <br>
-  <br>
-  <br>
   <hr>
+  </div>
   <router-view/>
 </template>
 
@@ -105,6 +100,7 @@ export default {
 .routerlink {
   font-size: 24px;
   color:rgb(0, 0, 0);
+  margin-bottom: 10px;
 }
 
 .routerlink:hover {
@@ -115,7 +111,7 @@ export default {
 #navbar {
   float: left;
   margin-top: 10px;
-  width: 50%;
+  width: 100%;
 }
 
 /*
