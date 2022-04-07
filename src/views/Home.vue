@@ -4,8 +4,8 @@
       <div id="insightsHeader" class="title" >Transaction totals for the past month</div>
       <div id="insights"><Expenses/></div>
       <div id="button"><AddTransactionButton/></div> 
-      <div id="chart1"><va-card class="ml-4"><va-card-content><IncomeExpenseChart/></va-card-content></va-card></div>
-      <div id="chart2"><va-card class="mx-4"><va-card-content><DailyExpenseChart/></va-card-content></va-card></div>
+      <div id="chart1"><va-card class="ml-4" style="height:450px;"><va-card-content><IncomeExpenseChart/></va-card-content></va-card></div>
+      <div id="chart2"><va-card class="mx-4" style="height:450px;"><va-card-content><DailyExpenseChart/></va-card-content></va-card></div>
       <div id="article"><va-card class="mx-4"><va-card-content><DailyReads/></va-card-content></va-card></div>   
       <div id="table1"><va-card class="mx-4"><OwedPaymentsTable :key = "refreshComp"/></va-card></div>   
 
@@ -102,6 +102,7 @@ methods: {
   position: relative;
   background-color: burlywood;
   width:30%; 
+  height: 390px;
   float:left; 
   background:rgb(255, 255, 255); 
   padding: 0px 0px 0px 0px;
@@ -130,4 +131,10 @@ methods: {
 #home_container {
   float:left;
 }
+
+
+.chart {
+  height: 370px;
+}
+
 </style>

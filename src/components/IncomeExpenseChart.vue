@@ -231,4 +231,9 @@ export default {
   .title {
   font-size: 15px;
 }
+
+#chart-1 {
+  height: 100% !important;
+
+}
 </style>

@@ -113,4 +113,10 @@ line-chart{
 .title {
   font-size: 15px;
 }
+
+div.va-dropdown.va-select__dropdown.va-select-dropdown {
+  max-width:90px !important;
+  margin: auto;
+  padding: 5px;
+}
 </style>
