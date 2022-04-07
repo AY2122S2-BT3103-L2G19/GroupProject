@@ -150,7 +150,7 @@ export default {
 };
 </script>
 
-<style>
+<style >
 .bwt {
   padding: 5px;
   border: none;
@@ -161,4 +161,5 @@ export default {
 button:hover {
   background-color: #dcf1ff !important;
 }
+
 </style>

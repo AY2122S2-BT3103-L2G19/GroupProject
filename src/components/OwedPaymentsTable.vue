@@ -4,7 +4,7 @@
     <br>
     <table id = "table" class = "va-table">
         <tr>
-        <th>S.No</th>
+        <th>S/N</th>
         <th>Name</th>
         <th>Amount</th>
         <th>Date</th>

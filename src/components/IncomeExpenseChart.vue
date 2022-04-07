@@ -235,7 +235,7 @@ export default {
 }
 
 #chart-1 {
-  height: 100% !important;
+  height: 95% !important;
 
 }
 </style>
