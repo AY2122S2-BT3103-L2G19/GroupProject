@@ -78,9 +78,9 @@
           placeholder="Title"
           v-if="!checkOwed()"
         />
-
         <va-select v-model="tempcategory" :options="options" label="Select Category" v-if="checkType()"/>
-        <br>
+        
+        <va-divider/>
 
         <va-input
           class="mb-4"
@@ -88,26 +88,23 @@
           label="Amount"
           placeholder="$"
         />
+        <va-divider/>
+
         <va-input
-          class="mb-6"
+          class="mb-4"
           v-model="tempdesc"
           label="Description"
           placeholder="Text here..."
         />
-        <br>
+        
+        <va-divider/>
 
-        <va-date-input placeholder="dd/mm/yyyy" v-model="tempdate" />
+        <va-date-input class="mb-4" label="Date" placeholder="dd/mm/yyyy" v-model="tempdate" />
 
       </slot>
     </va-modal>
     <br>
-    <va-button color="danger" @click="deleteSelection()" class="mr-4">Delete All Selected Items</va-button>
-    <va-alert class="mt-3">
-    <span>
-      Number of items matching your search:
-      <va-chip>{{ filteredCount }}</va-chip>
-    </span>
-  </va-alert>
+    <va-button v-if="checkSelected()" color="danger" @click="deleteSelection()" class="mr-4">Delete All Selected Items</va-button>
 </template>
 
 <script>
@@ -175,6 +172,13 @@ components: {},
   // this.fbuser = firebase.auth().currentUser.email
 
 methods:{
+  checkSelected() {
+    if (this.selectedItems.length > 0) {
+      return true;
+    } else {
+      return false;
+    }
+  },
   deleteSelection() {
     for (let i = 0; i < this.selectedItems.length; i++) {
       let currItem = this.selectedItems[i];

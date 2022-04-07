@@ -48,6 +48,9 @@ export default {
           table.deleteRow(1);
         }
         let collection_required = await getDocs(collection(db, user, "Transactions", "Owed Payments"));
+        if (collection_required == null) {
+          return;
+        }
         var start_sn = 1;
         
         collection_required.forEach((docs) => {
