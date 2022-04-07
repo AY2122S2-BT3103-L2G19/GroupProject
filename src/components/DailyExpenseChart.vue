@@ -1,6 +1,6 @@
 <template>
   <div class="chart">
-    <h4 class="title">Past 5 expenses</h4>
+    <h4 class="title">Past <va-select style="max-width: 75px;" v-model="transToShow" :options="options" @input="changeTrans()"/> Daily Expenses</h4>
     <br>
     <line-chart :colors="['cornflowerblue']" empty="Start adding expenses to view data now!" loading="Loading your expenses" id="linechart" class = "user" width = 100% ytitle="Expenditure($)" :data = "chartData"></line-chart>
   </div>
@@ -19,10 +19,15 @@ export default {
   data () {
     return {
         user: false,
-        chartData:[]
+        chartData:[],
+        transToShow: 5,
+        options: [5,10,20],
     }
   },
   methods: {
+    changeTrans() {
+      this.chartData = this.updatedData(this.user);
+    },
     async updatedData(currUser) {
           var docs = null;
           
@@ -66,7 +71,7 @@ export default {
             console.log([key, value], "each date?");
           });
           //console.log("daily expense done")
-          expensesByDateFinal = expensesByDateFinal.slice(-5);
+          expensesByDateFinal = expensesByDateFinal.slice(-this.transToShow);
           /*var expensesByDateFinal = [];
           expensesByDate.forEach((value,key) => {
             expensesByDateFinal.push([key, value]);
@@ -91,7 +96,8 @@ export default {
     });
   },
   watch:{
-    chartParams() {
+    transToShow() {
+      this.updatedData(this.user);
     },
     user() {
     }
