@@ -61,13 +61,33 @@
       @cancel="resetEditedItem()"
     >
       <slot>
+        
         <va-input
-          v-for="key in Object.keys(editedItem)"
-          :key="key"
-          class="my-3"
-          :label="key"
-          v-model="editedItem[key]"
+          class="mb-4"
+          v-model="temptitle"
+          label="Title"
+          placeholder="Title"
         />
+
+        <va-select v-model="tempcategory" :options="options" label="Select Category" v-if="checkType()"/>
+        <br>
+
+        <va-input
+          class="mb-4"
+          v-model="tempamount"
+          label="Amount"
+          placeholder="$"
+        />
+        <va-input
+          class="mb-6"
+          v-model="tempdesc"
+          label="Description"
+          placeholder="Text here..."
+        />
+        <br>
+
+        <va-date-input placeholder="dd/mm/yyyy" v-model="tempdate" />
+
       </slot>
     </va-modal>
 
@@ -114,6 +134,7 @@ components: {},
       { key: 'actions', width: '10%' }
     ]
   return{
+    options: ["Food & Drink", "Transport", "Entertainment", "Groceries", "Shopping", "Others"],
     fbuser:"",
     count:"",
     items: [], columns,
@@ -130,11 +151,13 @@ components: {},
     currentPage: 1,
     editedItemId: null,
     editedItem: null,
-    tempuid : null,
-    temptype : null,
+    temptitle: "",
     tempdate : null,
     tempindex : null,
-    tempdd:null,
+    tempdd: null,
+    tempamount: 0,
+    tempdesc: "",
+    tempcategory: "",
     }
   }, 
 
@@ -154,6 +177,13 @@ components: {},
   // this.fbuser = firebase.auth().currentUser.email
 
 methods:{
+  checkType() {
+    if (this.editedItem.type == "Expenses") {
+      return true;
+    } else {
+      return false;
+    }
+  },
   //user becomes an email in display
   checkData() {
     this.updated = true;
@@ -180,7 +210,7 @@ methods:{
       let uid = (eachDoc.uid);
       temp.uid = uid;
       temp.type = type;
-      temp.title = "Ower is " + title;
+      temp.title = title;
       temp.category = "-";
       temp.amount = number;
       temp.date = date;
@@ -257,10 +287,10 @@ methods:{
     async deleteinstrument(user, currType, currID){
         await deleteDoc(doc(db, String(user), "Transactions", currType, currID))
     },
-    async setinstrument(user, currType, currTitle, currCat, currAmt, currDesc, currID){
+    async setinstrument(user, currType, currTitle, currCat, currAmt, currDesc, currDate, currID){
         await setDoc(doc(db, String(user), "Transactions", currType, currID),
         {
-          title: currTitle, category: currCat, amount: currAmt, description: currDesc, uid: this.tempuid, date: this.tempdate, type: this.temptype, date_due:this.tempdd,
+          title: currTitle, category: currCat, amount: currAmt, description: currDesc, uid: currID, date: currDate, type: currType, date_due:this.tempdd,
         });
     },
     filterExact (source) {
@@ -280,9 +310,12 @@ methods:{
     resetEditedItem () {
       this.editedItem = null
       this.editedItemId = null
+      this.temptitle = "";
       this.tempuid = null;
       this.temptype = null;
       this.tempdate = null;
+      this.tempdesc = "";
+      this.tempcategory = "-";
       this.tempindex = null;
       this.tempdd = null;
     },
@@ -290,6 +323,7 @@ methods:{
       var currItem = this.items[id];
       //deleteDoc(doc(db, String(this.fbuser), "Transactions", currItem.type, currItem.id))
       console.log(currItem.id, " delete type check")
+      alert("You are going to delete item number" + currItem.index);
       this.deleteinstrument(this.fbuser, currItem.type, currItem.uid);
       this.items = [
         ...this.items.slice(0, id),
@@ -301,33 +335,45 @@ methods:{
     },
     editItem () {
       console.log(this.tempuid, "tempuid check")
-      this.setinstrument(this.fbuser, this.temptype, this.editedItem.title, 
-      this.editedItem.category, this.editedItem.amount, this.editedItem.description, this.tempuid);
-      this.editedItem.date = this.tempdate;
-      this.editedItem.type = this.temptype;
-      this.editedItem.index = this.tempindex;
-      this.editedItem.date_due = this.tempdd;
-      this.editedItem.uid = this.tempuid;
+      var datenum = "";
+      if (String(this.tempdate.getDate()).length == 1) {
+        datenum = "0" + String(this.tempdate.getDate());
+      } else {
+        datenum = String(this.tempdate.getDate());
+      }
+      var datemonth = "";
+      if (String(this.tempdate.getMonth() + 1).length == 1) {
+        datemonth = "0" + String(this.tempdate.getMonth() + 1);
+      } else {
+        datemonth = String(this.tempdate.getMonth() + 1);
+      }
+      var currDate = datenum + "/" +
+        datemonth + "/" + String(this.tempdate.getFullYear())
+
+      this.setinstrument(this.fbuser, this.editedItem.type, this.temptitle, 
+      this.tempcategory, parseInt(this.tempamount), this.tempdesc, currDate, this.editedItem.uid);
       this.items = [
         ...this.items.slice(0, this.editedItemId),
         { ...this.editedItem },
         ...this.items.slice(this.editedItemId + 1),
       ]
       this.resetEditedItem()
-      //this.updateData(this.fbuser)
+      this.updateData(this.fbuser)
     },
     openModalToEditItemById (id) {
       this.editedItemId = id
       var temp = { ...this.items[id] }
-      this.tempuid = temp.uid;
-      this.temptype = temp.type;
-      this.tempdate = temp.date;
-      this.tempindex = temp.index;
-      delete temp.uid;
-      delete temp.type;
-      delete temp.date;
-      delete temp.index;
       this.editedItem = temp;
+      this.temptitle = this.editedItem.title;
+      this.tempamount = this.editedItem.amount;
+      this.tempdesc = this.editedItem.description;
+      this.tempcategory = this.editedItem.category;
+      const d = new Date();
+      let getYear = parseInt(this.editedItem.date.slice(0,4))
+      let getMonth = parseInt(this.editedItem.date.slice(5,7))
+      let getDay = parseInt(this.editedItem.date.slice(8,10))
+      d.setDate(getYear, getMonth, getDay);
+      this.tempdate = d;
     },
   },
   computed: {
