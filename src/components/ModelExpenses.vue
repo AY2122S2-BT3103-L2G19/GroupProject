@@ -15,6 +15,18 @@
                 <option value="Owed Payments">Owed Payment</option>
               </select>   
             </div>
+            <div class="model__group" v-show="isExpense">
+              <label for="category">Category:   </label>
+
+              <select id="category" v-model ="category">
+                <option value="Food & Drink">Food & Drink</option>
+                <option value="Transport">Transport</option>
+                <option value="Entertainment">Entertainment</option>
+                <option value="Groceries">Groceries</option>
+                <option value="Shopping">Shopping</option>
+                <option value="Others">Others</option>
+              </select>   
+            </div>
             <div class="model__group" v-show="!isOwedPayment">
               <va-input
                 label="Title"
@@ -42,18 +54,7 @@
                 v-model="number"
               />
             </div>
-            <div class="model__group" v-show="isExpense">
-              <label for="category">Category:   </label>
 
-              <select id="category" v-model ="category">
-                <option value="Food & Drink">Food & Drink</option>
-                <option value="Transport">Transport</option>
-                <option value="Entertainment">Entertainment</option>
-                <option value="Groceries">Groceries</option>
-                <option value="Shopping">Shopping</option>
-                <option value="Others">Others</option>
-              </select>   
-            </div>
             <div class="model__group">
               <va-date-input
                 label = "Date"
@@ -73,7 +74,8 @@
               />
             </div>
             <div class="model__group">
-              <button  id = "savebutton"  class="button" type="submit"  @click.prevent="savetofs()"> Add Transaction </button>
+              <va-button  id = "savebutton"  class="button" type="submit"  @click.prevent="savetofs()" style="width:25%;border-raduis:40%"> Submit </va-button>
+              <va-button  id = "cancelbutton"  class="button"  @click.prevent="toggle()" style="background-color:rgb(186, 191, 194);width:25%;margin:30px"> Cancel </va-button>
             </div>
           </form>
         </div>
