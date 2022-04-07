@@ -56,6 +56,11 @@ components: {},
   // this.fbuser = firebase.auth().currentUser.email
 
   methods:{
+
+    openModel(data) {
+      console.log(data)
+      this.$emit("model-show",data);
+    },
   //user becomes an email in display
 
   async display(user){    
@@ -147,9 +152,9 @@ components: {},
       if (category == "") {
         category = "-";
       }
-      var number = (yy.amount)
-      var date = (yy.date)
-      var description = (yy.description)
+      let number = (yy.amount)
+      let date = (yy.date)
+      let description = (yy.description)
 
       var cell1 = row.insertCell(0); var cell2 = row.insertCell(1); var cell3 = row.insertCell(2);
       var cell4 = row.insertCell(3); var cell5 = row.insertCell(4); var cell6 = row.insertCell(5);
@@ -166,6 +171,7 @@ components: {},
       bu.title = String(title)
       bu.innerHTML ="Delete"
       bu.onclick =  () =>{
+        console.log(user, type, title)
         this.deleteinstrument(user, type, title)
       }
       cell9.appendChild(bu) 
@@ -175,7 +181,8 @@ components: {},
       bu2.id = String(type)
       bu2.innerHTML ="Edit"
       bu2.onclick =  ()=>{
-        this.editinstrument(title,user)
+        console.log(user, type, title, category,number,date,description)
+        this.editinstrument(user, type, title, category,number,date,description)
       }
       cell8.appendChild(bu2)
       ind+= 1   
@@ -185,7 +192,7 @@ components: {},
     async deleteinstrument(user, currType, currTitle){
         var currentType = currType;
         var currentTitle = currTitle;
-        if (!confirm("You are going to delete " + currTitle)){
+        if (!confirm("You are going to delete " + currTitle)) {
           return
         }
         await deleteDoc(doc(db, String(user), "Transactions", currentType, currentTitle))
@@ -198,9 +205,20 @@ components: {},
         this.display(this.fbuser) 
      },
     
-    async editinstrument(title,user) {
+    async editinstrument(user, type, title,category,number,date,description) {
+        let data ={
+          user:user,
+          type:type,
+          title:title,
+          category:category,
+          number:number,
+          date:date,
+          description:description,
+        }
         alert("You are going to edit " + title)
-        await deleteDoc(doc(db,user,title))
+        console.log(user, type, title, category, number, date, description);
+        //await deleteDoc(doc(db,user,title))
+        this.openModel(data);
         console.log("working on edit")
     }
     }

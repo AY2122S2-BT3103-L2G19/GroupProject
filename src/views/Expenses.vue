@@ -4,12 +4,15 @@
   <ModelExpenses
     @model-toggle="modelToggle"
     :status="modelStatus"
+    :data = "data"
     @store-expense="storeExpense"
     @added = "change"
+    
   />
   <br>
   <ExpenseDisplay
-    :key ="refresh"/>
+    :key ="refresh"
+    @model-show="modelToggle"/>
 </div>
 </template>
 
@@ -43,6 +46,7 @@ export default {
         expense: 0,
         history: [],
       },
+      data:null,
       user:false,
     };
   },
@@ -64,7 +68,9 @@ export default {
     change() {
       this.refresh += 1;
     },
-    modelToggle() {
+    modelToggle(value) {
+      console.log(value);
+      this.data = value
       this.modelStatus = !this.modelStatus;
     },
     storeExpense(payload) {

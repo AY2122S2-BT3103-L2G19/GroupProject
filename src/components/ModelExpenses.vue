@@ -65,7 +65,7 @@
                 type= "date"
                 class="model__control"
                 placeholder="Date..."
-                v-model="date"
+                value="2022-04-05"
               />
             </div>
             <div class="model__group" v-show="isOwedPayment">
@@ -110,7 +110,7 @@ const db = getFirestore(firebaseApp);
 
 export default {
   name: "ModelExpenses",
-  props: ["status"],
+  props: ["status","data"],
   data() {
     return {
       type:"Expenses",
@@ -123,6 +123,16 @@ export default {
       date_due: "",
       name: "",
     };
+  },
+  watch: {
+    data: function () {
+      this.type = this.data['type']
+      this.title = this.data['title']
+      this.category = this.data['category']
+      this.number = this.data['number']
+      this.date = this.data['date']
+      this.description = this.data['description']
+    }
   },
   methods: {
     toggle() {
