@@ -146,7 +146,7 @@ export default {
         date = date.slice(8,10) + "/" + date.slice(5,7) + "/" + date.slice(0,4);
         this.date = date;
         if (this.type == "Owed Payments") {
-          this.title = "Owed by " + this.name;
+          this.title = "Owed by :" + this.name;
         }
         //for uid
         var udate = String(new Date());

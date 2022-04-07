@@ -7,6 +7,7 @@
         class="flex mb-2 md3"
         placeholder="Filter..."
         v-model="filter"
+        label="Search for a Transaction"
       />
 
       <va-checkbox
@@ -21,6 +22,7 @@
         placeholder="Items..."
         label="Items per page"
         v-model.number="perPage"
+        id="itemspp"
       />
     </div>
     <va-data-table 
@@ -107,7 +109,7 @@
       </span>
     </va-alert>-->
 
-    <va-alert class="mt-3" border="left">
+    <va-alert class="mt-3">
     <span>
       Number of items matching your search:
       <va-chip>{{ filteredCount }}</va-chip>
@@ -127,13 +129,14 @@ name : "ExpenseDisplay",
 components: {},
   data(){
     const columns = [
-      { key: 'index', sortable: true, width: '8%' },
+      { key: 'index', sortable: true, width: '5%' },
+      { key: 'date', sortable: true, width: '15%' },
       { key: 'type', sortable: true, width: '15%' },
       { key: 'title', sortable: true, width: '15%' },
       { key: 'category', sortable: true, width: '15%' },
+      { key: 'description', sortable: true, width: '25%'},
       { key: 'amount', sortable: true, width: '10%' },
-      { key: 'date', sortable: true, width: '20%' },
-      { key: 'actions', width: '10%' }
+      { key: 'actions', width: '7%' }
     ]
   return{
     options: ["Food & Drink", "Transport", "Entertainment", "Groceries", "Shopping", "Others"],
@@ -156,7 +159,6 @@ components: {},
     temptitle: "",
     tempdate : null,
     tempindex : null,
-    tempdd: null,
     tempamount: 0,
     tempdesc: "",
     tempcategory: "",
@@ -301,7 +303,7 @@ methods:{
     async setinstrument(user, currType, currTitle, currCat, currAmt, currDesc, currDate, currID){
         await setDoc(doc(db, String(user), "Transactions", currType, currID),
         {
-          title: currTitle, category: currCat, amount: currAmt, description: currDesc, uid: currID, date: currDate, type: currType, date_due:this.tempdd,
+          title: currTitle, category: currCat, amount: currAmt, description: currDesc, uid: currID, date: currDate, type: currType,
         });
     },
     filterExact (source) {
@@ -328,13 +330,11 @@ methods:{
       this.tempdesc = "";
       this.tempcategory = "-";
       this.tempindex = null;
-      this.tempdd = null;
     },
     deleteItemById (id) {
       var currItem = this.items[id];
-      //deleteDoc(doc(db, String(this.fbuser), "Transactions", currItem.type, currItem.id))
       console.log(currItem.id, " delete type check")
-      alert("You are going to delete item number" + currItem.index);
+      alert("You are going to delete item number " + currItem.index);
       this.deleteinstrument(this.fbuser, currItem.type, currItem.uid);
       this.items = [
         ...this.items.slice(0, id),
@@ -433,5 +433,9 @@ h1,h2 {
     vertical-align: middle;
     text-align: -webkit-center;
   }
+#itemspp {
+  align-self: right;
+  float: right;
+}
 
 </style>

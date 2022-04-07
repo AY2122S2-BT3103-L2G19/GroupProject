@@ -8,7 +8,6 @@
         <th>Name</th>
         <th>Amount</th>
         <th>Date</th>
-        <th>Date of Return</th>    
         </tr>
     </table>
   </div>
@@ -59,14 +58,11 @@ export default {
           var title = (data_required.title)
           var amount = (data_required.amount)
           var date = (data_required.date)
-          var date2 = (data_required.date_due)
-          var date_of_return = date2.slice(8,10) + "/" + date2.slice(5,7) + "/" + date2.slice(0,4);
 
           var cell0 = row.insertCell(0); var cell1 = row.insertCell(1); var cell2 = row.insertCell(2);
-          var cell3 = row.insertCell(3); var cell4 = row.insertCell(4);
+          var cell3 = row.insertCell(3); 
 
           cell0.innerHTML = start_sn; cell1.innerHTML = title; cell2.innerHTML = amount; cell3.innerHTML = date;
-          cell4.innerHTML = date_of_return;
 
           start_sn += 1
         });
