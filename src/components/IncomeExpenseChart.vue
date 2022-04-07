@@ -201,7 +201,7 @@ export default {
       data: expensesByMonthSorted
       },
       {
-      name: "Income ($)", 
+      name: "Income", 
       data: incomesByMonthSorted
       }
       ]
