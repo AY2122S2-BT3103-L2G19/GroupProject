@@ -66,7 +66,7 @@
 
         <va-input
           class="mb-4"
-          v-model="temptitle"
+          v-model="tempname"
           label="Name"
           placeholder="Ower..."
           v-if="checkOwed()"
@@ -155,6 +155,7 @@ components: {},
     tempamount: 0,
     tempdesc: "",
     tempcategory: "",
+    tempname: "",
     }
   }, 
 
@@ -223,7 +224,8 @@ methods:{
       let uid = (eachDoc.uid);
       temp.uid = uid;
       temp.type = type;
-      temp.title = title;
+      temp.name = title;
+      temp.title = "Owed By: " + title;
       temp.category = "-";
       temp.amount = number;
       temp.date = date;
@@ -264,6 +266,7 @@ methods:{
       let uid = (eachDoc.uid);
       temp.uid = uid;
       temp.type = type;
+      temp.name = title;
       temp.title = title;
       temp.category = "-";
       temp.amount = number;
@@ -330,6 +333,7 @@ methods:{
       this.tempdesc = "";
       this.tempcategory = "-";
       this.tempindex = null;
+      this.tempname = "";
     },
     deleteItemById (id) {
       var currItem = this.items[id];
@@ -343,7 +347,7 @@ methods:{
       this.updateData(this.fbuser)
     },
     editItem () {
-      console.log(this.tempuid, "tempuid check")
+      console.log(this.editedItem.uid, "tempuid check")
       var datenum = "";
       if (String(this.tempdate.getDate()).length == 1) {
         datenum = "0" + String(this.tempdate.getDate());
@@ -359,7 +363,7 @@ methods:{
       var currDate = datenum + "/" +
         datemonth + "/" + String(this.tempdate.getFullYear())
 
-      this.setinstrument(this.fbuser, this.editedItem.type, this.temptitle, 
+      this.setinstrument(this.fbuser, this.editedItem.type, this.tempname, 
       this.tempcategory, parseInt(this.tempamount), this.tempdesc, currDate, this.editedItem.uid);
       this.items = [
         ...this.items.slice(0, this.editedItemId),
@@ -373,7 +377,14 @@ methods:{
       this.editedItemId = id
       var temp = { ...this.items[id] }
       this.editedItem = temp;
-      this.temptitle = this.editedItem.title;
+      //console.log(this.editedItem.uid, "UID CHECK")
+      if (this.editedItem.type == "Owed Payments") {
+        this.temptitle = this.editedItem.name;
+        //console.log(this.temptitle, "this temptitle check")
+      } else {
+        this.temptitle = this.editedItem.title;
+      }
+      this.tempname = this.editedItem.name;
       this.tempamount = this.editedItem.amount;
       this.tempdesc = this.editedItem.description;
       this.tempcategory = this.editedItem.category;
