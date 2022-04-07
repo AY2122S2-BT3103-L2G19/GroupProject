@@ -40,6 +40,7 @@
     :current-page="currentPage"
     :striped="true"
     :animated="true"
+    no-data-html="Loading..."
     >
       <template #cell(actions)="{ rowIndex }">
         <va-button flat icon="edit" @click="openModalToEditItemById(rowIndex)" />
