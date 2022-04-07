@@ -78,16 +78,19 @@ export default {
             resolvePayment(user,title, amount, desc, date, uid)
           }
           cell4.appendChild(bu) 
-
           start_sn += 1
         });
       }
 
       async function resolvePayment(user,title, amount, desc, date, uid) {
-        console.log(user,title, amount, desc, date, uid);   
+        console.log(user,title, amount, desc, date, uid);
+        let MyDate = new Date();
+        let MyDateString = ('0' + MyDate.getDate()).slice(-2) + '/'
+                    + ('0' + (MyDate.getMonth()+1)).slice(-2) + '/'
+                    + MyDate.getFullYear();
         try{
             const docRef = await setDoc(doc(db, String(user), "Transactions", "Income", uid),{
-            type: "Income" , title : title, category : "-", amount: amount, date : date, description : desc, uid: uid,
+            type: "Income" , title : "Paid by: "+title, category : "-", amount: amount, date : MyDateString, description : desc, uid: uid,
             })
             const docRefDel = await deleteDoc(doc(db, String(user), "Transactions", "Owed Payments", uid))
             console.log(docRef)
