@@ -450,10 +450,23 @@ h1,h2 {
     align-self: center;
     vertical-align: middle;
     text-align: -webkit-center;
+    padding: 15px;
   }
 #itemspp {
   align-self: right;
   float: right;
+}
+
+#app > div:nth-child(2) > div.row > div:nth-child(1) {
+  margin:auto;
+}
+
+#app > div:nth-child(2) > div.row > div:nth-child(3) {
+  margin:auto;
+}
+
+#app > div:nth-child(2) > div.row > div:nth-child(2) {
+  margin:auto;
 }
 
 
