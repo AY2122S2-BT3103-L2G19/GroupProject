@@ -63,12 +63,20 @@
       @cancel="resetEditedItem()"
     >
       <slot>
-        
+
+        <va-input
+          class="mb-4"
+          v-model="temptitle"
+          label="Name"
+          placeholder="Ower..."
+          v-if="checkOwed()"
+        />
         <va-input
           class="mb-4"
           v-model="temptitle"
           label="Title"
           placeholder="Title"
+          v-if="!checkOwed()"
         />
 
         <va-select v-model="tempcategory" :options="options" label="Select Category" v-if="checkType()"/>
@@ -177,6 +185,13 @@ methods:{
   },
   checkType() {
     if (this.editedItem.type == "Expenses") {
+      return true;
+    } else {
+      return false;
+    }
+  },
+  checkOwed() {
+    if (this.editedItem.type == "Owed Payments") {
       return true;
     } else {
       return false;
