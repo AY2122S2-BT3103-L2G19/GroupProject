@@ -127,6 +127,15 @@ export default {
   },
   methods: {
     toggle() {
+      this.type="Expenses",
+      this.title= "",
+      this.category="",
+      this.number= "",
+      this.date="",
+      this.description="",
+      this.date_due= "",
+      this.name= "",
+      this.uid= "",
       this.$emit("model-toggle");
     },
     addExpense() {
