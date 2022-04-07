@@ -94,21 +94,6 @@
     </va-modal>
     <br>
     <va-button color="danger" @click="deleteSelection()" class="mr-4">Delete All Selected Items</va-button>
-    <!--
-    <va-alert class="mt-3" border="left">
-      <span>
-        Selected items (click to unselect):
-        <va-chip
-          class="ml-2"
-          :key="item.index"
-          v-for="item in selectedItemsEmitted"
-          @click="unselectItem(item)"
-        >
-          {{ item.index }}
-        </va-chip>
-      </span>
-    </va-alert>-->
-
     <va-alert class="mt-3">
     <span>
       Number of items matching your search:
@@ -130,9 +115,9 @@ components: {},
   data(){
     const columns = [
       { key: 'index', sortable: true, width: '5%' },
-      { key: 'date', sortable: true, width: '15%' },
-      { key: 'type', sortable: true, width: '15%' },
-      { key: 'title', sortable: true, width: '15%' },
+      { key: 'date', sortable: true, width: '12%' },
+      { key: 'type', sortable: true, width: '12%' },
+      { key: 'title', sortable: true, width: '12%' },
       { key: 'category', sortable: true, width: '15%' },
       { key: 'description', sortable: true, width: '25%'},
       { key: 'amount', sortable: true, width: '10%' },
