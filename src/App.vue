@@ -26,6 +26,12 @@
         </router-link>
       </va-tab>
       <va-tab>
+        <router-link to="/about" class="routerlink" id="about">
+        <va-icon class="material-icons">question_answer</va-icon>
+        Contact Us
+        </router-link>
+      </va-tab>
+      <va-tab>
         <LogOut/>
       </va-tab>
       <va-divider vertical/>
@@ -78,7 +84,7 @@ export default {
       elem.click(); 
     },
     checkUser() {
-      if (this.$route.path == '/' || this.$route.path == '/goals' || this.$route.path == '/expenses/true' || this.$route.path=='/expenses/false') {
+      if (this.$route.path == '/' || this.$route.path == '/goals' || this.$route.path == '/expenses/true' || this.$route.path=='/expenses/false' || this.$route.path=='/about') {
         return true;
       }
       return false;

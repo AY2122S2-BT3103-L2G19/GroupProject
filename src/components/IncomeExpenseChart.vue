@@ -3,6 +3,7 @@
     <h4 class="title">Expense vs Income for</h4>
     <h4 class="title">Past 3 Months</h4>
     <br>
+    <br>
     <bar-chart empty="Start adding expenses to view data now!" loading="Loading your expenses/income" class = "user" width = 100% :data = "chartParams" :colors="['red','green']"></bar-chart>
   </div>
 </template>
