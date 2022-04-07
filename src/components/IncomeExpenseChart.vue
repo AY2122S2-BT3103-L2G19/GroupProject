@@ -1,6 +1,7 @@
 <template>
   <div class="chart">
-    <h4 class="title">Expense vs Income for Past 3 Months</h4>
+    <h4 class="title">Expense vs Income for</h4>
+    <h4 class="title">Past 3 Months</h4>
     <br>
     <bar-chart empty="Start adding expenses to view data now!" loading="Loading your expenses/income" class = "user" width = 100% :data = "chartParams" :colors="['red','green']"></bar-chart>
   </div>
@@ -18,7 +19,8 @@ export default {
   name: 'IncomeExpenseChart',
   data () {
     return {
-        chartParams:{}
+        chartParams:{},
+        numMonths: 3
     }
   },
   methods: {
@@ -59,7 +61,7 @@ export default {
       });
 
       
-      var expensesByMonthSorted = expensesByMonthFinal.slice(-3);
+      var expensesByMonthSorted = expensesByMonthFinal.slice(-this.numMonths);
       expensesByMonthSorted = expensesByMonthSorted.sort();
   
       for (let i = 0; i < expensesByMonthSorted.length; i++){
@@ -145,7 +147,7 @@ export default {
       });
 
       
-      var incomesByMonthSorted = incomesByMonthFinal.slice(-3);
+      var incomesByMonthSorted = incomesByMonthFinal.slice(-this.numMonths);
       //for (var e in incomesByMonthSorted) {console.log(e, " Income by month sorted check");}
       //incomesByMonthSorted = incomesByMonthSorted.sort();
       console.log(incomesByMonthSorted, "incomes by month sorted")
