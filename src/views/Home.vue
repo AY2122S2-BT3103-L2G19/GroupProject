@@ -79,7 +79,7 @@ methods: {
   /* height:220px;  */
   background:none; 
   /* margin-top: 20px; */
-  margin-right:100px;
+  margin-right:75px;
   margin-bottom: 18px
 }
 
