@@ -9,7 +9,6 @@
             </div>
             <div class="model__group">
               <label for="type">Transaction Type:   </label>
-
               <select id="type" v-model ="type">
                 <option value="Income">Income</option>
                 <option value="Expenses">Expense</option>
@@ -68,16 +67,6 @@
                 v-model="date"
               />
             </div>
-            <div class="model__group" v-show="isOwedPayment">
-              <label for="date_due">Payment Due Date</label>
-              <input
-                id = "date_due"
-                type= "date"
-                class="model__control"
-                placeholder="Date..."
-                v-model="date_due"
-              />
-            </div>
             <div class="model__group">
               <label for="description">Description</label>
               <input
@@ -89,7 +78,7 @@
               />
             </div>
             <div class="model__group">
-              <button  id = "savebutton"  class="button" type="submit"  @click.prevent="savetofs()"> Add Expense </button>
+              <button  id = "savebutton"  class="button" type="submit"  @click.prevent="savetofs()"> Add Transaction </button>
             </div>
           </form>
         </div>
@@ -120,7 +109,6 @@ export default {
       date:"",
       description:"",
       fbuser: "",
-      date_due: "",
       name: "",
       uid: "",
     };
@@ -133,7 +121,6 @@ export default {
       this.number= "",
       this.date="",
       this.description="",
-      this.date_due= "",
       this.name= "",
       this.uid= "",
       this.$emit("model-toggle");
@@ -165,7 +152,7 @@ export default {
         var udate = String(new Date());
         this.uid = udate;
         const docRef = await setDoc(doc(db, String(this.fbuser), "Transactions", this.type, this.uid),{
-        type: this.type , title : this.title, category : this.category, amount: this.number, date : this.date, description : this.description, date_due : this.date_due, uid: this.uid,
+        type: this.type , title : this.title, category : this.category, amount: this.number, date : this.date, description : this.description, uid: this.uid,
         })
         console.log(docRef)
         this.type= this.title=this.number=this.date=this.description=this.uid = "";
@@ -199,7 +186,7 @@ export default {
           return true;
         }
       } else if (this.type == "Owed Payments") {
-        if (this.name.trim() == "" || this.date_due.trim() == "" || this.number == "" || this.date.trim() == "" || this.description.trim() == "") {
+        if (this.name.trim() == "" || this.number == "" || this.date.trim() == "" || this.description.trim() == "") {
           return false;
         } else {
           return true;
