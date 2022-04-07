@@ -49,7 +49,7 @@ export default {
           table.deleteRow(1);
         }
         let collection_required = await getDocs(collection(db, user, "Transactions", "Owed Payments"));
-        let start_sn = 1;
+        var start_sn = 1;
         
         collection_required.forEach((docs) => {
           let data_required = docs.data()

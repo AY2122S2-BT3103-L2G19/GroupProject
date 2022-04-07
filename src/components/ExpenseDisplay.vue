@@ -90,7 +90,9 @@
 
       </slot>
     </va-modal>
-
+    <br>
+    <va-button color="danger" @click="deleteSelection()" class="mr-4">Delete All Selected Items</va-button>
+    <!--
     <va-alert class="mt-3" border="left">
       <span>
         Selected items (click to unselect):
@@ -103,11 +105,11 @@
           {{ item.index }}
         </va-chip>
       </span>
-    </va-alert>
+    </va-alert>-->
 
     <va-alert class="mt-3" border="left">
     <span>
-      Number of filtered items:
+      Number of items matching your search:
       <va-chip>{{ filteredCount }}</va-chip>
     </span>
   </va-alert>
@@ -177,6 +179,15 @@ components: {},
   // this.fbuser = firebase.auth().currentUser.email
 
 methods:{
+  deleteSelection() {
+    for (let i = 0; i < this.selectedItems.length; i++) {
+      let currItem = this.selectedItems[i];
+      let currType = currItem.type;
+      let currUid = currItem.uid;
+      this.deleteinstrument(this.fbuser, currType, currUid);
+    }
+    this.updateData(this.fbuser);
+  },
   checkType() {
     if (this.editedItem.type == "Expenses") {
       return true;
@@ -329,8 +340,6 @@ methods:{
         ...this.items.slice(0, id),
         ...this.items.slice(id + 1),
       ]
-      //window.location.reload();
-      //dont even need to reload and table just dynamically updates
       this.updateData(this.fbuser)
     },
     editItem () {
