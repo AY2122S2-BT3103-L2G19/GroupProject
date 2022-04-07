@@ -163,3 +163,8 @@ button:hover {
 }
 
 </style>
+
+<style scoped>
+>>> tr:nth-child(odd) {background-color: #f5f8f9 !important;}
+
+</style>

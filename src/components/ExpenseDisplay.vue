@@ -64,25 +64,26 @@
       <slot>
 
         <va-input
-          class="mb-4"
+          class="mb-0"
           v-model="tempname"
           label="Name"
           placeholder="Ower..."
           v-if="checkOwed()"
         />
         <va-input
-          class="mb-4"
+          class="mb-0"
           v-model="temptitle"
           label="Title"
           placeholder="Title"
           v-if="!checkOwed()"
         />
+        <va-divider/>
         <va-select v-model="tempcategory" :options="options" label="Select Category" v-if="checkType()"/>
         
-        <va-divider/>
+        <va-divider v-if="checkType()"/>
 
         <va-input
-          class="mb-4"
+          class="mb-0"
           v-model="tempamount"
           label="Amount"
           placeholder="$"
@@ -90,7 +91,7 @@
         <va-divider/>
 
         <va-input
-          class="mb-4"
+          class="mb-0"
           v-model="tempdesc"
           label="Description"
           placeholder="Text here..."
@@ -422,7 +423,7 @@ methods:{
 
 </script>
 
-<style scoped>
+<style>
 /*
   .table-example--pagination {
     text-align: center;
@@ -467,5 +468,7 @@ h1,h2 {
   margin:auto;
 }
 
-
+body > div.va-modal > div.va-modal__container > div > div {
+  width: 400px;
+}
 </style>

@@ -246,5 +246,9 @@ export default {
 button:hover {
   background-color: #dcf1ff !important;
 }
-tr:nth-child(even) {background-color: #f5f8f9 !important;}
+</style>
+
+<style scoped>
+>>> tr:nth-child(odd) {background-color: #f5f8f9 !important;}
+
 </style>
