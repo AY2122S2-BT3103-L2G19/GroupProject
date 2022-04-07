@@ -7,28 +7,24 @@
     <template #tabs>
       <va-tab>
         <router-link to="/" class="routerlink" id="initial">
-        ⠀⠀⠀⠀⠀
         <va-icon class="material-icons">dashboard</va-icon> 
-        Dashboard⠀⠀⠀⠀⠀
+        Dashboard 
         </router-link>
       </va-tab>
       <va-divider vertical/>
       <va-tab>
         <router-link to="/goals" class="routerlink">
-        ⠀⠀⠀⠀⠀
         <va-icon class="material-icons">account_balance</va-icon>
-          Goals⠀⠀⠀⠀⠀
+          Goals 
         </router-link>
       </va-tab>
       <va-divider vertical/>
       <va-tab>
         <router-link to="/expenses/false" class="routerlink" id="expense">
-        ⠀⠀⠀⠀⠀
         <va-icon class="material-icons">paid</va-icon>
-        Transactions⠀⠀⠀⠀⠀
+        Transactions 
         </router-link>
       </va-tab>
-
       <va-tab>
         <LogOut/>
       </va-tab>
@@ -182,4 +178,12 @@ export default {
 .bwt:focus {
   background-color: #F082AC;
 }
+
+.va-tab .va-tab__content {
+  padding: 0;
+}
+.va-tab__content a {
+  width: 100%;
+}
+
 </style>
