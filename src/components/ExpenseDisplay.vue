@@ -1,6 +1,4 @@
 <template>
-    <h1>Transactions</h1>  
-    <br>  
 
     <div class="row">
       <va-input
