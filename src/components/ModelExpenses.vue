@@ -89,7 +89,7 @@
               />
             </div>
             <div class="model__group">
-              <button  id = "savebutton"  class="button" type="submit"  @click="savetofs()"> Add Expense </button>
+              <button  id = "savebutton"  class="button" type="submit"  @click.prevent="savetofs()"> Add Expense </button>
             </div>
           </form>
         </div>
@@ -165,8 +165,13 @@ export default {
       catch(error) {
           console.error("Error adding document: ", error);
       }
+      this.toggle()
+  
     }
-    else alert("Cannot take empty Values. Please enter the values")
+    else {
+      alert("Cannot take empty Values. Please enter the values")
+      
+    }
   },
 
   },
