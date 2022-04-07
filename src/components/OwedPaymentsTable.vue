@@ -76,7 +76,7 @@ export default {
           bu.className = "bwt"
           bu.id = String(uid)
           bu.title = String(title)
-          bu.innerHTML ="Resolve"
+          bu.innerHTML ='<va-icon class="material-icons" style="color: rgb(44, 130, 224); font-size: 24px;">check</va-icon>'
           bu.onclick =  () =>{
             resolvePayment(user,title, amount, desc, date, uid)
           }
