@@ -342,7 +342,9 @@ methods:{
     deleteItemById (id) {
       var currItem = this.items[id];
       console.log(currItem.id, " delete type check")
-      alert("You are going to delete item number " + currItem.index);
+      if (! confirm("You are going to delete item number " + currItem.index)) {
+        return;
+      }
       this.deleteinstrument(this.fbuser, currItem.type, currItem.uid);
       this.items = [
         ...this.items.slice(0, id),

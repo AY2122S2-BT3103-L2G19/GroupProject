@@ -99,7 +99,7 @@ export default {
         var delBut = document.createElement("button");
         delBut.className = "bwt";
         delBut.id = String(Category);
-        delBut.innerHTML = "Delete";
+        delBut.innerHTML = '<va-icon class="material-icons" style="color: rgb(44, 130, 224); font-size: 24px;">delete</va-icon>';
         delBut.onclick = () => {
           this.deleteInstrument(Category, user);
         };
@@ -236,4 +236,14 @@ export default {
 </script>
 
 <style>
+.bwt {
+  padding: 5px;
+  border: none;
+  background: none;
+  border-radius: 50%;
+}
+
+button:hover {
+  background-color: #dcf1ff !important;
+}
 </style>
