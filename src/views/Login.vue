@@ -1,6 +1,7 @@
 <template>
+  <br> <br> <br>
   <div class="logo" >
-  <img src="@/assets/Expense_buddy.png" style="margin:auto;"> 
+  <img src="@/assets/Expense_buddy.jpeg" style="margin:auto;width:500px;height:200px;"> 
   </div>
   <div class="flex md6 lg4" style="margin: auto;">
   <va-card color="#c2c2c2" class="card">
