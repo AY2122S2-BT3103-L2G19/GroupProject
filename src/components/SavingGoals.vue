@@ -6,7 +6,6 @@
       <th>Start Date</th>
       <th>Saved ($)</th>
       <th>Goal ($)</th>
-      <th>$$ more ($)</th>
       <th>Completion (%)</th>
       <th>Delete</th>
     </tr>
@@ -65,7 +64,6 @@ export default {
         var cell5 = row.insertCell(4);
         var cell6 = row.insertCell(5);
         var cell7 = row.insertCell(6);
-        var cell8 = row.insertCell(7);
 
         cell1.innerHTML = ind;
         cell2.innerHTML = Category;
@@ -73,7 +71,6 @@ export default {
         cell4.innerHTML = 0;
         cell5.innerHTML = goal;
         cell6.innerHTML = 0;
-        cell7.innerHTML = 0;
 
         var startDate = docData.StartDate;
         var SDday = parseInt(startDate.slice(0, 2));
@@ -86,13 +83,11 @@ export default {
           cell4.innerHTML = x;
           var distance = goal - x;
           if (distance >= 0) {
-            cell6.innerHTML = distance;
             //let percentage = parseFloat((x / goal) * 100).toFixed(2);
             //let percentageString = String(percentage) + "%";
-            cell7.innerHTML = parseFloat((x / goal) * 100).toFixed(2);
+            cell6.innerHTML = parseFloat((x / goal) * 100).toFixed(2);
           } else {
-            cell6.innerHTML = 0;
-            cell7.innerHTML = parseFloat(100).toFixed(2);
+            cell6.innerHTML = parseFloat(100).toFixed(2);
           }
         });
 
@@ -103,7 +98,7 @@ export default {
         delBut.onclick = () => {
           this.deleteInstrument(Category, user);
         };
-        cell8.appendChild(delBut);
+        cell7.appendChild(delBut);
         ind += 1;
       });
     },
@@ -249,6 +244,6 @@ button:hover {
 </style>
 
 <style scoped>
->>> tr:nth-child(odd) {background-color: #f5f8f9 !important;}
+:deep() tr:nth-child(odd) {background-color: #f5f8f9 !important;}
 
 </style>

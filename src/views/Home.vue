@@ -132,9 +132,15 @@ methods: {
   float:left;
 }
 
-
 .chart {
-  height: 370px;
+  height: 331.17px;
 }
 
+
+</style>
+
+<style scoped>
+:deep() #chart1 > div > div > div > div {
+  padding-top:15px;
+}
 </style>
