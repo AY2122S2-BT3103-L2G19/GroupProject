@@ -90,6 +90,9 @@ export default {
       return false;
     }
   },
+  created(){
+        document.title = "Expense Buddy"
+    },
 }
 </script>
 

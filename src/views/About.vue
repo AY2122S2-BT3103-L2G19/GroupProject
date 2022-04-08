@@ -14,7 +14,7 @@
       v-model="content"
       type="textarea"
       label="Enter feedback here"
-      placeholder="You guys get A+......"
+      placeholder=""
       :min-rows="15"
       :max-rows="50"
     />
@@ -47,6 +47,10 @@ export default {
   },
   methods: {
     async submitFeedback() {
+      if (this.content.trim() == "") {
+        alert("Please enter your feedback");
+        return
+      }
       if (this.username == "") {
         this.username = "Anonymous User";
       }

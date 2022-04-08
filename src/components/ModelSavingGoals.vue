@@ -112,7 +112,6 @@ export default {
         }
       );
       this.$emit("added");
-      window.location.reload();
       this.title = "Short-term Goal";
       this.number = "";
     },

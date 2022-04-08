@@ -91,7 +91,6 @@ export default {
         }
       );
       this.$emit("added");
-      window.location.reload();
       this.title = "Food & Drink";
       this.number = "";
     },
