@@ -81,6 +81,7 @@ export default {
 
 <style>
 #form-head {
+  margin-top: 40px;
   font-size:35px;
   text-align: center;
 }
