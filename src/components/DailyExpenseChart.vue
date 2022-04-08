@@ -68,15 +68,8 @@ export default {
           expensesByDateSorted.forEach((value, key)=> {
             var newdate = key.slice(3,5) + "/" + key.slice(0,2) + "/" + key.slice(6,10);
             expensesByDateFinal.push([newdate, value]);
-            console.log([key, value], "each date?");
           });
-          //console.log("daily expense done")
           expensesByDateFinal = expensesByDateFinal.slice(-this.transToShow);
-          /*var expensesByDateFinal = [];
-          expensesByDate.forEach((value,key) => {
-            expensesByDateFinal.push([key, value]);
-            console.log(key,value,"is current key value pair")
-          })*/
           this.chartData = expensesByDateFinal;
           return expensesByDateFinal;
         }
@@ -87,7 +80,6 @@ export default {
     const auth = getAuth();      
     onAuthStateChanged(auth, (currUser) => {
       if (currUser) {
-      console.log(currUser.email, " is current user id")
       const userEmail = currUser.email;
       this.user = userEmail;
       this.updatedData(this.user);

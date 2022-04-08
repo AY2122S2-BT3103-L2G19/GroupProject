@@ -56,11 +56,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-/*
-#iframe{
-  border:2px;
-  border-color:darkgray;
-}*/
+
 va-button{
   margin: 4px;
   padding: 0px 6px 0px 6px;

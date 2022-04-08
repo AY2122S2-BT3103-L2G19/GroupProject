@@ -169,7 +169,6 @@ components: {},
       }
     }); 
   },
-  // this.fbuser = firebase.auth().currentUser.email
 
 methods:{
   checkSelected() {
@@ -221,7 +220,6 @@ methods:{
       let temp = {};
       let type = (eachDoc.type)
       let title = (eachDoc.title)
-      //let category = (eachDoc.category)
       let number = (eachDoc.amount)
       let date = (eachDoc.date)
       let description = (eachDoc.description)
@@ -247,7 +245,6 @@ methods:{
       let date = (eachDoc.date)
       let description = (eachDoc.description)
       let uid = (eachDoc.uid);
-      //console.log(String(id), " ID CHECK EXPENSE")
       temp.uid = uid;
       temp.type = type;
       temp.title = title;
@@ -263,7 +260,6 @@ methods:{
       let temp = {};
       let type = (eachDoc.type)
       let title = (eachDoc.title)
-      //let category = (eachDoc.category)
       let number = (eachDoc.amount)
       let date = (eachDoc.date)
       let description = (eachDoc.description)
@@ -383,10 +379,8 @@ methods:{
       this.editedItemId = id
       var temp = { ...this.items[id] }
       this.editedItem = temp;
-      //console.log(this.editedItem.uid, "UID CHECK")
       if (this.editedItem.type == "Owed Payments") {
         this.temptitle = this.editedItem.name;
-        //console.log(this.temptitle, "this temptitle check")
       } else {
         this.temptitle = this.editedItem.title;
       }
@@ -424,26 +418,6 @@ methods:{
 </script>
 
 <style>
-/*
-  .table-example--pagination {
-    text-align: center;
-    /*text-align: -webkit-center;
-  }
-/*
-h1,h2 {
-  text-align: center;
-  background-color: rgb(175, 214, 221);
-  font: 700;
-  display: block;
-  font-size: 2em;
-  margin-block-start: 0.67em;
-  margin-block-end: 0.67em;
-  margin-inline-start: 0px;
-  margin-inline-end: 0px;
-  font-weight: bold;
-}
-
-*/
 .table-example--pagination {
     text-align: center;
     align-self: center;

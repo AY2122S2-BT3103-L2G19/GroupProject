@@ -91,3 +91,6 @@ export default {
   margin: 0 auto;
 }
 </style>
+
+<style scoped>
+</style>

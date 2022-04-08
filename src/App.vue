@@ -11,7 +11,7 @@
         Dashboard 
         </router-link>
       </va-tab>
-      <va-divider vertical/>
+      <va-divider vertical />
       <va-tab>
         <router-link to="/goals" class="routerlink">
         <va-icon class="material-icons">account_balance</va-icon>
@@ -25,46 +25,21 @@
         Transactions 
         </router-link>
       </va-tab>
+      <va-divider vertical/>
       <va-tab>
         <router-link to="/about" class="routerlink" id="about">
         <va-icon class="material-icons">question_answer</va-icon>
         Contact Us
         </router-link>
       </va-tab>
-      <va-tab>
-        <LogOut/>
-      </va-tab>
       <va-divider vertical/>
+      <va-tab>
+        <div id="logout">
+        <LogOut />
+        </div>
+      </va-tab>
     </template>
   </va-tabs>
-  <!--
-  <va-navbar shape class="tab1" color="lightblue">
-    <template #left>
-      <va-navbar-item text-align="center">
-        <router-link to="/" class="routerlink" id="initial">
-        <va-icon class="material-icons">dashboard</va-icon> 
-        Dashboard
-        </router-link>
-      </va-navbar-item>
-    </template>
-    <template #center>
-      <va-navbar-item text-align="center">
-        <router-link to="/goals" class="routerlink">
-        <va-icon class="material-icons">account_balance</va-icon>
-          Goals
-        </router-link>
-      </va-navbar-item>
-    </template>
-    <template #right>
-      <va-navbar-item text-align="center">
-        <router-link to="/expenses/false" class="routerlink" id="expense">
-        <va-icon class="material-icons">paid</va-icon>
-        Transactions
-        </router-link>
-      </va-navbar-item>
-    </template>
-  </va-navbar>-->
-  <hr>
   </div>
   <router-view/>
 </template>
@@ -97,6 +72,10 @@ export default {
 </script>
 
 <style>
+/*#logout{
+  margin: auto;
+}*/
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -113,23 +92,15 @@ export default {
 
 .routerlink:hover {
   color:rgb(244, 186, 111);
-  /*border-bottom: 2px solid black;*/
 }
 
 #navbar {
   float: left;
-  margin-top: 10px;
+  padding-top: 10px;
   width: 100%;
+  background-color:aliceblue;
+  border-bottom: solid 2px black;
 }
-
-/*
-.extra {
-  width:30%;
-  background-color: lightblue;
-  float:left;
-  margin-bottom: 30px;
-  min-height: 65px;
-}*/
 .tab2 {
   margin-right:10px;
   margin-top:5px;
@@ -139,49 +110,6 @@ export default {
   float:right;
   margin-bottom: 10px;
 }
-/*
-#dashboardtab {
-  text-align: center;
-  height: 40px;
-  width: 200px;
-  border: 2px black;
-}
-#goalstab {
-  text-align: center;
-  height: 40px;
-  width: 200px;
-}
-#expensestab {
-  text-align: center;
-  height: 40px;
-  width: 200px;
-}*/
-/*
-.bwt {
-  background-color: #EA4C89;
-  border-radius: 8px;
-  border-style: none;
-  box-sizing: border-box;
-  color: #FFFFFF;
-  cursor: pointer;
-  font-family: "Haas Grot Text R Web", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 12px;
-  font-weight: 500;
-  height: 30px;
-  line-height: 15px;
-  list-style: none;
-  margin: 0;
-  outline: none;
-  padding: 4px 16px;
-  position: relative;
-  text-align: center;
-  text-decoration: none;
-  transition: color 100ms;
-  vertical-align: baseline;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
-}*/
 
 .bwt:hover,
 .bwt:focus {
