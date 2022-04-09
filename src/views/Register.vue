@@ -44,9 +44,9 @@ export default {
  name:"Login",
  data() {
      return {
-         email:"meow@poop.com",
-         password:"iwanttodie",
-         password2:"iwanttodie",
+         email:"",
+         password:"",
+         password2:"",
          user:null,
      }
  },
