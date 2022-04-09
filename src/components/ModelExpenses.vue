@@ -191,19 +191,19 @@ export default {
     },
     isValidParams: function() {
       if (this.type == "Expenses") {
-        if (this.title.trim() == "" || this.category.trim() == "" || this.number == "" || this.date == new Date() || this.description.trim() == "") {
+        if (this.title.trim() == "" || this.category.trim() == "" || this.number == "" || this.date == "") {
           return false;
         } else {
           return true;
         }
       } else if (this.type == "Owed Payments") {
-        if (this.name.trim() == "" || this.number == "" || this.date == new Date() || this.description.trim() == "") {
+        if (this.name.trim() == "" || this.number == "" || this.date == "") {
           return false;
         } else {
           return true;
         }
       } else if (this.type == "Income") {
-        if (this.title.trim() == "" ||  this.number == "" || this.date == new Date() || this.description.trim() == "") {
+        if (this.title.trim() == "" ||  this.number == "" || this.date == "") {
           return false;
         } else {
           return true;

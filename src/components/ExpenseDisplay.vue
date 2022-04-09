@@ -304,6 +304,7 @@ methods:{
         await deleteDoc(doc(db, String(user), "Transactions", currType, currID))
     },
     async setinstrument(user, currType, currTitle, currCat, currAmt, currDesc, currDate, currID){
+        console.log(user, currType, currTitle, currCat, currAmt, currDesc, currDate, currID)
         await setDoc(doc(db, String(user), "Transactions", currType, currID),
         {
           title: currTitle, category: currCat, amount: currAmt, description: currDesc, uid: currID, date: currDate, type: currType,
@@ -349,31 +350,39 @@ methods:{
       this.updateData(this.fbuser)
     },
     editItem () {
-      console.log(this.editedItem.uid, "tempuid check")
-      var datenum = "";
-      if (String(this.tempdate.getDate()).length == 1) {
-        datenum = "0" + String(this.tempdate.getDate());
-      } else {
-        datenum = String(this.tempdate.getDate());
-      }
-      var datemonth = "";
-      if (String(this.tempdate.getMonth() + 1).length == 1) {
-        datemonth = "0" + String(this.tempdate.getMonth() + 1);
-      } else {
-        datemonth = String(this.tempdate.getMonth() + 1);
-      }
-      var currDate = datenum + "/" +
-        datemonth + "/" + String(this.tempdate.getFullYear())
+      if (this.isValidParams) {
+        console.log(this.editedItem.uid, "tempuid check")
+        var datenum = "";
+        if (String(this.tempdate.getDate()).length == 1) {
+          datenum = "0" + String(this.tempdate.getDate());
+        } else {
+          datenum = String(this.tempdate.getDate());
+        }
+        var datemonth = "";
+        if (String(this.tempdate.getMonth() + 1).length == 1) {
+          datemonth = "0" + String(this.tempdate.getMonth() + 1);
+        } else {
+          datemonth = String(this.tempdate.getMonth() + 1);
+        }
+        var currDate = datenum + "/" +
+          datemonth + "/" + String(this.tempdate.getFullYear())
 
-      this.setinstrument(this.fbuser, this.editedItem.type, this.tempname, 
-      this.tempcategory, parseInt(this.tempamount), this.tempdesc, currDate, this.editedItem.uid);
-      this.items = [
-        ...this.items.slice(0, this.editedItemId),
-        { ...this.editedItem },
-        ...this.items.slice(this.editedItemId + 1),
-      ]
-      this.resetEditedItem()
-      this.updateData(this.fbuser)
+        if (this.editedItem.type == "Expenses" || this.editedItem.type == "Income") {
+          this.tempname = this.temptitle
+        }
+        console.log(this.temptitle)
+        this.setinstrument(this.fbuser, this.editedItem.type, this.tempname, 
+        this.tempcategory, parseInt(this.tempamount), this.tempdesc, currDate, this.editedItem.uid);
+        this.items = [
+          ...this.items.slice(0, this.editedItemId),
+          { ...this.editedItem },
+          ...this.items.slice(this.editedItemId + 1),
+        ]
+        this.resetEditedItem()
+        this.updateData(this.fbuser)
+      } else {
+        alert("Cannot take empty Values. Please enter the values")
+      }
     },
     openModalToEditItemById (id) {
       this.editedItemId = id
@@ -404,6 +413,29 @@ methods:{
       return (this.perPage && this.perPage !== 0)
         ? Math.ceil(this.filtered.length / this.perPage)
         : this.filtered.length
+    },
+    isValidParams: function() {
+
+      if (this.editedItem.type == "Expenses") {
+        if (this.temptitle.trim() == "" || this.tempcategory.trim() == "" || this.tempamount == "" || this.tempdate == "") {
+          return false;
+        } else {
+          return true;
+        }
+      } else if (this.editedItem.type == "Owed Payments") {
+        if (this.tempname.trim() == "" || this.tempamount == "" || this.tempdate == "") {
+          return false;
+        } else {
+          return true;
+        }
+      } else if (this.editedItem.type == "Income") {
+        if (this.temptitle.trim() == "" ||  this.tempamount == "" || this.tempdate == "") {
+          return false;
+        } else {
+          return true;
+        }
+      }
+      return false;
     },
   },
   watch: {
