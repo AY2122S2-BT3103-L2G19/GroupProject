@@ -26,6 +26,7 @@ import firebaseApp from "../firebase.js";
 import { getFirestore } from "firebase/firestore";
 import { collection, getDocs } from "firebase/firestore";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { subscribe } from '../pubsub.js';
 
 const db = getFirestore(firebaseApp);
 
@@ -80,8 +81,10 @@ export default {
         }
         var currDateCheck = currMonth + "/" + currYear;
         console.log(currDateCheck, " CURR DATE CHECK")
-        if (currDateCheck == sortedExpense[0][0]) {
-          this.allExpenses.expense = sortedExpense[0][1];
+        for (let i = 0; i < sortedExpense.length; i++) {
+          if (currDateCheck == sortedExpense[i][0]) {
+            this.allExpenses.expense = sortedExpense[i][1];
+          }
         }
         docs = await getDocs(
         collection(db, currUser, "Transactions", "Income"));
@@ -107,9 +110,13 @@ export default {
             return aYear - bYear;
             }
           )
-      if (currDateCheck == sortedIncome[0][0]) {
-        this.allExpenses.income = sortedIncome[0][1];
+      console.log(sortedIncome)
+      for (let i = 0; i < sortedIncome.length; i++) {
+        if (currDateCheck == sortedIncome[i][0]) {
+          this.allExpenses.income = sortedIncome[i][1];
+        }
       }
+
       console.log(currUser, 'currdate');
       this.allExpenses.balance = this.allExpenses.income - this.allExpenses.expense;
 
@@ -137,13 +144,21 @@ export default {
             return aYear - bYear;
             }
           )
-        if (currDateCheck == sortedOwed[0][0]) {
-          this.allExpenses.owed = sortedOwed[0][1];
+        console.log(sortedOwed)
+        for (let i = 0; i < sortedOwed.length; i++) {
+          if (currDateCheck == sortedOwed[i][0]) {
+            this.allExpenses.owed = sortedOwed[i][1];
+          }
         }
+
+    },
+    subUpdate() {
+      this.updatedData(this.user);
     }
   },
   mounted() {
     //this.updateUser();
+    subscribe("OPResolved",this.subUpdate);
     const auth = getAuth();      
     onAuthStateChanged(auth, (currUser) => {
       if (currUser) {

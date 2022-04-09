@@ -19,6 +19,7 @@ import firebaseApp from "../firebase.js";
 import { setDoc, doc ,deleteDoc, getFirestore } from "firebase/firestore";
 import { collection, getDocs } from "firebase/firestore";
 import {getAuth, onAuthStateChanged} from "firebase/auth";
+import { publish } from "../pubsub.js";
 
 const db = getFirestore(firebaseApp);
 
@@ -79,6 +80,7 @@ export default {
           bu.innerHTML ='<va-icon class="material-icons" style="color: rgb(44, 130, 224); font-size: 24px;">check</va-icon>'
           bu.onclick =  () =>{
             resolvePayment(user,title, amount, desc, date, uid)
+            publish("OPResolved")
           }
           cell4.appendChild(bu) 
           start_sn += 1

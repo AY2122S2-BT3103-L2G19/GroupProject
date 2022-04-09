@@ -13,6 +13,7 @@ import firebaseApp from "../firebase.js";
 import { getFirestore } from "firebase/firestore";
 import { collection, getDocs } from "firebase/firestore";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { subscribe } from '../pubsub.js';
 
 const db = getFirestore(firebaseApp);
 
@@ -208,14 +209,19 @@ export default {
       ]
       console.log("income expense done")
     },
+    subUpdate() {
+      this.updateData(this.user);
+    }
   },
   mounted() {  
+    subscribe("OPResolved",this.subUpdate);
     const auth = getAuth();
     onAuthStateChanged(auth, (user) => {
       if (user) {
         // User is signed in, see docs for a list of available properties
         // https://firebase.google.com/docs/reference/js/firebase.User
         const userEmail = user.email;
+        this.user = userEmail
         this.updateData(userEmail);
       } else {
         console.log("no user found")
