@@ -5,7 +5,7 @@
         <div class="model__form">
           <form @submit.prevent="AddSpendingGoals">
             <div class="model__group">
-              <h3>Manage Spending Goals</h3>
+              <h3>Manage Saving Goals</h3>
             </div>
             <div class="model__group">
               <label for="category">Category: </label>
