@@ -398,10 +398,15 @@ methods:{
       this.tempdesc = this.editedItem.description;
       this.tempcategory = this.editedItem.category;
       const d = new Date();
-      let getYear = parseInt(this.editedItem.date.slice(0,4))
-      let getMonth = parseInt(this.editedItem.date.slice(5,7))
-      let getDay = parseInt(this.editedItem.date.slice(8,10))
-      d.setDate(getYear, getMonth, getDay);
+      console.log(this.editedItem.date, " full date temp check")
+      let getYear = parseInt(this.editedItem.date.slice(6,10))
+      let getMonth = parseInt(this.editedItem.date.slice(3,5)) - 1
+      console.log(getMonth, " month temp check")
+      let getDay = parseInt(this.editedItem.date.slice(0,2))
+      console.log(getYear, " year temp check")
+      console.log(getDay, " day temp check")
+      d.setFullYear(getYear, getMonth, getDay);
+      console.log(d, " date temp check")
       this.tempdate = d;
     },
   },
