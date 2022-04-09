@@ -30,11 +30,12 @@
               />
             </div>
             <div class="model__group">
-              <input
+              <va-button
                 type="submit"
-                value="Manage Spending Goals"
                 class="button"
-              />
+              >
+              Submit
+              </va-button>
             </div>
           </form>
         </div>
