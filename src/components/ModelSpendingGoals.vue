@@ -67,7 +67,6 @@ export default {
     const auth = getAuth();
     onAuthStateChanged(auth, (currUser) => {
       if (currUser) {
-        console.log(currUser.email, " is current user id");
         const userEmail = currUser.email;
         this.user = userEmail;
       } else {

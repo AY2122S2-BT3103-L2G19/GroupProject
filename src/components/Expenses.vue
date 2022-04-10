@@ -73,14 +73,10 @@ export default {
         var currDate = new Date();
         var currMonth = String(currDate.getMonth() + 1);
         var currYear = String(currDate.getFullYear());
-        console.log(currMonth, " CURR MONTH")
-        console.log(currYear, " CURR YEAR")
-        console.log(sortedExpense[0][0], "yes current")
         if (currMonth.length == 1) {
           currMonth = "0" + currMonth;
         }
         var currDateCheck = currMonth + "/" + currYear;
-        console.log(currDateCheck, " CURR DATE CHECK")
         for (let i = 0; i < sortedExpense.length; i++) {
           if (currDateCheck == sortedExpense[i][0]) {
             this.allExpenses.expense = sortedExpense[i][1];
@@ -117,7 +113,6 @@ export default {
         }
       }
 
-      console.log(currUser, 'currdate');
       this.allExpenses.balance = this.allExpenses.income - this.allExpenses.expense;
 
       docs = await getDocs(
@@ -144,7 +139,6 @@ export default {
             return aYear - bYear;
             }
           )
-        console.log(sortedOwed)
         for (let i = 0; i < sortedOwed.length; i++) {
           if (currDateCheck == sortedOwed[i][0]) {
             this.allExpenses.owed = sortedOwed[i][1];
@@ -162,7 +156,6 @@ export default {
     const auth = getAuth();      
     onAuthStateChanged(auth, (currUser) => {
       if (currUser) {
-      console.log(currUser.email, " is current user id")
       const userEmail = currUser.email;
       this.user = userEmail;
       this.updatedData(this.user);

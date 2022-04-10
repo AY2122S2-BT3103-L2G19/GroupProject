@@ -59,7 +59,6 @@ export default {
       //convert map back to array
       expensesByMonth.forEach((value, key)=> {
         expensesByMonthFinal.push([key, value]);
-        console.log([key, value], " Expense by month instance check");
       });
 
       
@@ -153,21 +152,14 @@ export default {
           incomesByMonth.set(month, incomes[i][1]);
         }
       }
-      console.log(incomesByMonth, "income map check");
       var incomesByMonthFinal = [];
       //convert map back to array
       incomesByMonth.forEach((value, key)=> {
-        //if (expensesByMonthMap.has(key)) {
-          incomesByMonthFinal.push([key, value]);
-          console.log([key, value], " Income by month instance check");
-        //}
+        incomesByMonthFinal.push([key, value]);
       });
 
       
       var incomesByMonthSorted = incomesByMonthFinal.slice(-this.numMonths);
-      //for (var e in incomesByMonthSorted) {console.log(e, " Income by month sorted check");}
-      //incomesByMonthSorted = incomesByMonthSorted.sort();
-      console.log(incomesByMonthSorted, "incomes by month sorted")
 
       for (let i = 0; i < incomesByMonthSorted.length; i++){
         let monthNum = incomesByMonthSorted[i][0].slice(0,2);
@@ -222,7 +214,6 @@ export default {
       data: incomesByMonthSorted
       }
       ]
-      console.log("income expense done")
     },
     subUpdate() {
       this.updateData(this.user);

@@ -34,7 +34,6 @@ export default {
     const auth = getAuth();
     onAuthStateChanged(auth, (currUser) => {
       if (currUser) {
-        console.log(currUser.email, " is current user id");
         const userEmail = currUser.email;
         this.user = userEmail;
         this.display(this.user);
@@ -77,7 +76,6 @@ export default {
         var SDmonth = parseInt(startDate.slice(3, 5));
         var SDyear = parseInt(startDate.slice(6, 10));
 
-        console.log(Category, " Category")
 
         this.getSavedAmt(user, SDday, SDmonth, SDyear).then((x) => {
           cell4.innerHTML = x;
@@ -173,7 +171,6 @@ export default {
       for (let i = 0; i < expensesByMonthSorted.length; i++) {
         totalSpent = totalSpent + expensesByMonthSorted[i][1];
       }
-      console.log(totalSpent, " total spent")
 
       //extract incomes
       incomeDocs = await getDocs(

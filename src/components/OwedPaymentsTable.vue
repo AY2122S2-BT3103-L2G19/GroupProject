@@ -35,15 +35,12 @@ export default {
       onAuthStateChanged(auth, (user) => {
           if (user) {
             this.user=user.email;
-            console.log(user.email);
           }
       })
     },
 
   watch : { 
     user() {
-      console.log("updated running")
-
       async function display(user) {
         var table = document.getElementById("table")
           while (table.rows.length > 1) {
@@ -88,7 +85,6 @@ export default {
       }
 
       async function resolvePayment(user,title, amount, desc, date, uid) {
-        console.log(user,title, amount, desc, date, uid);
         let MyDate = new Date();
         let MyDateString = ('0' + MyDate.getDate()).slice(-2) + '/'
                     + ('0' + (MyDate.getMonth()+1)).slice(-2) + '/'

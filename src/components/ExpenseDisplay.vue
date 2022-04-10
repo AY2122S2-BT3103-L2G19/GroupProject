@@ -384,7 +384,7 @@ methods:{
         this.resetEditedItem()
         this.updateData(this.fbuser)
       } else {
-        alert("Cannot take empty Values. Please enter the values")
+        alert("Cannot take empty Values. Please enter the required values.")
       }
     },
     openModalToEditItemById (id) {
