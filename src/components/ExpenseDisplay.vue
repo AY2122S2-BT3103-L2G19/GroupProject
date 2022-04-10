@@ -179,6 +179,9 @@ methods:{
     }
   },
   deleteSelection() {
+    if (! confirm("You are going to delete all selected items.")) {
+        return;
+      }
     for (let i = 0; i < this.selectedItems.length; i++) {
       let currItem = this.selectedItems[i];
       let currType = currItem.type;
@@ -339,7 +342,7 @@ methods:{
     deleteItemById (id) {
       var currItem = this.items[id];
       console.log(currItem.id, " delete type check")
-      if (! confirm("You are going to delete item number " + currItem.index)) {
+      if (! confirm("You are going to delete item number " + currItem.index +".")) {
         return;
       }
       this.deleteinstrument(this.fbuser, currItem.type, currItem.uid);
@@ -398,15 +401,10 @@ methods:{
       this.tempdesc = this.editedItem.description;
       this.tempcategory = this.editedItem.category;
       const d = new Date();
-      console.log(this.editedItem.date, " full date temp check")
       let getYear = parseInt(this.editedItem.date.slice(6,10))
       let getMonth = parseInt(this.editedItem.date.slice(3,5)) - 1
-      console.log(getMonth, " month temp check")
       let getDay = parseInt(this.editedItem.date.slice(0,2))
-      console.log(getYear, " year temp check")
-      console.log(getDay, " day temp check")
       d.setFullYear(getYear, getMonth, getDay);
-      console.log(d, " date temp check")
       this.tempdate = d;
     },
   },
